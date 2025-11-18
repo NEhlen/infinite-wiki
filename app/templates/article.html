@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article.title }} - Infinite Wiki{% endblock %}
+
+{% block content %}
+<h2>{{ article.title }}</h2>
+
+{% if article.image_url %}
+<div class="image-container">
+    <img src="{{ article.image_url }}" alt="{{ article.title }}">
+</div>
+{% endif %}
+
+<div class="summary">
+    <strong>Summary:</strong> {{ article.summary }}
+</div>
+
+<hr>
+
+<div class="content">
+    {{ content_html | safe }}
+</div>
+
+<div class="related">
+    <h3>Related Entries</h3>
+    <ul>
+        {% for entity in related_entities %}
+        <li>
+            <a href="/wiki/{{ entity.name }}" onclick="showLoading()">{{ entity.name }}</a>
+            <span style="font-size: 0.8em; color: #666;">({{ entity.type }})</span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div id="loading-msg" class="loading">
+    Generating content for the next entry... This might take a moment.
+</div>
+{% endblock %}

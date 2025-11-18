@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+sqlmodel
+chromadb
+networkx
+openai
+jinja2
+python-multipart
+pydantic-settings
+markdown

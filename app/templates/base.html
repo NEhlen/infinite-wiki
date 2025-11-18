@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Infinite Wiki{% endblock %}</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background: #333;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-container {
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        img {
+            max-width: 50%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .related {
+            margin-top: 2rem;
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
+        }
+
+        .related ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .related li {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+            font-style: italic;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1><a href="/" style="color: #fff;">Infinite Wiki</a></h1>
+    </header>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+    <script>
+        function showLoading() {
+            document.getElementById('loading-msg').style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>
