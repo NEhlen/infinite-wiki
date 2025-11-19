@@ -2,6 +2,7 @@ import json
 from sqlmodel import Session, select
 from typing import List, Optional
 from pydantic import BaseModel, Field
+from fastapi import BackgroundTasks
 
 from app.core.llm import llm_service
 from app.core.rag import rag_service
@@ -28,7 +29,7 @@ class ArticlePlan(BaseModel):
     timeline_event: Optional[str] = Field(description="Short description of the event for the timeline, if this article describes an event or there is a clear 'major event' in the article.")
 
 class GeneratorService:
-    async def generate_article(self, world_name: str, title: str, session: Session) -> Article:
+    async def generate_article(self, world_name: str, title: str, session: Session, background_tasks: BackgroundTasks = None) -> Article:
         # 1. Check if article already exists
         statement = select(Article).where(Article.title == title)
         existing_article = session.exec(statement).first()
@@ -92,52 +93,12 @@ class GeneratorService:
             system_prompt=world_config.system_prompt_writer
         )
         
-        # 5. Generate Image (using prompt from Plan)
-        # optimize image prompt
-        optimized_prompt = await image_gen_service.optimize_image_prompt(
-            plan.image_prompt, 
-            world_config.system_prompt_image, 
-            model=world_config.llm_model
-        )
-        # Request base64 image
-        image_b64 = await image_gen_service.generate_image(
-            optimized_prompt, 
-            model=world_config.image_gen_model,
-            response_format="b64_json"
-        )
-        
-        image_url = None
-        if image_b64 and not image_b64.startswith("http"):
-            # Decode and save locally
-            import base64
-            import os
-            
-            # Create safe filename
-            safe_title = "".join([c for c in title if c.isalnum() or c in (' ', '-', '_')]).strip().replace(' ', '_')
-            filename = f"{safe_title}.png"
-            
-            images_dir = world_manager.get_images_path(world_name)
-            filepath = os.path.join(images_dir, filename)
-            
-            try:
-                with open(filepath, "wb") as f:
-                    f.write(base64.b64decode(image_b64))
-                
-                # Store relative path for frontend
-                image_url = f"/world/{world_name}/images/{filename}"
-            except Exception as e:
-                print(f"Failed to save image: {e}")
-                image_url = None # Or fallback
-        else:
-            # It's a URL (error case fallback)
-            image_url = image_b64
-
-        # 6. Save Article
+        # 5. Save Article (Initially without image)
         article = Article(
             title=title,
             summary=plan.summary,
             content=content,
-            image_url=image_url,
+            image_url=None, # Will be updated in background if enabled
             image_caption=plan.image_caption,
             year=plan.year,
             related_entities_json=json.dumps([e.model_dump() for e in plan.entities])
@@ -145,6 +106,20 @@ class GeneratorService:
         session.add(article)
         session.commit()
         session.refresh(article)
+        
+        # 6. Handle Image Generation
+        if world_config.generate_images:
+            if background_tasks:
+                background_tasks.add_task(
+                    self.generate_and_save_image, 
+                    world_name, 
+                    article.id, 
+                    plan.image_prompt, 
+                    world_config
+                )
+            else:
+                # Fallback to sync if no background tasks provided (e.g. in tests or scripts)
+                await self.generate_and_save_image(world_name, article.id, plan.image_prompt, world_config)
         
         # 7. Update Systems
         rag_service.add_article(world_name, article.title, article.content, article.id)
@@ -161,5 +136,68 @@ class GeneratorService:
             timeline_service.add_event(world_name, title, plan.year, plan.timeline_event)
             
         return article
+
+    async def generate_and_save_image(self, world_name: str, article_id: int, image_prompt: str, world_config):
+        print(f"Starting background image generation for article {article_id}...")
+        from app.database import get_session
+        
+        # Optimize prompt
+        optimized_prompt = await image_gen_service.optimize_image_prompt(
+            image_prompt, 
+            world_config.system_prompt_image, 
+            model=world_config.llm_model
+        )
+        
+        # Generate
+        image_b64 = await image_gen_service.generate_image(
+            optimized_prompt, 
+            model=world_config.image_gen_model,
+            response_format="b64_json"
+        )
+        
+        image_url = None
+        if image_b64 and not image_b64.startswith("http"):
+            # Decode and save locally
+            import base64
+            import os
+            from app.core.world import world_manager
+            
+            # We need to get the title again to make the filename, or just use ID?
+            # Let's fetch the article to be safe and get the title
+            session_gen = get_session(world_name)
+            session = next(session_gen)
+            try:
+                article = session.get(Article, article_id)
+                if not article:
+                    print(f"Article {article_id} not found for image update.")
+                    return
+
+                # Create safe filename
+                safe_title = "".join([c for c in article.title if c.isalnum() or c in (' ', '-', '_')]).strip().replace(' ', '_')
+                filename = f"{safe_title}.png"
+                
+                images_dir = world_manager.get_images_path(world_name)
+                filepath = os.path.join(images_dir, filename)
+                
+                try:
+                    with open(filepath, "wb") as f:
+                        f.write(base64.b64decode(image_b64))
+                    
+                    # Store relative path
+                    image_url = f"/world/{world_name}/images/{filename}"
+                    
+                    # Update Article
+                    article.image_url = image_url
+                    session.add(article)
+                    session.commit()
+                    print(f"Image saved and article updated for {article.title}")
+                    
+                except Exception as e:
+                    print(f"Failed to save image: {e}")
+            finally:
+                session.close()
+        else:
+             print("Image generation failed or returned URL (not supported for local save yet).")
+
 
 generator_service = GeneratorService()

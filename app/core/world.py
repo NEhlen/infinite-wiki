@@ -11,6 +11,7 @@ class WorldConfig(BaseModel):
     system_prompt_image: str = "You are an expert art director."
     llm_model: str = "grok-4-fast-reasoning-latest"
     image_gen_model: str = "grok-2-image-latest"
+    generate_images: bool = True
 
 class WorldManager:
     def __init__(self, base_path: str = "worlds"):

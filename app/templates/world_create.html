@@ -36,7 +36,26 @@
             border-radius: 4px;
         }
 
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-group input {
+            width: auto;
+            margin-left: 10px;
+        }
+
         button {
+            border: 1px solid #ddd;
+            border-radius: 4px;
             padding: 10px 20px;
             background: #333;
             color: #fff;
@@ -63,7 +82,7 @@
         <span id="magic_loading" style="display:none; margin-left: 10px;">Conjuring...</span>
     </div>
 
-    <form action="/world/create" method="post">
+    <form action="/create_world" method="post">
         <label for="name">World Name (directory safe):</label>
         <input type="text" id="name" name="name" required pattern="[a-zA-Z0-9_-]+"
             title="Alphanumeric, hyphens, and underscores only.">
@@ -92,6 +111,11 @@
         <label for="image_gen_model">Image Gen Model:</label>
         <input type="text" id="image_gen_model" name="image_gen_model" value="grok-2-image-latest">
 
+        <div class="form-group checkbox-group">
+            <label for="generate_images">Generate Images:</label>
+            <input type="checkbox" id="generate_images" name="generate_images" checked>
+        </div>
+
         <button type="submit">Create World</button>
     </form>
 
@@ -110,15 +134,19 @@
                 });
                 const data = await response.json();
 
-                document.getElementById('name').value = data.name;
-                document.getElementById('description').value = data.description;
-                document.getElementById('system_prompt_planner').value = data.system_prompt_planner;
-                document.getElementById('system_prompt_writer').value = data.system_prompt_writer;
-                document.getElementById('system_prompt_image').value = data.system_prompt_image;
-                document.getElementById('seed_article_title').value = data.seed_article_title;
-
+                if (response.ok) {
+                    document.getElementById('name').value = data.name;
+                    document.getElementById('description').value = data.description;
+                    document.getElementById('system_prompt_planner').value = data.system_prompt_planner;
+                    document.getElementById('system_prompt_writer').value = data.system_prompt_writer;
+                    document.getElementById('system_prompt_image').value = data.system_prompt_image;
+                    document.getElementById('seed_article_title').value = data.seed_article_title;
+                    document.getElementById('generate_images').checked = data.generate_images;
+                } else {
+                    alert('Magic failed: ' + (data.detail || 'Unknown error'));
+                }
             } catch (e) {
-                alert("Magic failed: " + e);
+                alert("Magic failed: " + e.message); // Changed to e.message for better error reporting
             } finally {
                 document.getElementById('magic_loading').style.display = 'none';
             }

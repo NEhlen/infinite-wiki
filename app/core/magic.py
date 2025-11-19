@@ -11,6 +11,7 @@ class MagicConfigResponse(BaseModel):
     system_prompt_planner: str = Field(description="The system prompt for the Planner LLM.")
     system_prompt_writer: str = Field(description="The system prompt for the Writer LLM.")
     system_prompt_image: str = Field(description="The system prompt for the Image Generation model.")
+    generate_images: bool = Field(default=True, description="Whether to generate images for articles in this world.")
     seed_article_title: str = Field(description="A catchy title for the first article to seed the wiki (e.g., 'The Great Cataclysm', 'The Founding of X').")
 
 class MagicService:
@@ -47,6 +48,7 @@ class MagicService:
             "system_prompt_image": data.system_prompt_image,
             "llm_model": settings.LLM_MODEL,
             "image_gen_model": settings.IMAGE_GEN_MODEL,
+            "generate_images": data.generate_images,
             "seed_article_title": data.seed_article_title
         }
 

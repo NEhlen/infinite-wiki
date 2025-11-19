@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, HTTPException, Request, Form, Cookie
+from fastapi import FastAPI, Depends, HTTPException, Request, Form, Cookie, BackgroundTasks
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse, RedirectResponse
 from sqlmodel import Session, select
@@ -44,16 +44,17 @@ async def magic_config(req: MagicRequest):
     config = await magic_service.generate_config(req.prompt)
     return config
 
-@app.post("/world/create")
+@app.post("/create_world")
 async def create_world(
     name: str = Form(...),
-    description: str = Form(""),
-    system_prompt_planner: str = Form("You are a creative world-building assistant."),
-    system_prompt_writer: str = Form("You are an encyclopedic writer."),
-    system_prompt_image: str = Form("You are an expert art director."),
-    seed_article_title: str = Form("The Beginning"),
-    llm_model: str = Form("grok-4-fast-reasoning-latest"),
-    image_gen_model: str = Form("grok-2-image-latest")
+    description: str = Form(...),
+    system_prompt_planner: str = Form(...),
+    system_prompt_writer: str = Form(...),
+    system_prompt_image: str = Form(...),
+    seed_article_title: str = Form(...),
+    image_gen_model: str = Form(...),
+    generate_images: bool = Form(False), # Default to False if unchecked
+    background_tasks: BackgroundTasks = None
 ):
     config = WorldConfig(
         name=name,
@@ -61,13 +62,21 @@ async def create_world(
         system_prompt_planner=system_prompt_planner,
         system_prompt_writer=system_prompt_writer,
         system_prompt_image=system_prompt_image,
-        llm_model=llm_model,
-        image_gen_model=image_gen_model
+        image_gen_model=image_gen_model,
+        generate_images=generate_images
     )
     try:
         world_manager.create_world(config)
-        create_db_and_tables(name) # Initialize DB for new world
-        # Redirect to the seed article to trigger generation
+        create_db_and_tables(name)
+        
+        # Seed the first article
+        session_gen = get_session(name)
+        session = next(session_gen)
+        try:
+            await generator_service.generate_article(name, seed_article_title, session, background_tasks)
+        finally:
+            session.close()
+        
         return RedirectResponse(url=f"/world/{name}/wiki/{seed_article_title}", status_code=303)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
@@ -94,7 +103,7 @@ async def world_home(request: Request, world_name: str):
 # --- Wiki Routes ---
 
 @app.get("/world/{world_name}/wiki/{title}", response_class=HTMLResponse)
-async def read_wiki(request: Request, world_name: str, title: str):
+async def get_wiki_page(request: Request, world_name: str, title: str, background_tasks: BackgroundTasks):
     session_gen = get_session(world_name)
     session = next(session_gen)
     
@@ -105,7 +114,7 @@ async def read_wiki(request: Request, world_name: str, title: str):
         
         if not article:
             # Generate if not found
-            article = await generator_service.generate_article(world_name, title, session)
+            article = await generator_service.generate_article(world_name, title, session, background_tasks)
         
         # Auto-link content
         from app.core.linker import linker_service
@@ -120,7 +129,8 @@ async def read_wiki(request: Request, world_name: str, title: str):
             "world_name": world_name,
             "article": article,
             "content_html": html_content,
-            "related_entities": related
+            "related_entities": related,
+            "generate_images": world_manager.get_config(world_name).generate_images
         })
     finally:
         session.close()

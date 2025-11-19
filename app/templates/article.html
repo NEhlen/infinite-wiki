@@ -11,11 +11,33 @@
 
 {% if article.image_url %}
 <div class="image-container">
-    <img src="{{ article.image_url }}" alt="{{ article.title }}">
-    {% if article.image_caption %}
-    <p style="font-style: italic; color: #666; font-size: 0.9em; margin-top: 5px;">{{ article.image_caption }}</p>
-    {% endif %}
+    <img src="{{ article.image_url }}" alt="{{ article.image_caption }}">
+    <p class="caption">{{ article.image_caption }}</p>
 </div>
+{% elif generate_images %}
+<div class="image-container" id="image-placeholder">
+    <div class="loading-image">
+        <p>Generating Image...</p>
+        <div class="spinner"></div>
+    </div>
+    <p class="caption">{{ article.image_caption }}</p>
+</div>
+<script>
+    // Poll for image
+    const checkImage = setInterval(() => {
+        fetch(window.location.href)
+            .then(response => response.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const img = doc.querySelector('.image-container img');
+                if (img) {
+                    document.querySelector('.image-container').innerHTML = doc.querySelector('.image-container').innerHTML;
+                    clearInterval(checkImage);
+                }
+            });
+    }, 3000);
+</script>
 {% endif %}
 
 <div class="summary">
