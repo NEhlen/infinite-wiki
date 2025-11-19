@@ -5,8 +5,9 @@ class ArticleBase(SQLModel):
     title: str = Field(index=True)
     summary: str
     content: str
-    image_url: Optional[str] = None
-    year: Optional[str] = None
+    image_url: Optional[str] = Field(default=None)
+    image_caption: Optional[str] = Field(default=None)
+    year: Optional[str] = Field(default=None)
 
 class Article(ArticleBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)

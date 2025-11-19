@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Infinite Wiki - Worlds</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f4f4f4;
+        }
+
+        .world-card {
+            background: #fff;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .btn:hover {
+            background: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Available Worlds</h1>
+    <a href="/world/create" class="btn">Create New World</a>
+    <hr>
+    {% for world in worlds %}
+    <div class="world-card">
+        <h3>{{ world }}</h3>
+        <a href="/world/{{ world }}">Enter World</a>
+    </div>
+    {% endfor %}
+</body>
+
+</html>

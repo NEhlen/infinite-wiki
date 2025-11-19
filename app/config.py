@@ -1,9 +1,10 @@
 from pydantic_settings import BaseSettings
 from functools import lru_cache
+import keyring
 
 class Settings(BaseSettings):
     APP_NAME: str = "Infinite Wiki"
-    OPENAI_API_KEY: str
+    OPENAI_API_KEY: str = keyring.get_password("openai", "OPENAI_API_KEY") or keyring.get_password("xai", "XAI_API_KEY")
     OPENAI_BASE_URL: str = "https://api.openai.com/v1"
     
     # Model Config

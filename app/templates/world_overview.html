@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}{{ world_name }} - Overview{% endblock %}
+
+{% block content %}
+<div class="overview-header">
+    <h2>Welcome to {{ world_name }}</h2>
+    <p class="description">{{ world_config.description }}</p>
+    <div class="actions">
+        <a href="/world/{{ world_name }}/visualizers" class="btn">View Visualizers</a>
+        <!-- Optional: Add a search or "Random Article" button later -->
+    </div>
+</div>
+
+<hr>
+
+<h3>Articles</h3>
+{% if articles %}
+<ul class="article-list">
+    {% for article in articles %}
+    <li>
+        <a href="/world/{{ world_name }}/wiki/{{ article.title }}">{{ article.title }}</a>
+        {% if article.summary %}
+        <p class="article-summary">{{ article.summary[:150] }}...</p>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No articles found. <a href="/world/{{ world_name }}/wiki/Start">Create the first one!</a></p>
+{% endif %}
+
+<style>
+    .overview-header {
+        margin-bottom: 2rem;
+    }
+
+    .description {
+        font-style: italic;
+        color: #555;
+    }
+
+    .actions {
+        margin-top: 1rem;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 8px 15px;
+        background: #333;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 0.9em;
+    }
+
+    .btn:hover {
+        background: #555;
+    }
+
+    .article-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .article-list li {
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 1rem;
+    }
+
+    .article-list a {
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+
+    .article-summary {
+        color: #666;
+        margin-top: 0.5rem;
+        font-size: 0.95em;
+    }
+</style>
+{% endblock %}

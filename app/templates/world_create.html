@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Create World - Infinite Wiki</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f4f4f4;
+        }
+
+        form {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Create New World</h1>
+
+    <div style="background: #eef; padding: 1rem; border-radius: 5px; margin-bottom: 2rem;">
+        <h3>✨ Magic Config</h3>
+        <p>Describe your world idea, and we'll fill in the details for you.</p>
+        <textarea id="magic_prompt" rows="3"
+            placeholder="e.g. A cyberpunk city built on a giant turtle floating in space. Noir style."></textarea>
+        <button type="button" onclick="generateMagic()" style="background: #6200ea;">Auto-Fill</button>
+        <span id="magic_loading" style="display:none; margin-left: 10px;">Conjuring...</span>
+    </div>
+
+    <form action="/world/create" method="post">
+        <label for="name">World Name (directory safe):</label>
+        <input type="text" id="name" name="name" required pattern="[a-zA-Z0-9_-]+"
+            title="Alphanumeric, hyphens, and underscores only.">
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" rows="3"></textarea>
+
+        <label for="system_prompt_planner">Planner System Prompt:</label>
+        <textarea id="system_prompt_planner" name="system_prompt_planner"
+            rows="3">You are a creative world-building assistant.</textarea>
+
+        <label for="system_prompt_writer">Writer System Prompt:</label>
+        <textarea id="system_prompt_writer" name="system_prompt_writer"
+            rows="3">You are an encyclopedic writer.</textarea>
+
+        <label for="system_prompt_image">Image System Prompt:</label>
+        <textarea id="system_prompt_image" name="system_prompt_image"
+            rows="3">You are an expert art director.</textarea>
+
+        <label for="seed_article_title">Seed Article Title:</label>
+        <input type="text" id="seed_article_title" name="seed_article_title" value="The Beginning">
+
+        <label for="llm_model">LLM Model:</label>
+        <input type="text" id="llm_model" name="llm_model" value="grok-4-fast-reasoning-latest">
+
+        <label for="image_gen_model">Image Gen Model:</label>
+        <input type="text" id="image_gen_model" name="image_gen_model" value="grok-2-image-latest">
+
+        <button type="submit">Create World</button>
+    </form>
+
+    <script>
+        async function generateMagic() {
+            const prompt = document.getElementById('magic_prompt').value;
+            if (!prompt) return;
+
+            document.getElementById('magic_loading').style.display = 'inline';
+
+            try {
+                const response = await fetch('/api/magic/config', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: prompt })
+                });
+                const data = await response.json();
+
+                document.getElementById('name').value = data.name;
+                document.getElementById('description').value = data.description;
+                document.getElementById('system_prompt_planner').value = data.system_prompt_planner;
+                document.getElementById('system_prompt_writer').value = data.system_prompt_writer;
+                document.getElementById('system_prompt_image').value = data.system_prompt_image;
+                document.getElementById('seed_article_title').value = data.seed_article_title;
+
+            } catch (e) {
+                alert("Magic failed: " + e);
+            } finally {
+                document.getElementById('magic_loading').style.display = 'none';
+            }
+        }
+    </script>
+</body>
+
+</html>

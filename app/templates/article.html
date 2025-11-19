@@ -8,6 +8,9 @@
 {% if article.image_url %}
 <div class="image-container">
     <img src="{{ article.image_url }}" alt="{{ article.title }}">
+    {% if article.image_caption %}
+    <p style="font-style: italic; color: #666; font-size: 0.9em; margin-top: 5px;">{{ article.image_caption }}</p>
+    {% endif %}
 </div>
 {% endif %}
 
@@ -26,7 +29,7 @@
     <ul>
         {% for entity in related_entities %}
         <li>
-            <a href="/wiki/{{ entity.name }}" onclick="showLoading()">{{ entity.name }}</a>
+            <a href="/world/{{ world_name }}/wiki/{{ entity.name }}" onclick="showLoading()">{{ entity.name }}</a>
             <span style="font-size: 0.8em; color: #666;">({{ entity.type }})</span>
         </li>
         {% endfor %}

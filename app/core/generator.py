@@ -13,21 +13,22 @@ from app.config import get_settings
 
 settings = get_settings()
 
-class Entity(BaseModel):
+class RelatedEntity(BaseModel): # Renamed from Entity to RelatedEntity
     name: str
     type: str = Field(description="Person, Location, Organization, Event, Object, Concept, Technology")
     relation: str
 
 class ArticlePlan(BaseModel):
-    summary: str
-    outline: List[str]
-    entities: List[Entity]
-    image_prompt: str = Field(description="Detailed visual description for sci-fi concept art based on the article topic.")
-    year: Optional[str] = Field(description="Year or Era this article primarily relates to, if applicable.")
+    summary: str = Field(description="A concise summary of the article.")
+    outline: List[str] = Field(description="A list of section headings for the article.")
+    entities: List[RelatedEntity] = Field(description="List of related entities mentioned in the article.")
+    image_prompt: str = Field(description="A detailed prompt for generating an image for this article.")
+    image_caption: str = Field(description="A short caption for the generated image.")
+    year: Optional[int] = Field(description="The year or era associated with this article, if applicable.")
     timeline_event: Optional[str] = Field(description="Short description of the event for the timeline, if this article describes an event.")
 
 class GeneratorService:
-    async def generate_article(self, title: str, session: Session) -> Article:
+    async def generate_article(self, world_name: str, title: str, session: Session) -> Article:
         # 1. Check if article already exists
         statement = select(Article).where(Article.title == title)
         existing_article = session.exec(statement).first()
@@ -35,12 +36,20 @@ class GeneratorService:
             return existing_article
 
         # 2. Gather Context
-        rag_context = rag_service.query_context(title)
-        graph_context = graph_service.get_context_subgraph([title])
+        rag_context = rag_service.query_context(world_name, title)
+        graph_context = graph_service.get_context_subgraph(world_name, [title])
+        
+        # Get World Config
+        from app.core.world import world_manager
+        world_config = world_manager.get_config(world_name)
         
         # 3. Stage 1: PLAN
         plan_prompt = f"""
         Plan a wiki article about "{title}".
+        
+        World Context:
+        Name: {world_config.name}
+        Description: {world_config.description}
         
         Context from similar articles:
         {rag_context}
@@ -48,7 +57,7 @@ class GeneratorService:
         Context from Knowledge Graph:
         {graph_context}
         
-        Goal: Create a consistent, interesting sci-fi world entry.
+        Goal: Create a consistent, interesting world entry that fits the world description. Stay within the world's canonical viewpoint, don't write from an external perspective.
         """
         
         plan_response = await llm_service.generate_json(
@@ -69,7 +78,7 @@ class GeneratorService:
         Context:
         {rag_context}
         
-        Style: Encyclopedic, dry, descriptive, sci-fi. Use Markdown for formatting.
+        Style: Create an encyclopedic article that is both interesting and consistent with the world description. Use Markdown for formatting.
         """
         
         content = await llm_service.generate_text(
@@ -87,6 +96,7 @@ class GeneratorService:
             summary=plan.summary,
             content=content,
             image_url=image_url,
+            image_caption=plan.image_caption,
             year=plan.year,
             related_entities_json=json.dumps([e.model_dump() for e in plan.entities])
         )
@@ -95,17 +105,18 @@ class GeneratorService:
         session.refresh(article)
         
         # 7. Update Systems
-        rag_service.add_article(article.title, article.content, article.id)
+        rag_service.add_article(world_name, article.title, article.content, article.id)
         
         # Update Graph
-        graph_service.add_entity(title, "Article") 
+        graph_service.add_entity(world_name, title, "Article") 
         for entity in plan.entities:
-            graph_service.add_entity(entity.name, entity.type)
-            graph_service.add_relationship(title, entity.name, entity.relation)
+            graph_service.add_entity(world_name, entity.name, entity.type)
+            graph_service.add_relationship(world_name, title, entity.name, entity.relation)
             
         # Update Timeline
         if plan.year and plan.timeline_event:
-            timeline_service.add_event(title, plan.year, plan.timeline_event)
+            print("Adding timeline event:", plan.timeline_event, "for year:", plan.year)
+            timeline_service.add_event(world_name, title, plan.year, plan.timeline_event)
             
         return article
 

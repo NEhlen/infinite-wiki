@@ -2,57 +2,68 @@ import networkx as nx
 import json
 import os
 from typing import List, Dict
-
-GRAPH_FILE = "wiki_graph.json"
+from app.core.world import world_manager
 
 class GraphService:
     def __init__(self):
-        self.graph = nx.Graph()
-        self.load_graph()
+        self._graphs = {}
 
-    def load_graph(self):
-        if os.path.exists(GRAPH_FILE):
-            with open(GRAPH_FILE, "r") as f:
+    def get_graph(self, world_name: str) -> nx.Graph:
+        if world_name not in self._graphs:
+            self.load_graph(world_name)
+        return self._graphs[world_name]
+
+    def load_graph(self, world_name: str):
+        path = world_manager.get_paths(world_name)["graph"]
+        if os.path.exists(path):
+            with open(path, "r") as f:
                 data = json.load(f)
-                self.graph = nx.node_link_graph(data)
+                self._graphs[world_name] = nx.node_link_graph(data)
+        else:
+            self._graphs[world_name] = nx.Graph()
 
-    def save_graph(self):
-        data = nx.node_link_data(self.graph)
-        with open(GRAPH_FILE, "w") as f:
+    def save_graph(self, world_name: str):
+        path = world_manager.get_paths(world_name)["graph"]
+        graph = self.get_graph(world_name)
+        data = nx.node_link_data(graph)
+        with open(path, "w") as f:
             json.dump(data, f)
 
-    def add_entity(self, name: str, type: str, attributes: Dict = None):
-        if not self.graph.has_node(name):
+    def add_entity(self, world_name: str, name: str, type: str, attributes: Dict = None):
+        graph = self.get_graph(world_name)
+        if not graph.has_node(name):
             attrs = {"type": type}
             if attributes:
                 attrs.update(attributes)
-            self.graph.add_node(name, **attrs)
-            self.save_graph()
+            graph.add_node(name, **attrs)
+            self.save_graph(world_name)
         else:
             # Update existing if needed
             if attributes:
                 for k, v in attributes.items():
-                    self.graph.nodes[name][k] = v
-                self.save_graph()
+                    graph.nodes[name][k] = v
+                self.save_graph(world_name)
 
-    def add_relationship(self, source: str, target: str, relation: str):
-        self.graph.add_edge(source, target, relation=relation)
-        self.save_graph()
+    def add_relationship(self, world_name: str, source: str, target: str, relation: str):
+        graph = self.get_graph(world_name)
+        graph.add_edge(source, target, relation=relation)
+        self.save_graph(world_name)
 
-    def get_neighbors(self, entity: str) -> List[str]:
-        if self.graph.has_node(entity):
-            return list(self.graph.neighbors(entity))
+    def get_neighbors(self, world_name: str, entity: str) -> List[str]:
+        graph = self.get_graph(world_name)
+        if graph.has_node(entity):
+            return list(graph.neighbors(entity))
         return []
     
-    def get_context_subgraph(self, entities: List[str], depth: int = 1) -> str:
-        # Simple implementation: get neighbors of all entities
+    def get_context_subgraph(self, world_name: str, entities: List[str], depth: int = 1) -> str:
+        graph = self.get_graph(world_name)
         relevant_nodes = set(entities)
         for entity in entities:
-            if self.graph.has_node(entity):
-                neighbors = nx.single_source_shortest_path_length(self.graph, entity, cutoff=depth)
+            if graph.has_node(entity):
+                neighbors = nx.single_source_shortest_path_length(graph, entity, cutoff=depth)
                 relevant_nodes.update(neighbors.keys())
         
-        subgraph = self.graph.subgraph(relevant_nodes)
+        subgraph = graph.subgraph(relevant_nodes)
         return str(nx.node_link_data(subgraph))
 
 graph_service = GraphService()

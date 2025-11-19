@@ -220,4 +220,5 @@ __marimo__/
 chroma_db
 wiki_graph.json
 database.db
-
+worlds/*
+!worlds/.gitkeep
