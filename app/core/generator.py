@@ -25,7 +25,7 @@ class ArticlePlan(BaseModel):
     image_prompt: str = Field(description="A detailed prompt for generating an image for this article.")
     image_caption: str = Field(description="A short caption for the generated image.")
     year: Optional[int] = Field(description="The year or era associated with this article, if applicable.")
-    timeline_event: Optional[str] = Field(description="Short description of the event for the timeline, if this article describes an event.")
+    timeline_event: Optional[str] = Field(description="Short description of the event for the timeline, if this article describes an event or there is a clear 'major event' in the article.")
 
 class GeneratorService:
     async def generate_article(self, world_name: str, title: str, session: Session) -> Article:
