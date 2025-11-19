@@ -125,6 +125,71 @@ async def read_wiki(request: Request, world_name: str, title: str):
     finally:
         session.close()
 
+@app.get("/world/{world_name}/wiki/{title}/edit", response_class=HTMLResponse)
+async def edit_wiki_page(request: Request, world_name: str, title: str):
+    session_gen = get_session(world_name)
+    session = next(session_gen)
+    try:
+        statement = select(Article).where(Article.title == title)
+        article = session.exec(statement).first()
+        
+        if not article:
+            raise HTTPException(status_code=404, detail="Article not found")
+            
+        return templates.TemplateResponse("article_edit.html", {
+            "request": request,
+            "world_name": world_name,
+            "article": article,
+            "content": article.content,
+            "issues": []
+        })
+    finally:
+        session.close()
+
+@app.post("/world/{world_name}/wiki/{title}/edit", response_class=HTMLResponse)
+async def save_wiki_edit(
+    request: Request, 
+    world_name: str, 
+    title: str,
+    content: str = Form(...),
+    action: str = Form(...)
+):
+    session_gen = get_session(world_name)
+    session = next(session_gen)
+    try:
+        statement = select(Article).where(Article.title == title)
+        article = session.exec(statement).first()
+        
+        if not article:
+            raise HTTPException(status_code=404, detail="Article not found")
+            
+        if action == "force":
+            # Skip validation, just save
+            article.content = content
+            session.add(article)
+            session.commit()
+            return RedirectResponse(url=f"/world/{world_name}/wiki/{title}", status_code=303)
+            
+        # Validate
+        from app.core.validator import validator_service
+        is_valid, issues = await validator_service.validate_article_update(world_name, article.content, content)
+        
+        if is_valid:
+            article.content = content
+            session.add(article)
+            session.commit()
+            return RedirectResponse(url=f"/world/{world_name}/wiki/{title}", status_code=303)
+        else:
+            return templates.TemplateResponse("article_edit.html", {
+                "request": request,
+                "world_name": world_name,
+                "article": article,
+                "content": content,
+                "issues": issues
+            })
+    finally:
+        session.close()
+
 # --- Visualizer Routes ---
 
 @app.get("/world/{world_name}/visualizers", response_class=HTMLResponse)
@@ -173,6 +238,18 @@ async def get_timeline_data(world_name: str):
             })
     print("Timeline data:", events)
     return events
+
+    return events
+
+@app.get("/api/world/{world_name}/timeline/year/{year}")
+async def get_timeline_year(world_name: str, year: str):
+    from app.core.timeline import timeline_service
+    return timeline_service.get_events_by_year(world_name, year)
+
+@app.get("/api/world/{world_name}/timeline/nearby/{year}")
+async def get_timeline_nearby(world_name: str, year: str, range: int = 10):
+    from app.core.timeline import timeline_service
+    return timeline_service.get_nearby_events(world_name, year, range)
 
 @app.get("/world/{world_name}/images/{filename}")
 async def get_world_image(world_name: str, filename: str):

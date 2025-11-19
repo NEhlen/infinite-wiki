@@ -3,7 +3,11 @@
 {% block title %}{{ article.title }} - Infinite Wiki{% endblock %}
 
 {% block content %}
-<h2>{{ article.title }}</h2>
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <h2>{{ article.title }}</h2>
+    <a href="/world/{{ world_name }}/wiki/{{ article.title }}/edit" class="button"
+        style="font-size: 0.8em; padding: 5px 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px;">Edit</a>
+</div>
 
 {% if article.image_url %}
 <div class="image-container">

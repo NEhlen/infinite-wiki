@@ -36,6 +36,7 @@ class MagicService:
         )
         
         data = MagicConfigResponse.model_validate(response)
+
         
         # We return a dict to include the seed title which isn't in WorldConfig
         return {

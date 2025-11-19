@@ -25,4 +25,35 @@ class TimelineService:
             
         return events
 
+    def get_events_by_year(self, world_name: str, year: str) -> List[Dict]:
+        """Get all events occurring in a specific year."""
+        events = []
+        graph = graph_service.get_graph(world_name)
+        for node, data in graph.nodes(data=True):
+            if data.get("type") == "Event" and str(data.get("year")) == str(year):
+                events.append({"name": node, "year": data["year"], "description": data.get("description", "")})
+        return events
+
+    def get_nearby_events(self, world_name: str, target_year: str, range_years: int = 10) -> List[Dict]:
+        """Get events within +/- range_years of the target year."""
+        events = []
+        try:
+            target = int(target_year)
+        except ValueError:
+            return [] # Invalid year format
+
+        graph = graph_service.get_graph(world_name)
+        for node, data in graph.nodes(data=True):
+            if data.get("type") == "Event" and "year" in data:
+                try:
+                    event_year = int(data["year"])
+                    if abs(event_year - target) <= range_years:
+                        events.append({"name": node, "year": data["year"], "description": data.get("description", "")})
+                except ValueError:
+                    continue # Skip events with non-integer years
+        
+        # Sort by year
+        events.sort(key=lambda x: int(x["year"]))
+        return events
+
 timeline_service = TimelineService()

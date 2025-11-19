@@ -59,18 +59,23 @@ class GeneratorService:
         
         Goal: Create a consistent, interesting world entry that fits the world description. Stay within the world's canonical viewpoint, don't write from an external perspective.
         """
+        print(f"Using Config: Planner='{world_config.system_prompt_planner[:20]}...', Writer='{world_config.system_prompt_writer[:20]}...', Model='{world_config.llm_model}'")
         
         plan_response = await llm_service.generate_json(
             plan_prompt, 
             schema=ArticlePlan, 
-            model=settings.LLM_MODEL,
-            system_prompt=settings.SYSTEM_PROMPT_PLANNER
+            model=world_config.llm_model,
+            system_prompt=world_config.system_prompt_planner
         )
         plan = ArticlePlan.model_validate(plan_response)
         
         # 4. Stage 2: WRITE
         write_prompt = f"""
         Write the full content for the wiki article "{title}" based on this plan:
+
+        World Context:
+        Name: {world_config.name}
+        Description: {world_config.description}
         
         Summary: {plan.summary}
         Outline: {', '.join(plan.outline)}
@@ -78,20 +83,26 @@ class GeneratorService:
         Context:
         {rag_context}
         
-        Style: Create an encyclopedic article that is both interesting and consistent with the world description. Use Markdown for formatting.
+        Style: Create an article that is both interesting and consistent with the world description and your system prompt. Write from an in-universe perspective. Use Markdown for formatting.
         """
         
         content = await llm_service.generate_text(
             write_prompt, 
-            model=settings.LLM_MODEL,
-            system_prompt=settings.SYSTEM_PROMPT_WRITER
+            model=world_config.llm_model,
+            system_prompt=world_config.system_prompt_writer
         )
         
         # 5. Generate Image (using prompt from Plan)
+        # optimize image prompt
+        optimized_prompt = await image_gen_service.optimize_image_prompt(
+            plan.image_prompt, 
+            world_config.system_prompt_image, 
+            model=world_config.llm_model
+        )
         # Request base64 image
         image_b64 = await image_gen_service.generate_image(
-            plan.image_prompt, 
-            model=settings.IMAGE_GEN_MODEL,
+            optimized_prompt, 
+            model=world_config.image_gen_model,
             response_format="b64_json"
         )
         

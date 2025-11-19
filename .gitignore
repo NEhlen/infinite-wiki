@@ -222,3 +222,5 @@ wiki_graph.json
 database.db
 worlds/*
 !worlds/.gitkeep
+!worlds/Eternal-Library-Realms
+!worlds/modern-urban-horror

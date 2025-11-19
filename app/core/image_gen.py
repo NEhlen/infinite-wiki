@@ -36,13 +36,14 @@ class ImageGenService:
     
     def optimize_image_prompt(self, image_prompt: str, context: str, model: str = None) -> str:
         model = model or settings.LLM_MODEL
+        system_prompt = "You are an expert art director, you optimize a given image prompt with a style context for better results."
 
         prompt = f"""
-        Optimize the following image prompt for better results:
+        Optimize the following image prompt:
         
         Original Prompt: {image_prompt}
         
-        Context:
+        Context for Style:
         {context}
         
         Goal: Create a concise, high-quality image prompt that will generate a visually appealing and informative image.
@@ -50,8 +51,7 @@ class ImageGenService:
 
         Return only the optimized prompt, do not include any additional text.
         """
-        optimization_system_prompt = "You are an expert art director."
-        optimized_prompt = llm_service.generate_text(prompt, model=model, system_prompt=optimization_system_prompt)
+        optimized_prompt = llm_service.generate_text(prompt, model=model, system_prompt=system_prompt)
         return optimized_prompt
 
 image_gen_service = ImageGenService()
