@@ -174,6 +174,17 @@ async def get_timeline_data(world_name: str):
     print("Timeline data:", events)
     return events
 
+@app.get("/world/{world_name}/images/{filename}")
+async def get_world_image(world_name: str, filename: str):
+    import os
+    from fastapi.responses import FileResponse
+    
+    image_path = os.path.join(world_manager.get_images_path(world_name), filename)
+    if os.path.exists(image_path):
+        return FileResponse(image_path)
+    else:
+        raise HTTPException(status_code=404, detail="Image not found")
+
 # --- API Routes ---
 
 @app.post("/api/world/{world_name}/generate/{title}", response_model=ArticleRead)

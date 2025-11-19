@@ -15,19 +15,23 @@ class ImageGenService:
             base_url=base_url
         )
 
-    async def generate_image(self, prompt: str, model: str = None) -> str:
+    async def generate_image(self, prompt: str, model: str = None, response_format: str = "url") -> str:
         model = model or settings.IMAGE_GEN_MODEL
         try:
             response = await self.client.images.generate(
                 model=model,
                 prompt=prompt,
                 n=1,
-                # size="1024x1024"
+                response_format="b64_json" if response_format == "b64_json" else "url"
             )
-            return response.data[0].url
+            
+            if response_format == "b64_json":
+                return response.data[0].b64_json
+            else:
+                return response.data[0].url
         except Exception as e:
             print(f"Image generation failed: {e}")
-            return None
+            return "https://via.placeholder.com/1024x1024?text=Image+Generation+Failed"
 
     
     def optimize_image_prompt(self, image_prompt: str, context: str, model: str = None) -> str:

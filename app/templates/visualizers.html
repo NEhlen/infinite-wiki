@@ -40,10 +40,14 @@
             height: 80vh;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
+            /* Prevent expansion */
         }
 
         .tabs {
             margin-bottom: 1rem;
+            flex-shrink: 0;
+            /* Don't shrink tabs */
         }
 
         .tab {
@@ -64,6 +68,11 @@
             display: none;
             flex-grow: 1;
             border: 1px solid #ddd;
+            position: relative;
+            /* For absolute children if needed */
+            height: 100%;
+            /* Ensure it takes full height */
+            overflow: hidden;
         }
 
         .view.active {
@@ -73,6 +82,10 @@
         #mynetwork {
             width: 100%;
             height: 100%;
+            position: absolute;
+            /* Force fit */
+            top: 0;
+            left: 0;
         }
 
         #mytimeline {

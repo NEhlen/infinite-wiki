@@ -20,15 +20,23 @@ class WorldManager:
     def get_world_path(self, world_name: str) -> str:
         return os.path.join(self.base_path, world_name)
 
+    def get_chroma_path(self, world_name: str) -> str:
+        return os.path.join(self.get_world_path(world_name), "chroma_db")
+        
+    def get_images_path(self, world_name: str) -> str:
+        return os.path.join(self.get_world_path(world_name), "images")
+
     def create_world(self, config: WorldConfig):
         world_path = self.get_world_path(config.name)
         if os.path.exists(world_path):
             raise ValueError(f"World '{config.name}' already exists.")
         
         os.makedirs(world_path)
+        os.makedirs(self.get_images_path(config.name)) # Create images directory
         
         # Save config
-        with open(os.path.join(world_path, "config.json"), "w") as f:
+        config_path = os.path.join(world_path, "config.json")
+        with open(config_path, "w") as f:
             f.write(config.model_dump_json(indent=2))
 
     def list_worlds(self) -> List[str]:

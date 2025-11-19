@@ -88,7 +88,38 @@ class GeneratorService:
         )
         
         # 5. Generate Image (using prompt from Plan)
-        image_url = await image_gen_service.generate_image(plan.image_prompt, model=settings.IMAGE_GEN_MODEL)
+        # Request base64 image
+        image_b64 = await image_gen_service.generate_image(
+            plan.image_prompt, 
+            model=settings.IMAGE_GEN_MODEL,
+            response_format="b64_json"
+        )
+        
+        image_url = None
+        if image_b64 and not image_b64.startswith("http"):
+            # Decode and save locally
+            import base64
+            import os
+            
+            # Create safe filename
+            safe_title = "".join([c for c in title if c.isalnum() or c in (' ', '-', '_')]).strip().replace(' ', '_')
+            filename = f"{safe_title}.png"
+            
+            images_dir = world_manager.get_images_path(world_name)
+            filepath = os.path.join(images_dir, filename)
+            
+            try:
+                with open(filepath, "wb") as f:
+                    f.write(base64.b64decode(image_b64))
+                
+                # Store relative path for frontend
+                image_url = f"/world/{world_name}/images/{filename}"
+            except Exception as e:
+                print(f"Failed to save image: {e}")
+                image_url = None # Or fallback
+        else:
+            # It's a URL (error case fallback)
+            image_url = image_b64
 
         # 6. Save Article
         article = Article(
