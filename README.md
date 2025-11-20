@@ -14,6 +14,10 @@ Infinite Wiki is an AI-powered world-building tool that automatically generates 
     - **Links**: Automatic detection and linking of entities within articles.
 - **Visualizers**: Interactive Knowledge Graph and Timeline views.
 - **Consistency**: Uses ChromaDB (Vector Store) and NetworkX (Graph) to maintain consistency across generated content.
+- **Human-AI Collaboration**:
+    - **Editable Articles**: Edit any article with AI validation to ensure your changes don't contradict established lore.
+    - **Custom Creation**: Create articles with specific instructions (e.g., "A dragon made of glass") to guide the AI.
+    - **Deduplication**: Automatically detects and redirects duplicate entity requests (e.g., "Dr. Singh" -> "Dr. Priya Singh").
 
 ## API Providers & Costs
 
@@ -121,11 +125,15 @@ The Docker image does **not** contain your API keys. You must pass them at runti
     - Click on red links (missing articles) to auto-generate them.
     - Use the **Visualizers** link in the header to see the Timeline and Graph.
 
+3.  **Advanced Features**:
+    - **Custom Article Creation**: Go to the World Overview page and use the "Create New Article" form to provide a specific title and description/instructions.
+    - **Edit & Validate**: Click "Edit" on any article. Make changes and click "Save". The AI will validate your changes against the world lore. You can fix issues or "Force Save" to override them.
+    - **Deduplication**: If you try to generate an article that already exists under a different name (e.g., "The Captain" vs "Captain Sarah"), the system will automatically redirect you to the existing article and link them in the graph.
+
 ## Current Limitations
 
 - Images are currently not validated, so characters and objects are not coherent between articles
 - The Timeline Feature is buggy
-- Articles are not combined if they refer to the same entity, you can endup with articles like Dr. Singh and Dr. Priya Singh about the same person. Or Starship Odyssey and Odyssey (Vessel) about the same thing etc.
 
 ## License
 

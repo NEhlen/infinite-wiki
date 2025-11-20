@@ -44,6 +44,15 @@ class ArticlePlan(BaseModel):
     )
 
 
+class DeduplicationResult(BaseModel):
+    is_duplicate: bool = Field(
+        description="True if the requested title refers to an existing entity."
+    )
+    existing_title: Optional[str] = Field(
+        description="The title of the existing entity if is_duplicate is True."
+    )
+
+
 class GeneratorService:
     async def generate_article(
         self,
@@ -68,6 +77,44 @@ class GeneratorService:
         from app.core.world import world_manager
 
         world_config = world_manager.get_config(world_name)
+
+        # 2.5 Deduplication Check
+        if rag_context:
+            dedup_prompt = f"""
+            Check if the requested article title "{title}" refers to the same entity as any of the existing articles below.
+            
+            Existing Articles (Context):
+            {rag_context}
+            
+            If "{title}" is clearly an alias, variation, or the same entity as one of the existing articles, return true and the existing title.
+            If it is a new, distinct entity, return false.
+            """
+
+            dedup_response = await llm_service.generate_json(
+                dedup_prompt,
+                schema=DeduplicationResult,
+                model=world_config.llm_model,
+                system_prompt="You are a helpful assistant that prevents duplicate wiki entries.",
+            )
+
+            if dedup_response.is_duplicate and dedup_response.existing_title:
+                print(
+                    f"Deduplication: '{title}' identified as duplicate of '{dedup_response.existing_title}'"
+                )
+
+                # Add Alias to Graph
+                graph_service.add_entity(world_name, title, "Alias")
+                graph_service.add_relationship(
+                    world_name, title, dedup_response.existing_title, "is_alias_of"
+                )
+
+                # Fetch existing
+                statement = select(Article).where(
+                    Article.title == dedup_response.existing_title
+                )
+                existing_article = session.exec(statement).first()
+                if existing_article:
+                    return existing_article
 
         # 3. Stage 1: PLAN
         instructions_text = ""

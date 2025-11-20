@@ -148,11 +148,11 @@ async def create_custom_article(
                 url=f"/world/{world_name}/wiki/{title}", status_code=303
             )
 
-        await generator_service.generate_article(
+        article = await generator_service.generate_article(
             world_name, title, session, background_tasks, user_instructions=description
         )
         return RedirectResponse(
-            url=f"/world/{world_name}/wiki/{title}", status_code=303
+            url=f"/world/{world_name}/wiki/{article.title}", status_code=303
         )
     finally:
         session.close()
@@ -183,6 +183,12 @@ async def get_wiki_page(
                 background_tasks,
                 skip_validation=skip_validation,
             )
+
+            # If deduplication returned a different article, redirect to it
+            if article.title != title:
+                return RedirectResponse(
+                    url=f"/world/{world_name}/wiki/{article.title}", status_code=303
+                )
 
         # Auto-link content
         from app.core.linker import linker_service
