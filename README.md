@@ -25,7 +25,7 @@ Infinite Wiki is designed to work with **any OpenAI-compatible API**. This inclu
 
 **Important**: You must provide your own API key. 
 - **Budgeting Tip**: Providers like OpenAI and xAI allow you to set **prepaid budgets** or usage limits. We highly recommend setting a small limit (e.g., $5-10) when starting out to prevent accidental overspending while generating large worlds.
-From experience, you should expect to pay around $1-2 per 10 articles generated.
+From experience, you should expect to pay around $1-2 per 10 articles generated (if you use grok-4-1-fast-reasoning).
 
 ## Prerequisites
 
@@ -120,6 +120,12 @@ The Docker image does **not** contain your API keys. You must pass them at runti
     - You will be redirected to the seed article.
     - Click on red links (missing articles) to auto-generate them.
     - Use the **Visualizers** link in the header to see the Timeline and Graph.
+
+## Current Limitations
+
+- Images are currently not validated, so characters and objects are not coherent between articles
+- The Timeline Feature is buggy
+- Articles are not combined if they refer to the same entity, you can endup with articles like Dr. Singh and Dr. Priya Singh about the same person. Or Starship Odyssey and Odyssey (Vessel) about the same thing etc.
 
 ## License
 

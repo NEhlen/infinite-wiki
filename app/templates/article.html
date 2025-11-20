@@ -65,4 +65,144 @@
 <div id="loading-msg" class="loading">
     Generating content for the next entry... This might take a moment.
 </div>
+
+<!-- Select-to-Generate Feature -->
+<button id="generate-btn" class="generate-btn" style="display: none;">
+    <span class="icon">✨</span> Generate Article
+</button>
+
+<style>
+    .generate-btn {
+        position: absolute;
+        z-index: 1000;
+        background: #2c3e50;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s, opacity 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        pointer-events: auto;
+    }
+
+    .generate-btn:hover {
+        background: #34495e;
+        transform: translateY(-2px);
+    }
+
+    .generate-btn .icon {
+        font-size: 16px;
+    }
+
+    /* Mobile Styles */
+    @media (max-width: 768px) {
+        .generate-btn.mobile-visible {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 400px;
+            justify-content: center;
+            padding: 12px 20px;
+            font-size: 16px;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translate(-50%, 100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translate(-50%, 0);
+                opacity: 1;
+            }
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('generate-btn');
+        const contentArea = document.querySelector('.content');
+        let isSelecting = false;
+
+        // Handle selection changes
+        document.addEventListener('selectionchange', () => {
+            const selection = window.getSelection();
+            const text = selection.toString().trim();
+
+            // Hide if no text or selection is outside content area
+            if (!text || !contentArea.contains(selection.anchorNode)) {
+                hideButton();
+                return;
+            }
+
+            // Show button
+            showButton(selection);
+        });
+
+        function showButton(selection) {
+            const range = selection.getRangeAt(0);
+            const rect = range.getBoundingClientRect();
+            const isMobile = window.innerWidth <= 768;
+
+            btn.style.display = 'flex';
+
+            if (isMobile) {
+                btn.classList.add('mobile-visible');
+                btn.style.top = 'auto';
+                btn.style.left = '50%';
+            } else {
+                btn.classList.remove('mobile-visible');
+                // Position above the selection
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                btn.style.top = `${rect.top + scrollTop - 45}px`;
+                btn.style.left = `${rect.left + (rect.width / 2) - (btn.offsetWidth / 2)}px`;
+            }
+        }
+
+        function hideButton() {
+            btn.style.display = 'none';
+            btn.classList.remove('mobile-visible');
+        }
+
+        // Handle click
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const selection = window.getSelection();
+            const text = selection.toString().trim();
+
+            if (text) {
+                // Clean text: remove non-alphanumeric chars from ends, limit length
+                const cleanText = text.replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, '');
+                if (cleanText) {
+                    // Show loading state
+                    btn.innerHTML = '<span class="spinner" style="width:16px;height:16px;border:2px solid #fff;border-top-color:transparent;border-radius:50%;animation:spin 1s linear infinite;"></span> Generating...';
+
+                    // Navigate
+                    window.location.href = `/world/{{ world_name }}/wiki/${encodeURIComponent(cleanText)}?skip-validation=false`;
+                }
+            }
+        });
+
+        // Add spin animation if not present
+        if (!document.getElementById('spin-style')) {
+            const style = document.createElement('style');
+            style.id = 'spin-style';
+            style.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
+            document.head.appendChild(style);
+        }
+    });
+</script>
 {% endblock %}

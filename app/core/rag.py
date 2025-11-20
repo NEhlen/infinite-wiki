@@ -3,6 +3,7 @@ from chromadb.config import Settings
 from typing import List
 from app.core.world import world_manager
 
+
 class RAGService:
     def __init__(self):
         self._clients = {}
@@ -22,17 +23,17 @@ class RAGService:
         collection.add(
             documents=[content],
             metadatas=[{"title": title, "id": article_id}],
-            ids=[str(article_id)]
+            ids=[str(article_id)],
         )
 
-    def query_context(self, world_name: str, query: str, n_results: int = 3) -> List[str]:
+    def query_context(
+        self, world_name: str, query: str, n_results: int = 3
+    ) -> List[str]:
         collection = self.get_collection(world_name)
-        results = collection.query(
-            query_texts=[query],
-            n_results=n_results
-        )
+        results = collection.query(query_texts=[query], n_results=n_results)
         if results["documents"]:
             return results["documents"][0]
         return []
+
 
 rag_service = RAGService()
