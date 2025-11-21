@@ -4,6 +4,12 @@
 
 Infinite Wiki is an AI-powered world-building tool that automatically generates consistent wiki articles, timelines, and knowledge graphs for your custom worlds.
 
+## Live Demo
+Check out the static, read-only demo of generated worlds here:
+[**Infinite Wiki Demo**](https://nehlen.github.io/infinite-wiki/)
+
+*Note: The demo is a static export. Article generation, editing, and dynamic features are disabled as they require a running backend and API key.*
+
 ## Features
 
 ### 1. Multi-World Management
