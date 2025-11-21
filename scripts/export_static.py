@@ -10,7 +10,8 @@ from app.database import get_session
 
 # Configuration
 OUTPUT_DIR = "static_site"
-BASE_URL = "/infinite-wiki-antigravity"  # Adjust this to your repo name if needed, or make it configurable
+# Use env var if set (e.g. from CI), otherwise default
+BASE_URL = os.getenv("BASE_URL", "/infinite-wiki")
 
 
 def ensure_dir(path):
