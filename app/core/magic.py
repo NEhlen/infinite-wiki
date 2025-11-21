@@ -27,6 +27,9 @@ class MagicConfigResponse(BaseModel):
     seed_article_title: str = Field(
         description="A catchy title for the first article to seed the wiki (e.g., 'The Great Cataclysm', 'The Founding of X')."
     )
+    seed_article_description: str = Field(
+        description="A short description/instruction for the seed article to guide its generation."
+    )
 
 
 class MagicService:
@@ -42,6 +45,7 @@ class MagicService:
            - Writer: Focus on the writing style (e.g., academic, diary, propaganda, ensure that the writing style is written from within the world canonical context view).
            - Image: Focus on the visual style (e.g., photorealistic, oil painting, pixel art).
         4. A Seed Article Title: The most important foundational event, place, or concept to start the wiki.
+        5. A Seed Article Description: A short paragraph describing what this first article should cover.
         """
 
         response = await llm_service.generate_json(
@@ -64,6 +68,7 @@ class MagicService:
             "image_gen_model": settings.IMAGE_GEN_MODEL,
             "generate_images": data.generate_images,
             "seed_article_title": data.seed_article_title,
+            "seed_article_description": data.seed_article_description,
         }
 
 

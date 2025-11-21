@@ -71,6 +71,7 @@ async def create_world(
     system_prompt_writer: str = Form(...),
     system_prompt_image: str = Form(...),
     seed_article_title: str = Form(...),
+    seed_article_description: str = Form(None),
     image_gen_model: str = Form(...),
     generate_images: bool = Form(False),  # Default to False if unchecked
     background_tasks: BackgroundTasks = None,
@@ -93,7 +94,12 @@ async def create_world(
         session = next(session_gen)
         try:
             await generator_service.generate_article(
-                name, seed_article_title, session, background_tasks
+                name,
+                seed_article_title,
+                session,
+                background_tasks,
+                skip_validation=True,
+                user_instructions=seed_article_description,
             )
         finally:
             session.close()
@@ -164,7 +170,7 @@ async def get_wiki_page(
     world_name: str,
     title: str,
     background_tasks: BackgroundTasks,
-    skip_validation: Optional[bool] = Query(True, alias="skip-validation"),
+    skip_validation: Optional[bool] = Query(False, alias="skip-validation"),
 ):
     session_gen = get_session(world_name)
     session = next(session_gen)

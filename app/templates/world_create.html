@@ -105,6 +105,10 @@
         <label for="seed_article_title">Seed Article Title:</label>
         <input type="text" id="seed_article_title" name="seed_article_title" value="The Beginning">
 
+        <label for="seed_article_description">Seed Article Description:</label>
+        <textarea id="seed_article_description" name="seed_article_description" rows="2"
+            placeholder="Optional instructions for the first article..."></textarea>
+
         <label for="llm_model">LLM Model:</label>
         <input type="text" id="llm_model" name="llm_model" value="grok-4-1-fast-reasoning-latest">
 
@@ -141,6 +145,7 @@
                     document.getElementById('system_prompt_writer').value = data.system_prompt_writer;
                     document.getElementById('system_prompt_image').value = data.system_prompt_image;
                     document.getElementById('seed_article_title').value = data.seed_article_title;
+                    document.getElementById('seed_article_description').value = data.seed_article_description;
                     document.getElementById('generate_images').checked = data.generate_images;
                 } else {
                     alert('Magic failed: ' + (data.detail || 'Unknown error'));

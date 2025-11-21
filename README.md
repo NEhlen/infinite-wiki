@@ -6,18 +6,63 @@ Infinite Wiki is an AI-powered world-building tool that automatically generates 
 
 ## Features
 
-- **Multi-World Support**: Create and manage multiple distinct worlds.
-- **Magic Config**: Generate a full world configuration (system prompts, seed article) from a single text description.
-- **Auto-Generation**:
-    - **Articles**: Two-stage generation (Plan -> Write) using RAG and Knowledge Graph context.
-    - **Images**: AI-generated images with captions, saved locally.
-    - **Links**: Automatic detection and linking of entities within articles.
-- **Visualizers**: Interactive Knowledge Graph and Timeline views.
-- **Consistency**: Uses ChromaDB (Vector Store) and NetworkX (Graph) to maintain consistency across generated content.
-- **Human-AI Collaboration**:
-    - **Editable Articles**: Edit any article with AI validation to ensure your changes don't contradict established lore.
-    - **Custom Creation**: Create articles with specific instructions (e.g., "A dragon made of glass") to guide the AI.
-    - **Deduplication**: Automatically detects and redirects duplicate entity requests (e.g., "Dr. Singh" -> "Dr. Priya Singh").
+### 1. Multi-World Management
+Create and manage multiple distinct worlds.
+<details>
+<summary>View Home Screen</summary>
+
+![Home View](assets/home_view.png)
+</details>
+
+### 2. Magic Config & World Dashboard
+Generate a full world configuration from a single text description.
+<details>
+<summary>View World Dashboard</summary>
+
+![World Dashboard](assets/world_view.png)
+</details>
+
+### 3. Auto-Generated Articles
+Two-stage generation (Plan -> Write) using RAG and Knowledge Graph context.
+<details>
+<summary>View Article Page</summary>
+
+![Article View](assets/article_view.png)
+![Article View](assets/article_view_2.png)
+</details>
+
+### 4. Interactive Visualizers
+Explore your world with interactive Knowledge Graph and Timeline views.
+<details>
+<summary>View Graph Visualization</summary>
+
+![Graph View](assets/graph_view.png)
+</details>
+
+### 5. Human-AI Collaboration
+- **Editable Articles**: Edit any article with AI validation.
+<details>
+<summary>View Edit Interface</summary>
+
+![Edit Interface](assets/edit_interface.png)
+</details>
+
+- **Custom Creation**: Create articles with specific instructions.
+<details>
+<summary>View Custom Creation Interface</summary>
+
+![Custom Creation Interface](assets/custom_creation_interface.png)
+</details>
+
+- **Selected Text Generation**: Highlight text to generate new articles or expand on concepts, optional short description can be given to influence new article generation.
+<details>
+<summary>View Selected Text Feature</summary>
+
+![Selected Text Generation](assets/selected_text_generation.png)
+</details>
+
+
+- **Deduplication**: Automatically detects and redirects duplicate entity requests.
 
 ## API Providers & Costs
 

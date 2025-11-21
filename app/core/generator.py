@@ -124,7 +124,7 @@ class GeneratorService:
             )
 
         plan_prompt = f"""
-        Plan a wiki article about "{title}".
+        Plan an article about "{title}".
         
         World Context:
         Name: {world_config.name}
@@ -152,7 +152,7 @@ class GeneratorService:
 
         # 4. Stage 2: WRITE
         write_prompt = f"""
-        Write the full content for the wiki article "{title}" based on this plan:
+        Write the full content for the article "{title}" based on this plan:
 
         World Context:
         Name: {world_config.name}

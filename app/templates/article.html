@@ -67,15 +67,50 @@
 </div>
 
 <!-- Select-to-Generate Feature -->
-<button id="generate-btn" class="generate-btn" style="display: none;">
-    <span class="icon">✨</span> Generate Article
-</button>
+<div id="generate-ui" class="generate-ui" style="display: none;">
+    <input type="text" id="gen-input" placeholder="Context (optional)..." class="gen-input">
+    <button id="generate-btn" class="generate-btn">
+        <span class="icon">✨</span> Generate
+    </button>
+</div>
 
 <style>
-    .generate-btn {
+    .generate-ui {
         position: absolute;
         z-index: 1000;
         background: #2c3e50;
+        padding: 5px;
+        border-radius: 25px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: transform 0.2s, opacity 0.2s;
+    }
+
+    .gen-input {
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 20px;
+        font-size: 14px;
+        outline: none;
+        width: 150px;
+        transition: width 0.2s, background 0.2s;
+    }
+
+    .gen-input:focus {
+        background: rgba(255, 255, 255, 0.2);
+        width: 200px;
+    }
+
+    .gen-input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .generate-btn {
+        background: #007bff;
         color: white;
         border: none;
         padding: 8px 16px;
@@ -83,36 +118,36 @@
         cursor: pointer;
         font-size: 14px;
         font-weight: 500;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        transition: transform 0.2s, opacity 0.2s;
         display: flex;
         align-items: center;
         gap: 6px;
-        pointer-events: auto;
+        white-space: nowrap;
     }
 
     .generate-btn:hover {
-        background: #34495e;
-        transform: translateY(-2px);
-    }
-
-    .generate-btn .icon {
-        font-size: 16px;
+        background: #0056b3;
     }
 
     /* Mobile Styles */
     @media (max-width: 768px) {
-        .generate-btn.mobile-visible {
+        .generate-ui.mobile-visible {
             position: fixed;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             width: 90%;
             max-width: 400px;
-            justify-content: center;
-            padding: 12px 20px;
-            font-size: 16px;
+            padding: 8px;
             animation: slideUp 0.3s ease-out;
+        }
+
+        .gen-input {
+            flex: 1;
+            width: auto;
+        }
+
+        .gen-input:focus {
+            width: auto;
         }
 
         @keyframes slideUp {
@@ -131,67 +166,107 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        const ui = document.getElementById('generate-ui');
         const btn = document.getElementById('generate-btn');
+        const input = document.getElementById('gen-input');
         const contentArea = document.querySelector('.content');
-        let isSelecting = false;
+
+        // Prevent selection loss when clicking inside the UI, but allow input focus
+        ui.addEventListener('mousedown', (e) => {
+            if (e.target !== input) {
+                e.preventDefault();
+            }
+        });
 
         // Handle selection changes
         document.addEventListener('selectionchange', () => {
             const selection = window.getSelection();
             const text = selection.toString().trim();
 
+            // If user is interacting with the input, don't hide
+            if (document.activeElement === input) return;
+
             // Hide if no text or selection is outside content area
             if (!text || !contentArea.contains(selection.anchorNode)) {
-                hideButton();
+                hideUI();
                 return;
             }
 
-            // Show button
-            showButton(selection);
+            // Show UI
+            showUI(selection);
         });
 
-        function showButton(selection) {
+        function showUI(selection) {
             const range = selection.getRangeAt(0);
             const rect = range.getBoundingClientRect();
             const isMobile = window.innerWidth <= 768;
 
-            btn.style.display = 'flex';
+            ui.style.display = 'flex';
 
             if (isMobile) {
-                btn.classList.add('mobile-visible');
-                btn.style.top = 'auto';
-                btn.style.left = '50%';
+                ui.classList.add('mobile-visible');
+                ui.style.top = 'auto';
+                ui.style.left = '50%';
             } else {
-                btn.classList.remove('mobile-visible');
+                ui.classList.remove('mobile-visible');
                 // Position above the selection
                 const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                btn.style.top = `${rect.top + scrollTop - 45}px`;
-                btn.style.left = `${rect.left + (rect.width / 2) - (btn.offsetWidth / 2)}px`;
+                ui.style.top = `${rect.top + scrollTop - 50}px`;
+                ui.style.left = `${rect.left + (rect.width / 2) - (ui.offsetWidth / 2)}px`;
             }
         }
 
-        function hideButton() {
-            btn.style.display = 'none';
-            btn.classList.remove('mobile-visible');
+        function hideUI() {
+            ui.style.display = 'none';
+            ui.classList.remove('mobile-visible');
+            input.value = ''; // Clear input on hide
         }
 
         // Handle click
-        btn.addEventListener('click', (e) => {
+        btn.addEventListener('click', async (e) => {
             e.preventDefault();
             e.stopPropagation();
 
             const selection = window.getSelection();
             const text = selection.toString().trim();
+            const description = input.value.trim();
 
             if (text) {
-                // Clean text: remove non-alphanumeric chars from ends, limit length
+                // Clean text: remove non-alphanumeric chars from ends
                 const cleanText = text.replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, '');
+
                 if (cleanText) {
                     // Show loading state
-                    btn.innerHTML = '<span class="spinner" style="width:16px;height:16px;border:2px solid #fff;border-top-color:transparent;border-radius:50%;animation:spin 1s linear infinite;"></span> Generating...';
+                    btn.innerHTML = '<span class="spinner" style="width:16px;height:16px;border:2px solid #fff;border-top-color:transparent;border-radius:50%;animation:spin 1s linear infinite;"></span>';
+                    btn.disabled = true;
 
-                    // Navigate
-                    window.location.href = `/world/{{ world_name }}/wiki/${encodeURIComponent(cleanText)}?skip-validation=false`;
+                    // Submit via Form Data to create_custom
+                    const formData = new FormData();
+                    formData.append('title', cleanText);
+                    if (description) {
+                        formData.append('description', description);
+                    }
+
+                    try {
+                        const response = await fetch('/world/{{ world_name }}/create_custom', {
+                            method: 'POST',
+                            body: formData
+                        });
+
+                        if (response.redirected) {
+                            window.location.href = response.url;
+                        } else {
+                            // Fallback if no redirect (shouldn't happen with current backend)
+                            window.location.href = `/world/{{ world_name }}/wiki/${encodeURIComponent(cleanText)}`;
+                        }
+                    } catch (err) {
+                        console.error("Generation failed:", err);
+                        btn.innerHTML = 'Error';
+                        setTimeout(() => {
+                            btn.innerHTML = '<span class="icon">✨</span> Generate';
+                            btn.disabled = false;
+                        }, 2000);
+                    }
                 }
             }
         });
