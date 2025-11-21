@@ -73,7 +73,7 @@ Infinite Wiki is designed to work with **any OpenAI-compatible API**. This inclu
 - **Local Models** (via LM Studio, Ollama, etc.)
 
 **Important**: You must provide your own API key. 
-- **Budgeting Tip**: Providers like OpenAI and xAI allow you to set **prepaid budgets** or usage limits. We highly recommend setting a small limit (e.g., $5-10) when starting out to prevent accidental overspending while generating large worlds.
+- **Budgeting Tip**: Providers like OpenAI and xAI allow you to set **prepaid budgets** or usage limits. I highly recommend setting a small limit (e.g., $5-10) when starting out to prevent accidental overspending while generating large worlds.
 From experience, you should expect to pay around $1-2 per 10 articles generated (if you use grok-4-1-fast-reasoning).
 
 ## Prerequisites
