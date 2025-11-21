@@ -1,0 +1,124 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "Article",
+      "id": "The Echoes in the Empty Metro"
+    },
+    {
+      "type": "Location",
+      "id": "Abandoned Metro Lines"
+    },
+    {
+      "type": "Concept",
+      "year": 2025,
+      "description": "The mass disappearance of late-night commuters into the Empty Metro tunnels, marking the rise of personalized echoes that haunt the living.",
+      "id": "The Lost Commuters"
+    },
+    {
+      "type": "Location",
+      "id": "City's Shadowy Underbelly"
+    },
+    {
+      "type": "Event",
+      "id": "Viral Urban Legends"
+    },
+    {
+      "type": "Location",
+      "year": 2025,
+      "description": "The final shutdown of the metro system, unleashing the echoes and vanishings that plague the city.",
+      "id": "The Empty Metro"
+    },
+    {
+      "type": "Concept",
+      "id": "The Echoes"
+    },
+    {
+      "type": "Event",
+      "year": 2025,
+      "description": "Onset of Flicker Phenomena in city streetlights, aligning with surges in metro vanishings and auditory echoes, fracturing urban perceptions.",
+      "id": "Flicker Phenomena"
+    },
+    {
+      "type": "Location",
+      "id": "Empty Metro"
+    },
+    {
+      "type": "Event",
+      "id": "Echoes in the Empty Metro"
+    },
+    {
+      "type": "Location",
+      "id": "The City Above"
+    }
+  ],
+  "links": [
+    {
+      "relation": "Primary Setting",
+      "source": "The Echoes in the Empty Metro",
+      "target": "Abandoned Metro Lines"
+    },
+    {
+      "relation": "Haunting Source",
+      "source": "The Echoes in the Empty Metro",
+      "target": "The Lost Commuters"
+    },
+    {
+      "relation": "Broader Context",
+      "source": "The Echoes in the Empty Metro",
+      "target": "City's Shadowy Underbelly"
+    },
+    {
+      "relation": "Inspirational Twist",
+      "source": "The Echoes in the Empty Metro",
+      "target": "Viral Urban Legends"
+    },
+    {
+      "relation": "Victims and Inhabitants",
+      "source": "The Lost Commuters",
+      "target": "The Empty Metro"
+    },
+    {
+      "relation": "Manifestation of the Lost",
+      "source": "The Lost Commuters",
+      "target": "The Echoes"
+    },
+    {
+      "relation": "Triggering Phenomenon",
+      "source": "The Lost Commuters",
+      "target": "Flicker Phenomena"
+    },
+    {
+      "relation": "Haunting Presence",
+      "source": "The Empty Metro",
+      "target": "The Echoes"
+    },
+    {
+      "relation": "Surface Manifestation",
+      "source": "The Empty Metro",
+      "target": "Flicker Phenomena"
+    },
+    {
+      "relation": "Overlying Reality",
+      "source": "The Empty Metro",
+      "target": "The City Above"
+    },
+    {
+      "relation": "Synchronized Disturbance",
+      "source": "The Echoes",
+      "target": "Flicker Phenomena"
+    },
+    {
+      "relation": "Interconnected Anomaly",
+      "source": "Flicker Phenomena",
+      "target": "Empty Metro"
+    },
+    {
+      "relation": "Precedes and Amplifies Flicker Phenomena",
+      "source": "Flicker Phenomena",
+      "target": "Echoes in the Empty Metro"
+    }
+  ]
+}

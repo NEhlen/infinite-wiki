@@ -1,0 +1,216 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "type": "Article",
+      "id": "The Awakening of the Eternal Archive"
+    },
+    {
+      "type": "Location",
+      "id": "Eternal Library"
+    },
+    {
+      "type": "Object",
+      "id": "Ancient Tomes"
+    },
+    {
+      "type": "Person",
+      "id": "First Scribes"
+    },
+    {
+      "type": "Location",
+      "id": "Labyrinthine Stacks"
+    },
+    {
+      "type": "Concept",
+      "id": "Whispering Winds of Knowledge"
+    },
+    {
+      "type": "Organization",
+      "id": "Archivists"
+    },
+    {
+      "type": "Object",
+      "id": "Tomes of the Archive"
+    },
+    {
+      "type": "Organization",
+      "id": "Order of Awakened Scribes"
+    },
+    {
+      "type": "Event",
+      "year": 1247,
+      "description": "The Eternal Library awakens with subtle magic, drawing seekers into its living depths.",
+      "id": "Awakening of the Eternal Archive"
+    },
+    {
+      "type": "Concept",
+      "id": "Archival Nexus"
+    },
+    {
+      "type": "Location",
+      "year": 1247,
+      "description": "Ignition of the Archival Nexus in the Core Sanctum sparks the Awakening, infusing the Eternal Library with subtle magic.",
+      "id": "Core Sanctum"
+    },
+    {
+      "type": "Concept",
+      "year": 1247,
+      "description": "Waves of Magic cascade from the Awakening, infusing the Eternal Library with subtle enchantments and birthing interactive lore across its infinite expanse.",
+      "id": "Waves of Magic"
+    },
+    {
+      "type": "Event",
+      "id": "Illuminating Surge"
+    }
+  ],
+  "links": [
+    {
+      "relation": "Central site of the awakening",
+      "source": "The Awakening of the Eternal Archive",
+      "target": "Eternal Library"
+    },
+    {
+      "relation": "Sources of awakened magic",
+      "source": "The Awakening of the Eternal Archive",
+      "target": "Ancient Tomes"
+    },
+    {
+      "relation": "Witnesses and initiators",
+      "source": "The Awakening of the Eternal Archive",
+      "target": "First Scribes"
+    },
+    {
+      "relation": "Affected pathways post-awakening",
+      "source": "The Awakening of the Eternal Archive",
+      "target": "Labyrinthine Stacks"
+    },
+    {
+      "relation": "Preceding catalyst",
+      "source": "The Awakening of the Eternal Archive",
+      "target": "Whispering Winds of Knowledge"
+    },
+    {
+      "relation": "Emergent magical phenomenon guiding seekers",
+      "source": "Eternal Library",
+      "target": "Whispering Winds of Knowledge"
+    },
+    {
+      "relation": "Primary guardians and stewards",
+      "source": "Eternal Library",
+      "target": "Archivists"
+    },
+    {
+      "relation": "Transformative event that animated the Library",
+      "source": "Eternal Library",
+      "target": "Awakening of the Eternal Archive"
+    },
+    {
+      "relation": "Central chamber and geometric heart",
+      "source": "Eternal Library",
+      "target": "Core Sanctum"
+    },
+    {
+      "relation": "Central structure through which the Waves propagated their enchantments",
+      "source": "Eternal Library",
+      "target": "Waves of Magic"
+    },
+    {
+      "relation": "Guardians and interpreters",
+      "source": "Whispering Winds of Knowledge",
+      "target": "Archivists"
+    },
+    {
+      "relation": "Source of whispers",
+      "source": "Whispering Winds of Knowledge",
+      "target": "Tomes of the Archive"
+    },
+    {
+      "relation": "Scholars attuned to the winds",
+      "source": "Whispering Winds of Knowledge",
+      "target": "Order of Awakened Scribes"
+    },
+    {
+      "relation": "Magical phenomenon emerging from the waves of magic",
+      "source": "Whispering Winds of Knowledge",
+      "target": "Awakening of the Eternal Archive"
+    },
+    {
+      "relation": "Emanate from its magical core",
+      "source": "Whispering Winds of Knowledge",
+      "target": "Core Sanctum"
+    },
+    {
+      "relation": "Phenomenon birthed during the early Waves",
+      "source": "Whispering Winds of Knowledge",
+      "target": "Waves of Magic"
+    },
+    {
+      "relation": "Guardians who adapted to the Library's transformation",
+      "source": "Archivists",
+      "target": "Awakening of the Eternal Archive"
+    },
+    {
+      "relation": "Successor institution post-Awakening",
+      "source": "Archivists",
+      "target": "Order of Awakened Scribes"
+    },
+    {
+      "relation": "Sacred core they revere and protect",
+      "source": "Archivists",
+      "target": "Archival Nexus"
+    },
+    {
+      "relation": "Custodians who maintain access and attunement rites",
+      "source": "Archivists",
+      "target": "Core Sanctum"
+    },
+    {
+      "relation": "Institution born from the event's legacy",
+      "source": "Order of Awakened Scribes",
+      "target": "Awakening of the Eternal Archive"
+    },
+    {
+      "relation": "Group that documented and interpreted the Waves' effects",
+      "source": "Order of Awakened Scribes",
+      "target": "Waves of Magic"
+    },
+    {
+      "relation": "Hypothetical core that ignited the magic infusion",
+      "source": "Awakening of the Eternal Archive",
+      "target": "Archival Nexus"
+    },
+    {
+      "relation": "Epicenter of the transformative ceremony",
+      "source": "Awakening of the Eternal Archive",
+      "target": "Core Sanctum"
+    },
+    {
+      "relation": "Preceding event that triggered the Waves of Magic",
+      "source": "Awakening of the Eternal Archive",
+      "target": "Waves of Magic"
+    },
+    {
+      "relation": "Resides within as the coalescence of all knowledge",
+      "source": "Archival Nexus",
+      "target": "Core Sanctum"
+    },
+    {
+      "relation": "Core ignition point from which the Waves originated",
+      "source": "Archival Nexus",
+      "target": "Waves of Magic"
+    },
+    {
+      "relation": "Sanctum where the Waves first coalesced",
+      "source": "Core Sanctum",
+      "target": "Waves of Magic"
+    },
+    {
+      "relation": "First Wave that endowed tomes with luminescence and sentience",
+      "source": "Waves of Magic",
+      "target": "Illuminating Surge"
+    }
+  ]
+}

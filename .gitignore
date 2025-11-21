@@ -225,5 +225,5 @@ worlds/*
 !worlds/Eternal-Library-Realms
 !worlds/modern-urban-horror
 !worlds/ruhr-neon-depths
-static_site/*
-!static_site/.gitkeep
+# static_site/*
+# !static_site/.gitkeep
