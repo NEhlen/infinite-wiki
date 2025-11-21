@@ -135,6 +135,15 @@ def export_static():
         finally:
             session.close()
 
+        # Copy Images
+        images_path = world_manager.get_images_path(world)
+        if os.path.exists(images_path):
+            dest_images_path = os.path.join(OUTPUT_DIR, "world", world, "images")
+            if os.path.exists(dest_images_path):
+                shutil.rmtree(dest_images_path)
+            shutil.copytree(images_path, dest_images_path)
+            print(f"  Copied images for {world}")
+
     # 3. Copy Static Assets (if any)
     # We don't have a static folder in app/ currently, but if we did:
     # if os.path.exists("app/static"):

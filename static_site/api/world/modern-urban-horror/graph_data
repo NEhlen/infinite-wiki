@@ -47,11 +47,24 @@
     },
     {
       "type": "Event",
+      "year": 2024,
+      "description": "Emergence of mimicry echoes in Empty Metro tunnels, personally luring victims and preceding Flicker Phenomena surges.",
       "id": "Echoes in the Empty Metro"
     },
     {
       "type": "Location",
       "id": "The City Above"
+    },
+    {
+      "id": "# The Echoes in the Empty Metro"
+    },
+    {
+      "type": "Event",
+      "id": "Lost Commuters"
+    },
+    {
+      "type": "Concept",
+      "id": "Moscow Metro Ghosts"
     }
   ],
   "links": [
@@ -116,9 +129,29 @@
       "target": "Empty Metro"
     },
     {
-      "relation": "Precedes and Amplifies Flicker Phenomena",
+      "relation": "Amplified by Echo Bleed",
       "source": "Flicker Phenomena",
       "target": "Echoes in the Empty Metro"
+    },
+    {
+      "relation": "Primary Setting",
+      "source": "Empty Metro",
+      "target": "Echoes in the Empty Metro"
+    },
+    {
+      "relation": "is_alias_of",
+      "source": "Echoes in the Empty Metro",
+      "target": "# The Echoes in the Empty Metro"
+    },
+    {
+      "relation": "Victims Drawn by Echoes",
+      "source": "Echoes in the Empty Metro",
+      "target": "Lost Commuters"
+    },
+    {
+      "relation": "Real-World Inspiration",
+      "source": "Echoes in the Empty Metro",
+      "target": "Moscow Metro Ghosts"
     }
   ]
 }
