@@ -43,6 +43,8 @@
     },
     {
       "type": "Location",
+      "year": 2025,
+      "description": "Shutdown cascades through metro lines, unleashing the Empty Metro's whispering silence and first vanishings.",
       "id": "Empty Metro"
     },
     {
@@ -65,6 +67,13 @@
     {
       "type": "Concept",
       "id": "Moscow Metro Ghosts"
+    },
+    {
+      "id": "# The Empty Metro"
+    },
+    {
+      "type": "Event",
+      "id": "Endless Loops"
     }
   ],
   "links": [
@@ -124,7 +133,7 @@
       "target": "Flicker Phenomena"
     },
     {
-      "relation": "Interconnected Anomaly",
+      "relation": "Amplified by echoes bleeding from metro vents",
       "source": "Flicker Phenomena",
       "target": "Empty Metro"
     },
@@ -134,9 +143,24 @@
       "target": "Echoes in the Empty Metro"
     },
     {
-      "relation": "Primary Setting",
+      "relation": "Core auditory lures originating in silent tunnels",
       "source": "Empty Metro",
       "target": "Echoes in the Empty Metro"
+    },
+    {
+      "relation": "is_alias_of",
+      "source": "Empty Metro",
+      "target": "# The Empty Metro"
+    },
+    {
+      "relation": "Eternal vanishings haunting the platforms and crowds",
+      "source": "Empty Metro",
+      "target": "Lost Commuters"
+    },
+    {
+      "relation": "Highway echoes mimicking metro calls",
+      "source": "Empty Metro",
+      "target": "Endless Loops"
     },
     {
       "relation": "is_alias_of",

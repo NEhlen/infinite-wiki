@@ -1,6 +1,11 @@
 import os
+import sys
 import shutil
 import json
+
+# Add project root to path
+sys.path.append(os.getcwd())
+
 from fastapi.testclient import TestClient
 from app.main import app
 from app.core.world import world_manager
@@ -38,6 +43,9 @@ def export_static():
     if os.path.exists(OUTPUT_DIR):
         shutil.rmtree(OUTPUT_DIR)
     os.makedirs(OUTPUT_DIR)
+    # add .gitkeep just to static_site root
+    with open(os.path.join(OUTPUT_DIR, ".gitkeep"), "w+"):
+        pass
 
     # Set BASE_URL in env for the app to pick up
     os.environ["BASE_URL"] = BASE_URL
@@ -48,105 +56,129 @@ def export_static():
 
     templates.env.globals["base_url"] = BASE_URL
 
-    client = TestClient(app)
+    # Patch settings to disable Auth during export
+    from app.config import get_settings
+    from unittest.mock import patch
 
-    # 1. Export Index
-    print("Exporting Index...")
-    resp = client.get("/")
-    if resp.status_code == 200:
-        save_html(os.path.join(OUTPUT_DIR, "index.html"), resp.text)
-    else:
-        print(f"Failed to fetch index: {resp.status_code}")
+    settings = get_settings()
+    # We use a context manager to mock the settings for the duration of the client usage
+    # But TestClient is initialized with the app. The dependency is evaluated at request time.
+    # So we can patch the settings object globally or use patch.object
 
-    # 2. Export Worlds
-    worlds = world_manager.list_worlds()
-    for world in worlds:
-        print(f"Exporting World: {world}...")
+    print("Disabling Auth for export...")
+    with (
+        patch.object(settings, "AUTH_USERNAME", None),
+        patch.object(settings, "AUTH_PASSWORD", None),
+    ):
 
-        # World Home
-        resp = client.get(f"/world/{world}")
+        client = TestClient(app)
+
+        # 1. Export Index
+        print("Exporting Index...")
+        resp = client.get("/")
         if resp.status_code == 200:
-            save_html(os.path.join(OUTPUT_DIR, "world", world, "index.html"), resp.text)
+            save_html(os.path.join(OUTPUT_DIR, "index.html"), resp.text)
         else:
-            print(f"Failed to fetch world {world}: {resp.status_code}")
+            print(f"Failed to fetch index: {resp.status_code}")
 
-        # Visualizers
-        resp = client.get(f"/world/{world}/visualizers")
-        if resp.status_code == 200:
-            save_html(
-                os.path.join(OUTPUT_DIR, "world", world, "visualizers", "index.html"),
-                resp.text,
-            )
+        # 2. Export Worlds
+        worlds = world_manager.list_worlds()
+        for world in worlds:
+            print(f"Exporting World: {world}...")
 
-        # Graph Data
-        resp = client.get(f"/api/world/{world}/graph_data")
-        if resp.status_code == 200:
-            save_json(
-                os.path.join(OUTPUT_DIR, "api", "world", world, "graph_data"),
-                resp.json(),
-            )
+            # World Home
+            resp = client.get(f"/world/{world}")
+            if resp.status_code == 200:
+                save_html(
+                    os.path.join(OUTPUT_DIR, "world", world, "index.html"), resp.text
+                )
+            else:
+                print(f"Failed to fetch world {world}: {resp.status_code}")
 
-        # Timeline Data
-        resp = client.get(f"/api/world/{world}/timeline_data")
-        if resp.status_code == 200:
-            save_json(
-                os.path.join(OUTPUT_DIR, "api", "world", world, "timeline_data"),
-                resp.json(),
-            )
+            # Visualizers
+            resp = client.get(f"/world/{world}/visualizers")
+            if resp.status_code == 200:
+                save_html(
+                    os.path.join(
+                        OUTPUT_DIR, "world", world, "visualizers", "index.html"
+                    ),
+                    resp.text,
+                )
 
-        # Articles
-        # We need to list all articles to export them
-        # We can use the database directly since we have access
-        session_gen = get_session(world)
-        session = next(session_gen)
-        try:
-            statement = select(Article)
-            articles = session.exec(statement).all()
-            for article in articles:
-                print(f"  Exporting Article: {article.title}")
-                resp = client.get(f"/world/{world}/wiki/{article.title}")
-                if resp.status_code == 200:
-                    # Handle URL encoding in filename if needed, but usually browser handles it.
-                    # However, for static files, we might want to be careful.
-                    # Let's just save as is for now, assuming titles are file-system safe-ish or just simple text.
-                    # If title has spaces, browser requests "Title%20Name".
-                    # We should probably save as "Title Name/index.html" to match "/wiki/Title Name"
+            # Graph Data
+            resp = client.get(f"/api/world/{world}/graph_data")
+            if resp.status_code == 200:
+                save_json(
+                    os.path.join(OUTPUT_DIR, "api", "world", world, "graph_data"),
+                    resp.json(),
+                )
 
-                    # Actually, if the link is /wiki/Foo%20Bar, the browser looks for folder Foo%20Bar or file Foo%20Bar.
-                    # Let's try to match the URL structure exactly.
+            # Timeline Data
+            resp = client.get(f"/api/world/{world}/timeline_data")
+            if resp.status_code == 200:
+                save_json(
+                    os.path.join(OUTPUT_DIR, "api", "world", world, "timeline_data"),
+                    resp.json(),
+                )
 
-                    # If the title is "The Great Library", the URL is ".../wiki/The Great Library" (unencoded in href usually, but browser encodes it).
-                    # If we save it as "The Great Library/index.html", then ".../wiki/The Great Library" works if server does directory index.
-                    # GitHub Pages does directory index.
+            # Articles
+            # We need to list all articles to export them
+            # We can use the database directly since we have access
+            session_gen = get_session(world)
+            session = next(session_gen)
+            try:
+                statement = select(Article)
+                articles = session.exec(statement).all()
+                for article in articles:
+                    print(f"  Exporting Article: {article.title}")
+                    resp = client.get(f"/world/{world}/wiki/{article.title}")
+                    if resp.status_code == 200:
+                        # Handle URL encoding in filename if needed, but usually browser handles it.
+                        # However, for static files, we might want to be careful.
+                        # Let's just save as is for now, assuming titles are file-system safe-ish or just simple text.
+                        # If title has spaces, browser requests "Title%20Name".
+                        # We should probably save as "Title Name/index.html" to match "/wiki/Title Name"
 
-                    safe_title = (
-                        article.title
-                    )  # .replace(" ", "%20") ? No, FS usually handles spaces.
+                        # Actually, if the link is /wiki/Foo%20Bar, the browser looks for folder Foo%20Bar or file Foo%20Bar.
+                        # Let's try to match the URL structure exactly.
 
-                    save_html(
-                        os.path.join(
-                            OUTPUT_DIR, "world", world, "wiki", safe_title, "index.html"
-                        ),
-                        resp.text,
-                    )
-                else:
-                    print(
-                        f"Failed to fetch article {article.title}: {resp.status_code}"
-                    )
-        finally:
-            session.close()
+                        # If the title is "The Great Library", the URL is ".../wiki/The Great Library" (unencoded in href usually, but browser encodes it).
+                        # If we save it as "The Great Library/index.html", then ".../wiki/The Great Library" works if server does directory index.
+                        # GitHub Pages does directory index.
 
-        # Copy Images
-        images_path = world_manager.get_images_path(world)
-        if os.path.exists(images_path):
-            # We want images at static_site/world/{world}/images
-            # The BASE_URL is for the browser, not the file system structure inside static_site
-            dest_images_path = os.path.join(OUTPUT_DIR, "world", world, "images")
+                        safe_title = (
+                            article.title
+                        )  # .replace(" ", "%20") ? No, FS usually handles spaces.
 
-            if os.path.exists(dest_images_path):
-                shutil.rmtree(dest_images_path)
-            shutil.copytree(images_path, dest_images_path)
-            print(f"  Copied images for {world}")
+                        save_html(
+                            os.path.join(
+                                OUTPUT_DIR,
+                                "world",
+                                world,
+                                "wiki",
+                                safe_title,
+                                "index.html",
+                            ),
+                            resp.text,
+                        )
+                    else:
+                        print(
+                            f"Failed to fetch article {article.title}: {resp.status_code}"
+                        )
+            finally:
+                session.close()
+
+            # Copy Images
+            images_path = world_manager.get_images_path(world)
+            if os.path.exists(images_path):
+                # We want images at static_site/world/{world}/images
+                # The BASE_URL is for the browser, not the file system structure inside static_site
+                dest_images_path = os.path.join(OUTPUT_DIR, "world", world, "images")
+
+                if os.path.exists(dest_images_path):
+                    shutil.rmtree(dest_images_path)
+                shutil.copytree(images_path, dest_images_path)
+                print(f"  Copied images for {world}")
 
     # 3. Copy Static Assets (if any)
     # We don't have a static folder in app/ currently, but if we did:

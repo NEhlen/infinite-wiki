@@ -55,9 +55,15 @@ class Settings(BaseSettings):
         Configures Keys, URLs, and Default Models based on the selected AI_PROVIDER.
         """
         # 1. Lazy load keys from system keyring
-        key_openai = keyring.get_password("openai", "OPENAI_API_KEY")
-        key_xai = keyring.get_password("xai", "XAI_API_KEY")
-        key_gemini = keyring.get_password("google", "GEMINI_API_KEY")
+        try:
+            key_openai = keyring.get_password("openai", "OPENAI_API_KEY")
+            key_xai = keyring.get_password("xai", "XAI_API_KEY")
+            key_gemini = keyring.get_password("google", "GEMINI_API_KEY")
+        except Exception:
+            # Keyring not available (e.g. in Docker), rely on env vars
+            key_openai = None
+            key_xai = None
+            key_gemini = None
 
         # 2. Auto-detect provider if set to 'auto'
         if self.AI_PROVIDER == "auto":
