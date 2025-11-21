@@ -64,7 +64,10 @@ def get_current_username(
     return credentials.username
 
 
+from fastapi.staticfiles import StaticFiles
+
 app = FastAPI(title=settings.APP_NAME, dependencies=[Depends(get_current_username)])
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
 templates = Jinja2Templates(directory="app/templates")
 
 

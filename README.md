@@ -85,6 +85,7 @@ From experience, you should expect to pay around $1-2 per 10 articles generated 
 ## Prerequisites
 
 - Python 3.12+
+- [uv](https://github.com/astral-sh/uv) (Fast Python package installer and resolver)
 - OpenAI API Key (or compatible provider like Grok, etc.)
 
 ## Installation (Local)
@@ -95,31 +96,30 @@ From experience, you should expect to pay around $1-2 per 10 articles generated 
     cd infinite-wiki
     ```
 
-2.  **Create a virtual environment**:
+2.  **Install dependencies**:
     ```bash
-    python3 -m venv .venv
-    source .venv/bin/activate
+    uv sync
     ```
+    *Note: This command installs all project dependencies, including development tools, into a virtual environment managed by `uv`.*
 
-3.  **Install dependencies**:
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-4.  **Configure Environment**:
+3.  **Configure Environment**:
     Create a `.env` file in the root directory:
     ```env
     OPENAI_API_KEY=your_api_key_here
-    # Optional: Custom Base URL (e.g. for Grok or Local LLMs)
+    # Optional: Custom Base URL (e.g. for Grok, Gemini or Local LLMs)
     # OPENAI_BASE_URL=https://api.openai.com/v1
+    
+    # Optional: Basic Authentication
+    # AUTH_USERNAME=admin
+    # AUTH_PASSWORD=secret
     ```
 
-5.  **Run the application**:
+4.  **Run the application**:
     ```bash
-    uvicorn app.main:app --reload
+    uv run uvicorn app.main:app --reload
     ```
 
-6.  **Access the Wiki**:
+5.  **Access the Wiki**:
     Open your browser and navigate to `http://127.0.0.1:8000`.
 
 ## Configuration
@@ -134,12 +134,18 @@ The application is configured via environment variables or a `.env` file. See `.
 | `OPENAI_BASE_URL` | Custom API Endpoint (e.g., for Grok, LocalAI). | Provider Default |
 | `AI_PROVIDER` | `openai`, `xai`, `gemini`, `custom`, or `auto`. | `auto` |
 | `LLM_MODEL` | Specific model to use (e.g., `gpt-4`, `grok-beta`). | Provider Default |
+| `AUTH_USERNAME` | Username for Basic Authentication. | None |
+| `AUTH_PASSWORD` | Password for Basic Authentication. | None |
+
+### Authentication Logic
+- **Anonymous Access**: If `AUTH_USERNAME` and `AUTH_PASSWORD` are **not set** (default), the application allows anonymous access. This is ideal for local development.
+- **Secured Access**: If both variables are set, the application enforces HTTP Basic Authentication on all routes. This is recommended for public deployments.
 
 ## Installation (Docker)
 
 The Docker image does **not** contain your API keys. You must pass them at runtime.
 
-1.  **Build the image** (or pull from registry):
+1.  **Build the image**:
     ```bash
     docker build -t infinite-wiki .
     ```
@@ -148,20 +154,36 @@ The Docker image does **not** contain your API keys. You must pass them at runti
     ```bash
     docker run -d -p 8000:8000 \
       -e OPENAI_API_KEY="your_actual_api_key" \
+      -e AUTH_USERNAME="admin" \
+      -e AUTH_PASSWORD="secret" \
       -v $(pwd)/worlds:/app/worlds \
       infinite-wiki
     ```
-    *   `-e OPENAI_API_KEY=...`: Injects your API key into the container.
-    *   `-v $(pwd)/worlds:/app/worlds`: Mounts a local directory to persist your world data.
 
-    **Using a .env file with Docker:**
-    You can also pass your local `.env` file directly:
+    **Using a .env file (Recommended):**
+    You can pass your local `.env` file directly to keep secrets out of your history:
     ```bash
     docker run -d -p 8000:8000 \
       --env-file .env \
       -v $(pwd)/worlds:/app/worlds \
       infinite-wiki
     ```
+
+## Static Site Export
+
+You can export your worlds to a static HTML site (compatible with GitHub Pages).
+
+1.  **Run the export script**:
+    ```bash
+    uv run scripts/export_static.py
+    ```
+    This will generate a `static_site/` directory containing the HTML files.
+
+2.  **Deploy**:
+    - Commit the `static_site` directory to your repository.
+    - Configure GitHub Pages to deploy from the `static_site` folder (or use the provided GitHub Action).
+
+*Note: The export script automatically bypasses authentication, so it works locally even if you have auth credentials set.*
 
 ## Usage
 

@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Visualizers - {{ world_name }}</title>
+    <link rel="icon" type="image/png" href="{{ base_url }}/static/favicon.png">
     <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
     <script type="text/javascript"
         src="https://unpkg.com/vis-timeline/standalone/umd/vis-timeline-graph2d.min.js"></script>
@@ -133,6 +134,13 @@
             const response = await fetch(`{{ base_url }}/api/world/${worldName}/graph_data`);
             const data = await response.json();
 
+            // Helper to wrap text
+            const wrapText = (str, maxLen = 60) => {
+                if (!str) return "";
+                if (str.length <= maxLen) return str;
+                return str.replace(new RegExp(`(?![^\\n]{1,${maxLen}}$)([^\\n]{1,${maxLen}})\\s`, 'g'), '$1\n');
+            };
+
             const nodes = new vis.DataSet(data.nodes.map(n => ({
                 id: n.id,
                 label: n.id,
@@ -143,7 +151,7 @@
             const edges = new vis.DataSet(data.links.map(l => ({
                 from: l.source,
                 to: l.target,
-                label: l.relation,
+                label: wrapText(l.relation),
                 arrows: 'to'
             })));
 
@@ -152,25 +160,41 @@
             const options = {
                 nodes: {
                     shape: 'dot',
-                    size: 15,
-                    font: { size: 14, color: '#000' },
+                    size: 16,
+                    font: {
+                        size: 18,
+                        color: '#000',
+                        background: '#fff', // Add background to labels for readability
+                        strokeWidth: 0      // Remove stroke if background is used
+                    },
                     borderWidth: 2
                 },
                 edges: {
-                    width: 1,
-                    color: { inherit: 'from' },
-                    smooth: { type: 'continuous' }
+                    width: 3,
+                    color: { inherit: 'from', opacity: 0.6 }, // Reduce visual clutter
+                    smooth: { type: 'continuous' },
+                    font: { align: 'middle', size: 12, background: 'white' } // Make edge labels readable
                 },
                 physics: {
                     stabilization: true,
                     barnesHut: {
-                        gravitationalConstant: -8000,
-                        springConstant: 0.04,
-                        springLength: 95
-                    }
+                        // Increase repulsion greatly to spread nodes out
+                        gravitationalConstant: -30000,
+                        centralGravity: 0.3,
+                        springLength: 300,
+                        springConstant: 0.05,
+                        damping: 0.09,
+                        avoidOverlap: 0.2
+                    },
+                    minVelocity: 0.75 // Stop calculating sooner to prevent jitter
                 },
                 layout: {
-                    improvedLayout: true
+                    improvedLayout: true,
+                    randomSeed: 42 // Consistent layout
+                },
+                interaction: {
+                    tooltipDelay: 200,
+                    hideEdgesOnDrag: false
                 }
             };
             new vis.Network(container, networkData, options);
