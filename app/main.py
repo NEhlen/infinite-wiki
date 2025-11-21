@@ -27,6 +27,21 @@ app = FastAPI(title=settings.APP_NAME)
 templates = Jinja2Templates(directory="app/templates")
 
 
+# Inject base_url into all templates
+@app.middleware("http")
+async def add_base_url_context(request: Request, call_next):
+    response = await call_next(request)
+    return response
+
+
+# We can't easily inject into TemplateResponse via middleware without monkeypatching or using a custom response class.
+# Instead, let's just add it to the environment globals so it's available everywhere.
+import os
+
+base_url = os.getenv("BASE_URL", "")
+templates.env.globals["base_url"] = base_url
+
+
 @app.on_event("startup")
 def on_startup():
     # Ensure default world exists if needed, or just ensure base dir

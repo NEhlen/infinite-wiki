@@ -7,7 +7,7 @@
     <h2>Welcome to {{ world_name }}</h2>
     <p class="description">{{ world_config.description }}</p>
     <div class="actions">
-        <a href="/world/{{ world_name }}/visualizers" class="btn">View Visualizers</a>
+        <a href="{{ base_url }}/world/{{ world_name }}/visualizers" class="btn">View Visualizers</a>
         <!-- Optional: Add a search or "Random Article" button later -->
     </div>
 </div>
@@ -16,7 +16,7 @@
 
 <div class="create-section">
     <h3>Create New Article</h3>
-    <form action="/world/{{ world_name }}/create_custom" method="post" class="create-form">
+    <form action="{{ base_url }}/world/{{ world_name }}/create_custom" method="post" class="create-form">
         <div class="form-group">
             <label for="title">Title:</label>
             <input type="text" id="title" name="title" required placeholder="e.g. The Great Library">
@@ -37,7 +37,7 @@
 <ul class="article-list">
     {% for article in articles %}
     <li>
-        <a href="/world/{{ world_name }}/wiki/{{ article.title }}">{{ article.title }}</a>
+        <a href="{{ base_url }}/world/{{ world_name }}/wiki/{{ article.title }}">{{ article.title }}</a>
         {% if article.summary %}
         <p class="article-summary">{{ article.summary[:150] }}...</p>
         {% endif %}
@@ -45,7 +45,7 @@
     {% endfor %}
 </ul>
 {% else %}
-<p>No articles found. <a href="/world/{{ world_name }}/wiki/Start">Create the first one!</a></p>
+<p>No articles found. <a href="{{ base_url }}/world/{{ world_name }}/wiki/Start">Create the first one!</a></p>
 {% endif %}
 
 <style>

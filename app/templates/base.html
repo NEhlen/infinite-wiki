@@ -79,13 +79,14 @@
 
 <body>
     <header>
-        <h1><a href="/world/{{ world_name }}" style="color: #fff;">Infinite Wiki: {{ world_name }}</a></h1>
+        <h1><a href="{{ base_url }}/world/{{ world_name }}" style="color: #fff;">Infinite Wiki: {{ world_name }}</a>
+        </h1>
         <div>
-            <a href="/world/{{ world_name }}/visualizers"
+            <a href="{{ base_url }}/world/{{ world_name }}/visualizers"
                 style="color: #ccc; font-size: 0.9em; margin-right: 10px;">Visualizers</a>
-            <a href="/api/world/{{ world_name }}/timeline_data"
+            <a href="{{ base_url }}/api/world/{{ world_name }}/timeline_data"
                 style="color: #ccc; font-size: 0.9em; margin-right: 10px;">Timeline Data</a>
-            <a href="/" style="color: #ccc; font-size: 0.8em;">(Switch World)</a>
+            <a href="{{ base_url }}/" style="color: #ccc; font-size: 0.8em;">(Switch World)</a>
         </div>
     </header>
     <div class="container">

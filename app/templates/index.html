@@ -38,12 +38,12 @@
 
 <body>
     <h1>Available Worlds</h1>
-    <a href="/world/create" class="btn">Create New World</a>
+    <a href="{{ base_url }}/world/create" class="btn">Create New World</a>
     <hr>
     {% for world in worlds %}
     <div class="world-card">
         <h3>{{ world }}</h3>
-        <a href="/world/{{ world }}">Enter World</a>
+        <a href="{{ base_url }}/world/{{ world }}">Enter World</a>
     </div>
     {% endfor %}
 </body>
