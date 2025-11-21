@@ -99,7 +99,7 @@
     <header>
         <h1>Visualizers: modern-urban-horror</h1>
         <div>
-            <a href="/infinite-wiki-antigravity/world/modern-urban-horror">Back to World</a>
+            <a href="/infinite-wiki/world/modern-urban-horror">Back to World</a>
         </div>
     </header>
 
@@ -130,7 +130,7 @@
 
         // --- Graph ---
         async function loadGraph() {
-            const response = await fetch(`/infinite-wiki-antigravity/api/world/${worldName}/graph_data`);
+            const response = await fetch(`/infinite-wiki/api/world/${worldName}/graph_data`);
             const data = await response.json();
 
             const nodes = new vis.DataSet(data.nodes.map(n => ({
@@ -178,7 +178,7 @@
 
         // --- Timeline ---
         async function loadTimeline() {
-            const response = await fetch(`/infinite-wiki-antigravity/api/world/${worldName}/timeline_data`);
+            const response = await fetch(`/infinite-wiki/api/world/${worldName}/timeline_data`);
             const data = await response.json();
 
             // Parse dates? Vis.js handles strings like "2024" well.
