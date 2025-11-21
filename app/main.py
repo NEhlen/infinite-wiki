@@ -23,7 +23,48 @@ from app.core.world import world_manager, WorldConfig
 
 settings = get_settings()
 
-app = FastAPI(title=settings.APP_NAME)
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
+from fastapi import status
+import secrets
+
+security = HTTPBasic(auto_error=False)
+
+
+def get_current_username(
+    credentials: Optional[HTTPBasicCredentials] = Depends(security),
+):
+    if not settings.AUTH_USERNAME or not settings.AUTH_PASSWORD:
+        return "anonymous"
+
+    if not credentials:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect email or password",
+            headers={"WWW-Authenticate": "Basic"},
+        )
+
+    current_username_bytes = credentials.username.encode("utf8")
+    correct_username_bytes = settings.AUTH_USERNAME.encode("utf8")
+    is_correct_username = secrets.compare_digest(
+        current_username_bytes, correct_username_bytes
+    )
+
+    current_password_bytes = credentials.password.encode("utf8")
+    correct_password_bytes = settings.AUTH_PASSWORD.encode("utf8")
+    is_correct_password = secrets.compare_digest(
+        current_password_bytes, correct_password_bytes
+    )
+
+    if not (is_correct_username and is_correct_password):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect email or password",
+            headers={"WWW-Authenticate": "Basic"},
+        )
+    return credentials.username
+
+
+app = FastAPI(title=settings.APP_NAME, dependencies=[Depends(get_current_username)])
 templates = Jinja2Templates(directory="app/templates")
 
 
@@ -331,7 +372,6 @@ async def get_graph_data(world_name: str):
     import networkx as nx
 
     graph = graph_service.get_graph(world_name)
-    print("Graph data:", nx.node_link_data(graph))
     return nx.node_link_data(graph)
 
 
@@ -348,7 +388,6 @@ async def get_timeline_data(world_name: str):
     graph = graph_service.get_graph(world_name)
     for node, data in graph.nodes(data=True):
         if data.get("type") == "Event" and "year" in data:
-            print(data)
             # Vis.js Timeline expects {id, content, start}
             # Try to parse year
             start_date = data["year"]
@@ -370,9 +409,6 @@ async def get_timeline_data(world_name: str):
                     "title": data.get("description", ""),
                 }
             )
-    print("Timeline data:", events)
-    return events
-
     return events
 
 

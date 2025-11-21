@@ -1,0 +1,26 @@
+[project]
+name = "infinite-wiki"
+version = "0.1.0"
+description = "An AI-powered infinite wiki generator."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "sqlmodel",
+    "chromadb",
+    "networkx",
+    "openai",
+    "jinja2",
+    "python-multipart",
+    "pydantic-settings",
+    "markdown",
+    "keyring",
+    "httpx",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "pytest",
+    "httpx",
+]

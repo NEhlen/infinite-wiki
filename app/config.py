@@ -1,6 +1,6 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import model_validator
-from typing import Literal
+from typing import Optional, Literal
 from functools import lru_cache
 import keyring
 
@@ -41,10 +41,13 @@ class Settings(BaseSettings):
         "You are an expert art director. Create detailed visual descriptions for sci-fi concept art."
     )
 
-    class Config:
-        env_file = ".env"
-        # This allows extra fields in .env without throwing errors
-        extra = "ignore"
+    # Auth
+    AUTH_USERNAME: Optional[str] = None
+    AUTH_PASSWORD: Optional[str] = None
+
+    model_config = SettingsConfigDict(
+        env_file=".env", extra="ignore"
+    )  # This allows extra fields in .env without throwing errors
 
     @model_validator(mode="after")
     def configure_provider_settings(self):

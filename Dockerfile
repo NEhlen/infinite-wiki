@@ -4,17 +4,20 @@ FROM python:3.12-slim
 # Set the working directory in the container
 WORKDIR /app
 
-# Install system dependencies (if any needed for networkx/chromadb/etc)
-# build-essential might be needed for some python packages
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy the requirements file into the container at /app
-COPY requirements.txt /app/
+# Install uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 
-# Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy project definition
+COPY pyproject.toml /app/
+
+# Install dependencies
+RUN uv pip install --system -r pyproject.toml
 
 # Copy the rest of the application code
 COPY . /app

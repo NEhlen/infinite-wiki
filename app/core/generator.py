@@ -101,6 +101,8 @@ class GeneratorService:
                 print(
                     f"Deduplication: '{title}' identified as duplicate of '{dedup_response.existing_title}'"
                 )
+                # remove potential markdown formatting from title
+                title = title.strip().strip("#")
 
                 # Add Alias to Graph
                 graph_service.add_entity(world_name, title, "Alias")
@@ -115,6 +117,10 @@ class GeneratorService:
                 existing_article = session.exec(statement).first()
                 if existing_article:
                     return existing_article
+            else:
+                print(
+                    f"Deduplication: '{title}' is a new, distinct entity. {dedup_response.existing_title}, {dedup_response.is_duplicate}"
+                )
 
         # 3. Stage 1: PLAN
         instructions_text = ""
