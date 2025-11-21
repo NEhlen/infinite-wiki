@@ -11,7 +11,7 @@
 
 {% if article.image_url %}
 <div class="image-container">
-    <img src="{{ article.image_url }}" alt="{{ article.image_caption }}">
+    <img src="{{ base_url }}{{ article.image_url }}" alt="{{ article.image_caption }}">
     <p class="caption">{{ article.image_caption }}</p>
 </div>
 {% elif generate_images %}
