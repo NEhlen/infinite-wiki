@@ -93,6 +93,44 @@
             width: 100%;
             height: 100%;
         }
+
+        /* Timeline Item Styles */
+        .vis-item.type-Article {
+            border-color: #007bff;
+            background-color: #dbeafe;
+        }
+
+        .vis-item.type-Event {
+            border-color: #f59e0b;
+            background-color: #fef3c7;
+        }
+
+        .vis-item.type-Alias {
+            border-color: #6b7280;
+            background-color: #f3f4f6;
+        }
+
+        .timeline-type-badge {
+            font-size: 0.7em;
+            padding: 2px 4px;
+            border-radius: 3px;
+            margin-right: 5px;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: white;
+        }
+
+        .type-Article .timeline-type-badge {
+            background-color: #007bff;
+        }
+
+        .type-Event .timeline-type-badge {
+            background-color: #f59e0b;
+        }
+
+        .type-Alias .timeline-type-badge {
+            background-color: #6b7280;
+        }
     </style>
 </head>
 
@@ -227,10 +265,11 @@
 
                 return {
                     id: item.id,
-                    content: `<b>${item.display_date}</b><br>${item.content}`,
+                    content: `<span class="timeline-type-badge">${item.type} </span><b>${item.display_date}</b><br>${item.name}`,
                     start: date,
                     title: item.description,
-                    type: 'point'
+                    type: 'point',
+                    className: `type-${item.type}`
                 };
             }));
 

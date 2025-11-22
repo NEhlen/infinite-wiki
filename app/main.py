@@ -386,10 +386,12 @@ async def get_timeline_data(world_name: str):
     return [
         {
             "id": e["name"],
+            "name": e["name"],
             "content": e["name"],
             "year_numeric": e["year_numeric"],
             "display_date": e["display_date"],
             "description": e["description"],
+            "type": e.get("type", "Unknown"),
         }
         for e in events
     ]

@@ -24,7 +24,9 @@ class TimelineService:
         events = []
         graph = graph_service.get_graph(world_name)
         for node, data in graph.nodes(data=True):
-            if data.get("type") == "Event":
+            # Check for year data (support both new numeric and old string formats)
+            # We no longer filter by type="Event" to allow Articles to be on timeline directly
+            if "year_numeric" in data or "year" in data:
                 # Handle both new and old formats
                 year_numeric = data.get("year_numeric")
                 display_date = data.get("display_date")
@@ -46,6 +48,7 @@ class TimelineService:
                             "year_numeric": year_numeric,
                             "display_date": display_date,
                             "description": data.get("description", ""),
+                            "type": data.get("type", "Unknown"),
                         }
                     )
 

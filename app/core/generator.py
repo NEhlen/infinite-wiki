@@ -36,9 +36,8 @@ class ArticlePlan(BaseModel):
         description="A detailed prompt for generating an image for this article."
     )
     image_caption: str = Field(description="A short caption for the generated image.")
-    image_caption: str = Field(description="A short caption for the generated image.")
     year_numeric: float = Field(
-        description="A numeric representation of the date for sorting (e.g., 2024, -500, 4523.1)."
+        description="A numeric representation of the date for sorting. You can use floating points to represent sub-year values like 2024.5 for june/july 2024 (e.g., 2024, -500, 4523.5)."
     )
     display_date: str = Field(
         description="The display string for the date (e.g., '2024 AD', '500 BC', 'Stardate 4523.1')."
@@ -118,7 +117,10 @@ class GeneratorService:
         if target_title:
             print(f"Heuristic Match: '{title}' -> '{target_title}'")
             # Add Alias to Graph (Permanent Save)
-            graph_service.add_entity(world_name, title, "Alias")
+            # Force type update in case it exists as a generic node
+            graph_service.add_entity(
+                world_name, title, "Alias", attributes={"type": "Alias"}
+            )
             graph_service.add_relationship(
                 world_name, title, target_title, "is_alias_of"
             )
@@ -162,7 +164,10 @@ class GeneratorService:
                 )
 
                 # Add Alias to Graph
-                graph_service.add_entity(world_name, title, "Alias")
+                # Force type update
+                graph_service.add_entity(
+                    world_name, title, "Alias", attributes={"type": "Alias"}
+                )
                 graph_service.add_relationship(
                     world_name, title, dedup_response.existing_title, "is_alias_of"
                 )
@@ -315,22 +320,24 @@ class GeneratorService:
                 world_name, title, entity.name, entity.relation
             )
 
-        # Update Timeline
+        # Update Timeline (Store on Article Node)
         if plan.year_numeric is not None and plan.timeline_event:
             print(
-                "Adding timeline event:",
+                "Adding timeline data to Article:",
                 plan.timeline_event,
                 "for year:",
                 plan.display_date,
             )
-            # Use a unique name for the event node to avoid overwriting the Article node
-            event_name = f"Event: {title}"
-            timeline_service.add_event(
+            # Update the existing Article node with timeline data
+            graph_service.add_entity(
                 world_name,
-                event_name,
-                plan.year_numeric,
-                plan.display_date,
-                plan.timeline_event,
+                title,
+                "Article",
+                attributes={
+                    "year_numeric": plan.year_numeric,
+                    "display_date": plan.display_date,
+                    "description": plan.timeline_event,
+                },
             )
 
         return article
