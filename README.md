@@ -88,7 +88,19 @@ From experience, you should expect to pay around $1-2 per 10 articles generated 
 - [uv](https://github.com/astral-sh/uv) (Fast Python package installer and resolver)
 - OpenAI API Key (or compatible provider like Grok, etc.)
 
-## Installation (Local)
+## Quick Start (Non-Technical Users)
+
+If you don't want to use the command line, you can use the "One-Click" scripts.
+
+1.  **Download the project** and extract it.
+2.  **Create a `.env` file** in the folder (see Configuration below).
+3.  **Run the script**:
+    - **Windows**: Double-click `run_app.bat`.
+    - **Mac/Linux**: Open a terminal, go to the folder, and run `./run_app.sh`.
+
+This will automatically install everything you need (including Python) and start the app.
+
+## Installation (Local - Advanced)
 
 1.  **Clone the repository**:
     ```bash
@@ -140,6 +152,27 @@ The application is configured via environment variables or a `.env` file. See `.
 ### Authentication Logic
 - **Anonymous Access**: If `AUTH_USERNAME` and `AUTH_PASSWORD` are **not set** (default), the application allows anonymous access. This is ideal for local development.
 - **Secured Access**: If both variables are set, the application enforces HTTP Basic Authentication on all routes. This is recommended for public deployments.
+
+## Data Persistence
+
+By default, the application stores world data in a `worlds/` directory.
+
+### Docker Persistence
+To keep your worlds safe when using Docker, you must mount a volume to `/app/worlds`.
+
+```bash
+docker run -d -p 8000:8000 \
+  --env-file .env \
+  -v $(pwd)/worlds:/app/worlds \
+  infinite-wiki
+```
+
+### Local Persistence (Custom Location)
+If you want to store your worlds in a different location (e.g., to avoid cluttering the project folder or to use a shared drive), you can set the `WORLD_DATA_DIR` environment variable in your `.env` file:
+
+```env
+WORLD_DATA_DIR=/path/to/my/worlds
+```
 
 ## Installation (Docker)
 

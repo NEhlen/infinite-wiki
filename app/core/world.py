@@ -16,8 +16,8 @@ class WorldConfig(BaseModel):
 
 
 class WorldManager:
-    def __init__(self, base_path: str = "worlds"):
-        self.base_path = base_path
+    def __init__(self, base_path: str = None):
+        self.base_path = base_path or os.getenv("WORLD_DATA_DIR", "worlds")
         os.makedirs(self.base_path, exist_ok=True)
 
     def get_world_path(self, world_name: str) -> str:

@@ -20,17 +20,25 @@ COPY pyproject.toml /app/
 RUN uv pip install --system -r pyproject.toml
 
 # Copy the the app directory into app and exclude the test files, static site, scripts and assets
+# Copy the the app directory into app and exclude the test files, static site, scripts and assets
 COPY ./app /app/app
 COPY ./worlds /app/worlds
+COPY ./scripts/docker_entrypoint.sh /app/scripts/docker_entrypoint.sh
+
+# Make entrypoint executable
+RUN chmod +x /app/scripts/docker_entrypoint.sh
 
 # Expose port 8000
 EXPOSE 8000
 
-# Define environment variable for persistence
+# Define environment variable for persistence (default, enforced by entrypoint)
 ENV WORLD_DATA_DIR=/app/worlds
 
 # Create a volume for persistent data
 VOLUME /app/worlds
+
+# Set entrypoint
+ENTRYPOINT ["/app/scripts/docker_entrypoint.sh"]
 
 # Run uvicorn when the container launches
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
