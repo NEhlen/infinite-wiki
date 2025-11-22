@@ -129,6 +129,12 @@ class GeneratorService:
             existing_article = session.exec(statement).first()
             if existing_article:
                 return existing_article
+            else:
+                # This should never happen - we identified a duplicate but can't find it!
+                raise ValueError(
+                    f"Deduplication error: Identified '{title}' as duplicate of '{target_title}' "
+                    f"but '{target_title}' not found in database. This indicates a data inconsistency."
+                )
 
         # 5. Gather Context
         rag_context = rag_service.query_context(world_name, title)
@@ -179,6 +185,12 @@ class GeneratorService:
                 existing_article = session.exec(statement).first()
                 if existing_article:
                     return existing_article
+                else:
+                    # This should never happen - LLM identified duplicate but we can't find it!
+                    raise ValueError(
+                        f"LLM Deduplication error: Identified '{title}' as duplicate of '{dedup_response.existing_title}' "
+                        f"but '{dedup_response.existing_title}' not found in database. This indicates a data inconsistency."
+                    )
             else:
                 print(f"Deduplication: '{title}' is a new, distinct entity.")
 
