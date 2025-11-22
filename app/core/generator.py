@@ -36,8 +36,12 @@ class ArticlePlan(BaseModel):
         description="A detailed prompt for generating an image for this article."
     )
     image_caption: str = Field(description="A short caption for the generated image.")
-    year: int = Field(
-        description="The year associated with this article, choose the most important date in the article."
+    image_caption: str = Field(description="A short caption for the generated image.")
+    year_numeric: float = Field(
+        description="A numeric representation of the date for sorting (e.g., 2024, -500, 4523.1)."
+    )
+    display_date: str = Field(
+        description="The display string for the date (e.g., '2024 AD', '500 BC', 'Stardate 4523.1')."
     )
     timeline_event: str = Field(
         description="Short description of the event for the timeline for the chosen year."
@@ -63,13 +67,68 @@ class GeneratorService:
         skip_validation: bool = False,
         user_instructions: Optional[str] = None,
     ) -> Article:
-        # 1. Check if article already exists
+        # 1. Clean Title (Markdown & Whitespace)
+        title = title.strip().lstrip("#").strip()
+
+        # 2. Check Graph for Aliases (Permanent Redirect)
+        graph = graph_service.get_graph(world_name)
+        if graph.has_node(title):
+            # Check if it's an alias node
+            node_data = graph.nodes[title]
+            if node_data.get("type") == "Alias":
+                # Find the target
+                for neighbor in graph.neighbors(title):
+                    edge_data = graph.get_edge_data(title, neighbor)
+                    if edge_data.get("relation") == "is_alias_of":
+                        print(f"Graph Alias Found: '{title}' -> '{neighbor}'")
+                        statement = select(Article).where(Article.title == neighbor)
+                        existing_article = session.exec(statement).first()
+                        if existing_article:
+                            return existing_article
+
+        # 3. Check if article already exists (Exact Match)
         statement = select(Article).where(Article.title == title)
         existing_article = session.exec(statement).first()
         if existing_article:
             return existing_article
 
-        # 2. Gather Context
+        # 4. Heuristic Check (Case-Insensitive & "The" Variations)
+        # Fetch all titles to do python-side comparison (safer across DBs for now)
+        # For a huge wiki, this should be a DB query with ILIKE
+        all_titles = session.exec(select(Article.title)).all()
+
+        target_title = None
+        title_lower = title.lower()
+        title_no_the = title_lower.removeprefix("the ").strip()
+
+        for existing_title in all_titles:
+            existing_lower = existing_title.lower()
+            existing_no_the = existing_lower.removeprefix("the ").strip()
+
+            # Check 1: Case Insensitive
+            if title_lower == existing_lower:
+                target_title = existing_title
+                break
+
+            # Check 2: "The" Variation
+            if title_no_the == existing_no_the:
+                target_title = existing_title
+                break
+
+        if target_title:
+            print(f"Heuristic Match: '{title}' -> '{target_title}'")
+            # Add Alias to Graph (Permanent Save)
+            graph_service.add_entity(world_name, title, "Alias")
+            graph_service.add_relationship(
+                world_name, title, target_title, "is_alias_of"
+            )
+
+            statement = select(Article).where(Article.title == target_title)
+            existing_article = session.exec(statement).first()
+            if existing_article:
+                return existing_article
+
+        # 5. Gather Context
         rag_context = rag_service.query_context(world_name, title)
         graph_context = graph_service.get_context_subgraph(world_name, [title])
 
@@ -78,7 +137,7 @@ class GeneratorService:
 
         world_config = world_manager.get_config(world_name)
 
-        # 2.5 Deduplication Check
+        # 6. LLM Deduplication Check (Final Guardrail)
         if rag_context:
             dedup_prompt = f"""
             Check if the requested article title "{title}" refers to the same entity as any of the existing articles below.
@@ -99,10 +158,8 @@ class GeneratorService:
 
             if dedup_response.is_duplicate and dedup_response.existing_title:
                 print(
-                    f"Deduplication: '{title}' identified as duplicate of '{dedup_response.existing_title}'"
+                    f"LLM Deduplication: '{title}' identified as duplicate of '{dedup_response.existing_title}'"
                 )
-                # remove potential markdown formatting from title
-                title = title.strip().strip("#")
 
                 # Add Alias to Graph
                 graph_service.add_entity(world_name, title, "Alias")
@@ -118,9 +175,7 @@ class GeneratorService:
                 if existing_article:
                     return existing_article
             else:
-                print(
-                    f"Deduplication: '{title}' is a new, distinct entity. {dedup_response.existing_title}, {dedup_response.is_duplicate}"
-                )
+                print(f"Deduplication: '{title}' is a new, distinct entity.")
 
         # 3. Stage 1: PLAN
         instructions_text = ""
@@ -226,7 +281,7 @@ class GeneratorService:
             content=content,
             image_url=None,  # Will be updated in background if enabled
             image_caption=plan.image_caption,
-            year=plan.year,
+            year=plan.display_date,
             related_entities_json=json.dumps([e.model_dump() for e in plan.entities]),
         )
         session.add(article)
@@ -261,10 +316,21 @@ class GeneratorService:
             )
 
         # Update Timeline
-        if plan.year and plan.timeline_event:
-            print("Adding timeline event:", plan.timeline_event, "for year:", plan.year)
+        if plan.year_numeric is not None and plan.timeline_event:
+            print(
+                "Adding timeline event:",
+                plan.timeline_event,
+                "for year:",
+                plan.display_date,
+            )
+            # Use a unique name for the event node to avoid overwriting the Article node
+            event_name = f"Event: {title}"
             timeline_service.add_event(
-                world_name, title, plan.year, plan.timeline_event
+                world_name,
+                event_name,
+                plan.year_numeric,
+                plan.display_date,
+                plan.timeline_event,
             )
 
         return article

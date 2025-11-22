@@ -49,6 +49,14 @@ class Settings(BaseSettings):
         env_file=".env", extra="ignore"
     )  # This allows extra fields in .env without throwing errors
 
+    @model_validator(mode="before")
+    @classmethod
+    def strip_quotes(cls, values):
+        for key, value in values.items():
+            if isinstance(value, str):
+                values[key] = value.strip('"').strip("'")
+        return values
+
     @model_validator(mode="after")
     def configure_provider_settings(self):
         """

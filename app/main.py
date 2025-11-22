@@ -382,37 +382,17 @@ async def get_graph_data(world_name: str):
 async def get_timeline_data(world_name: str):
     from app.core.timeline import timeline_service
 
-    # Get all events. For now, we can just get a large window or implement a "get all" method.
-    # Let's use the existing get_context_events but with a hack or update it.
-    # Actually, let's just iterate the graph here for simplicity as we did in timeline service.
-    from app.core.graph import graph_service
-
-    events = []
-    graph = graph_service.get_graph(world_name)
-    for node, data in graph.nodes(data=True):
-        if data.get("type") == "Event" and "year" in data:
-            # Vis.js Timeline expects {id, content, start}
-            # Try to parse year
-            start_date = data["year"]
-            try:
-                # If it's just a year number, convert to YYYY-01-01
-                year_int = int(str(start_date).strip())
-                start_date = f"{year_int:04d}-01-01"
-            except ValueError:
-                # If not a number, we might need a fallback or just let Vis.js try (it will likely fail/show current date)
-                # For now, let's skip non-numeric years or put them at a default far future?
-                # Or better: don't add them to the timeline if we can't parse the year.
-                continue
-
-            events.append(
-                {
-                    "id": node,
-                    "content": node,
-                    "start": start_date,
-                    "title": data.get("description", ""),
-                }
-            )
-    return events
+    events = timeline_service.get_context_events(world_name)
+    return [
+        {
+            "id": e["name"],
+            "content": e["name"],
+            "year_numeric": e["year_numeric"],
+            "display_date": e["display_date"],
+            "description": e["description"],
+        }
+        for e in events
+    ]
 
 
 @app.get("/api/world/{world_name}/timeline/year/{year}")
