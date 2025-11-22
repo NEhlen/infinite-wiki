@@ -19,8 +19,9 @@ COPY pyproject.toml /app/
 # Install dependencies
 RUN uv pip install --system -r pyproject.toml
 
-# Copy the rest of the application code
-COPY . /app
+# Copy the the app directory into app and exclude the test files, static site, scripts and assets
+COPY ./app /app/app
+COPY ./worlds /app/worlds
 
 # Expose port 8000
 EXPOSE 8000

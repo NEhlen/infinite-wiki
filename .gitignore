@@ -217,13 +217,8 @@ __marimo__/
 
 .venv
 .env
-chroma_db
-wiki_graph.json
-database.db
 worlds/*
 !worlds/.gitkeep
 !worlds/Eternal-Library-Realms
 !worlds/modern-urban-horror
 !worlds/ruhr-neon-depths
-# static_site/*
-# !static_site/.gitkeep
