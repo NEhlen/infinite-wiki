@@ -19,6 +19,10 @@ COPY pyproject.toml /app/
 # Install dependencies
 RUN uv pip install --system -r pyproject.toml
 
+# Pre-download ChromaDB models
+COPY ./scripts/download_models.py /app/scripts/download_models.py
+RUN python /app/scripts/download_models.py
+
 # Copy the the app directory into app and exclude the test files, static site, scripts and assets
 # Copy the the app directory into app and exclude the test files, static site, scripts and assets
 COPY ./app /app/app

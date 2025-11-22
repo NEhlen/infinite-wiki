@@ -36,11 +36,11 @@ class ArticlePlan(BaseModel):
         description="A detailed prompt for generating an image for this article."
     )
     image_caption: str = Field(description="A short caption for the generated image.")
-    year: Optional[int] = Field(
-        description="The year or era associated with this article, if applicable."
+    year: int = Field(
+        description="The year associated with this article, choose the most important date in the article."
     )
-    timeline_event: Optional[str] = Field(
-        description="Short description of the event for the timeline, if this article describes an event or there is a clear 'major event' in the article."
+    timeline_event: str = Field(
+        description="Short description of the event for the timeline for the chosen year."
     )
 
 
