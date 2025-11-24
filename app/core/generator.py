@@ -458,7 +458,9 @@ class GeneratorService:
         """
 
         class TimelineEvent(BaseModel):
-            year_numeric: float = Field(description="Numeric year for sorting.")
+            year_numeric: float = Field(
+                description="Numeric year for sorting, use floating points for events during the year (e.g. 1929.5 for the middle of 1929)."
+            )
             display_date: str = Field(description="Display string for the date.")
             description: str = Field(description="Brief description of the event.")
 

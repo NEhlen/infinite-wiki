@@ -67,6 +67,22 @@ Explore your world with interactive Knowledge Graph and Timeline views.
 ![Selected Text Generation](assets/selected_text_generation.png)
 </details>
 
+- **Integrate New Information**: Update existing articles with new context from the knowledge base.
+  - Click the "Integrate New Info" button on any article to automatically pull in relevant information from newer articles and graph connections.
+  - The AI will rewrite the article to seamlessly incorporate new facts and relationships.
+  - A summary of changes is displayed after integration.
+
+- **Timeline Event Extraction**: Extract historical events from article text and add them to the timeline.
+  - Click the "Extract Events" button to analyze an article for dates and significant events.
+  - Extracted events are added to the graph and appear in the timeline visualization.
+  - Events are linked to their source article via a `mentioned_in` relationship.
+  - this is not run automatically on article (re-)generation to avoid generation costs, you need to trigger it manually.
+
+- **Interactive Red Links**: Click on non-existent article links to create them with custom instructions.
+  - Links to events/people/locations/entities that exist in the graph but do not yet have an article in the database appear in **red**.
+  - Clicking a red link opens a prompt where you can provide optional instructions (e.g., "Make this character a villain").
+  - The article is generated immediately with your guidance applied.
+  - if you don't provide instructions, the article will be generated with default instructions.
 
 - **Deduplication**: Automatically detects and redirects duplicate entity requests.
 
