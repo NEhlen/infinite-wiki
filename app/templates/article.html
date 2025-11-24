@@ -5,8 +5,13 @@
 {% block content %}
 <div style="display: flex; justify-content: space-between; align-items: center;">
     <h2>{{ article.title }}</h2>
-    <a href="{{ base_url }}/world/{{ world_name }}/wiki/{{ article.title }}/edit" class="button"
-        style="font-size: 0.8em; padding: 5px 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px;">Edit</a>
+    <div style="display: flex; gap: 10px;">
+        <button onclick="integrateInfo()" class="button"
+            style="font-size: 0.8em; padding: 5px 10px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">Integrate
+            New Info</button>
+        <a href="{{ base_url }}/world/{{ world_name }}/wiki/{{ article.title }}/edit" class="button"
+            style="font-size: 0.8em; padding: 5px 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px;">Edit</a>
+    </div>
 </div>
 {% if article.year %}
 <p style="margin-top: -10px; color: #666; font-style: italic;">{{ article.year }}</p>
@@ -283,5 +288,30 @@
             document.head.appendChild(style);
         }
     });
+
+    async function integrateInfo() {
+        if (!confirm("This will rewrite the article to include new information from the knowledge base. Continue?")) return;
+
+        const btn = document.querySelector('button[onclick="integrateInfo()"]');
+        const originalText = btn.innerText;
+        btn.innerText = "Integrating...";
+        btn.disabled = true;
+
+        try {
+            const response = await fetch('{{ base_url }}/world/{{ world_name }}/wiki/{{ article.title }}/integrate', {
+                method: 'POST'
+            });
+
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                window.location.reload();
+            }
+        } catch (err) {
+            alert("Integration failed: " + err);
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }
+    }
 </script>
 {% endblock %}

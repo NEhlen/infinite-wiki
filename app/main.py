@@ -223,6 +223,19 @@ async def create_custom_article(
         session.close()
 
 
+@app.post("/world/{world_name}/wiki/{title}/integrate")
+async def integrate_article(world_name: str, title: str):
+    session_gen = get_session(world_name)
+    session = next(session_gen)
+    try:
+        await generator_service.integrate_information(world_name, title, session)
+        return RedirectResponse(
+            url=f"/world/{world_name}/wiki/{title}", status_code=303
+        )
+    finally:
+        session.close()
+
+
 @app.get("/world/{world_name}/wiki/{title}", response_class=HTMLResponse)
 async def get_wiki_page(
     request: Request,

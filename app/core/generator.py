@@ -354,6 +354,78 @@ class GeneratorService:
 
         return article
 
+    async def integrate_information(
+        self, world_name: str, title: str, session: Session
+    ) -> Article:
+        # 1. Fetch Existing Article
+        statement = select(Article).where(Article.title == title)
+        article = session.exec(statement).first()
+        if not article:
+            raise ValueError(f"Article '{title}' not found.")
+
+        # 2. Gather Context (RAG + Graph)
+        rag_context = rag_service.query_context(world_name, title)
+        graph_neighbors = graph_service.get_neighbors(world_name, title)
+
+        # Get World Config
+        from app.core.world import world_manager
+
+        world_config = world_manager.get_config(world_name)
+
+        # 3. Prompt LLM for Update
+        prompt = f"""
+        You are an expert editor for a wiki about "{world_config.description}".
+        
+        Your task is to UPDATE the article "{title}" by integrating new information from the context provided below.
+        
+        Current Article Content:
+        {article.content}
+        
+        New Context (RAG):
+        {rag_context}
+        
+        Related Entities (Graph Neighbors):
+        {graph_neighbors}
+        
+        Instructions:
+        1. Read the current content and the new context carefully.
+        2. Identify any new facts, connections, or details in the context that are relevant to "{title}" but missing from the current content.
+        3. Rewrite the article content to seamlessly integrate this new information.
+        4. Maintain the original tone and style.
+        5. Do NOT remove existing valid information unless it contradicts the new context (in which case, update it).
+        6. Return the fully rewritten article content.
+        """
+
+        # We can reuse the ArticlePlan schema or just ask for content.
+        # For simplicity and robustness, let's ask for a JSON with content and summary.
+        class UpdatePlan(BaseModel):
+            updated_content: str = Field(
+                description="The fully rewritten article content."
+            )
+            updated_summary: str = Field(description="Updated summary of the article.")
+            delta_description: str = Field(
+                description="A description of the changes made to the article."
+            )
+
+        response = await llm_service.generate_json(
+            prompt,
+            schema=UpdatePlan,
+            model=world_config.llm_model,
+            system_prompt="You are a helpful wiki editor.",
+        )
+
+        # 4. Update Article
+        article.content = response.updated_content
+        article.summary = response.updated_summary
+        session.add(article)
+        session.commit()
+        session.refresh(article)
+
+        # 5. Update RAG (Re-index)
+        rag_service.add_article(world_name, article.title, article.content, article.id)
+
+        return article
+
     async def generate_and_save_image(
         self, world_name: str, article_id: int, image_prompt: str, world_config
     ):
