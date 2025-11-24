@@ -3,7 +3,7 @@ from app.core.graph import graph_service
 
 
 class LinkerService:
-    def autolink_content(self, world_name: str, content: str) -> str:
+    def autolink_content(self, world_name: str, content: str, session) -> str:
         """
         Scans the content and replaces occurrences of known entity names with Markdown links.
         """
@@ -47,14 +47,16 @@ class LinkerService:
             if i % 2 == 0:  # It's text
                 # Apply linking
                 processed_parts.append(
-                    self._link_text_chunk(part, entities, world_name)
+                    self._link_text_chunk(part, entities, world_name, session)
                 )
             else:  # It's a link, keep as is
                 processed_parts.append(part)
 
         return "".join(processed_parts)
 
-    def _link_text_chunk(self, text: str, entities: list, world_name: str) -> str:
+    def _link_text_chunk(
+        self, text: str, entities: list, world_name: str, session
+    ) -> str:
         # We need to be careful not to double link.
         # And we want to match whole words?
         # Let's use regex with word boundaries \b
@@ -83,12 +85,32 @@ class LinkerService:
         pattern = re.compile(pattern_str)
 
         import urllib.parse
+        from app.models.article import Article
+        from sqlmodel import select
+
+        # Cache existence checks for this chunk to avoid DB spam
+        existence_cache = {}
 
         def replace_func(match):
             entity_name = match.group(1)
+
+            if entity_name not in existence_cache:
+                statement = select(Article).where(Article.title == entity_name)
+                exists = session.exec(statement).first() is not None
+                existence_cache[entity_name] = exists
+                print(f"Linker Debug: '{entity_name}' exists? {exists}")
+
             encoded_name = urllib.parse.quote(entity_name)
-            # Check if it's the current article title? (We don't have it here, but self-linking is fine usually)
-            return f"[{entity_name}](/world/{world_name}/wiki/{encoded_name})"
+
+            if existence_cache[entity_name]:
+                return f"[{entity_name}](/world/{world_name}/wiki/{encoded_name})"
+            else:
+                print(f"Linker Debug: Creating RED LINK for '{entity_name}'")
+                # Red link with class
+                # We use HTML anchor because markdown doesn't support classes easily,
+                # but our renderer might support raw HTML.
+                # Assuming the markdown renderer allows HTML (common default).
+                return f'<a href="/world/{world_name}/wiki/{encoded_name}" class="new-article" data-title="{entity_name}">{entity_name}</a>'
 
         return pattern.sub(replace_func, text)
 

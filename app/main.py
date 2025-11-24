@@ -290,10 +290,12 @@ async def get_wiki_page(
         # Auto-link content
         from app.core.linker import linker_service
 
-        linked_content = linker_service.autolink_content(world_name, article.content)
+        linked_content = linker_service.autolink_content(
+            world_name, article.content, session
+        )
 
-        # Convert Markdown to HTML
-        html_content = markdown.markdown(linked_content)
+        # Convert Markdown to HTML (allow raw HTML for red links)
+        html_content = markdown.markdown(linked_content, extensions=["extra"])
 
         related = json.loads(article.related_entities_json)
         return templates.TemplateResponse(
