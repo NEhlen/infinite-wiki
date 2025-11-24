@@ -1,6 +1,6 @@
 import json
 from sqlmodel import Session, select
-from typing import List, Optional
+from typing import List, Optional, Dict
 from pydantic import BaseModel, Field
 from fastapi import BackgroundTasks
 
@@ -425,6 +425,79 @@ class GeneratorService:
         rag_service.add_article(world_name, article.title, article.content, article.id)
 
         return article, response.delta_description
+
+    async def extract_timeline_events(
+        self, world_name: str, title: str, session: Session
+    ) -> List[Dict]:
+        # 1. Fetch Article
+        statement = select(Article).where(Article.title == title)
+        article = session.exec(statement).first()
+        if not article:
+            raise ValueError(f"Article '{title}' not found.")
+
+        # Get World Config
+        from app.core.world import world_manager
+
+        world_config = world_manager.get_config(world_name)
+
+        # 2. Prompt LLM for Extraction
+        prompt = f"""
+        You are a historian for the world of "{world_config.description}".
+        
+        Your task is to extract significant historical events mentioned in the article "{title}".
+        
+        Article Content:
+        {article.content}
+        
+        Instructions:
+        1. Identify specific events with dates mentioned in the text.
+        2. Extract the date (numeric and display string) and a brief description for each.
+        3. Do NOT include the main subject's creation/birth if it's already the main timeline entry for the article.
+        4. Focus on events that should appear on the global timeline.
+        5. Return a list of events.
+        """
+
+        class TimelineEvent(BaseModel):
+            year_numeric: float = Field(description="Numeric year for sorting.")
+            display_date: str = Field(description="Display string for the date.")
+            description: str = Field(description="Brief description of the event.")
+
+        class EventList(BaseModel):
+            events: List[TimelineEvent]
+
+        response = await llm_service.generate_json(
+            prompt,
+            schema=EventList,
+            model=world_config.llm_model,
+            system_prompt="You are a helpful historian.",
+        )
+
+        # 3. Add to Graph
+        added_events = []
+        for event in response.events:
+            # Create unique event name
+            event_name = f"Event: {event.description[:30]}... ({title})"
+
+            # Add Event Node
+            graph_service.add_entity(
+                world_name,
+                event_name,
+                "Event",
+                attributes={
+                    "year_numeric": event.year_numeric,
+                    "display_date": event.display_date,
+                    "description": event.description,
+                },
+            )
+
+            # Link to Article
+            graph_service.add_relationship(
+                world_name, event_name, title, "mentioned_in"
+            )
+
+            added_events.append(event.dict())
+
+        return added_events
 
     async def generate_and_save_image(
         self, world_name: str, article_id: int, image_prompt: str, world_config

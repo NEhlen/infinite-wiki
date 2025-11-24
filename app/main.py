@@ -238,6 +238,23 @@ async def integrate_article(world_name: str, title: str):
         session.close()
 
 
+@app.post("/world/{world_name}/wiki/{title}/extract_events")
+async def extract_events(world_name: str, title: str):
+    session_gen = get_session(world_name)
+    session = next(session_gen)
+    try:
+        events = await generator_service.extract_timeline_events(
+            world_name, title, session
+        )
+        count = len(events)
+        return RedirectResponse(
+            url=f"/world/{world_name}/wiki/{title}?delta=Extracted {count} timeline events.",
+            status_code=303,
+        )
+    finally:
+        session.close()
+
+
 @app.get("/world/{world_name}/wiki/{title}", response_class=HTMLResponse)
 async def get_wiki_page(
     request: Request,
