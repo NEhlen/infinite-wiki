@@ -424,7 +424,7 @@ class GeneratorService:
         # 5. Update RAG (Re-index)
         rag_service.add_article(world_name, article.title, article.content, article.id)
 
-        return article
+        return article, response.delta_description
 
     async def generate_and_save_image(
         self, world_name: str, article_id: int, image_prompt: str, world_config

@@ -228,9 +228,11 @@ async def integrate_article(world_name: str, title: str):
     session_gen = get_session(world_name)
     session = next(session_gen)
     try:
-        await generator_service.integrate_information(world_name, title, session)
+        article, delta = await generator_service.integrate_information(
+            world_name, title, session
+        )
         return RedirectResponse(
-            url=f"/world/{world_name}/wiki/{title}", status_code=303
+            url=f"/world/{world_name}/wiki/{title}?delta={delta}", status_code=303
         )
     finally:
         session.close()
