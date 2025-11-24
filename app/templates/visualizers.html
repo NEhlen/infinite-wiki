@@ -257,11 +257,18 @@
                 if (year < minYear) minYear = year;
                 if (year > maxYear) maxYear = year;
 
-                // Map numeric year to a Date object (Jan 1st)
-                // Vis.js handles years like -500 correctly
-                // Note: Date constructor treats 0-99 as 1900-1999, so we must setFullYear for those
-                const date = new Date(0, 0, 1);
-                date.setFullYear(year);
+                // Map numeric year to a Date object with fractional year support
+                // e.g., 2027.21 = 21% through 2027
+                const intYear = Math.floor(year);
+                const fraction = year - intYear;
+
+                // Calculate milliseconds in the year
+                const yearStart = new Date(intYear, 0, 1);
+                const yearEnd = new Date(intYear + 1, 0, 1);
+                const yearDuration = yearEnd - yearStart;
+
+                // Add fractional offset
+                const date = new Date(yearStart.getTime() + (fraction * yearDuration));
 
                 return {
                     id: item.id,
