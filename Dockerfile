@@ -14,16 +14,18 @@ RUN apt-get update && apt-get install -y \
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 
 # Copy project definition
-COPY pyproject.toml /app/
+COPY pyproject.toml uv.lock /app/
 
 # Install dependencies
-RUN uv pip install --system -r pyproject.toml
+RUN uv sync --frozen --no-install-project --no-editable
+
+# Place executables in the environment at the front of the path
+ENV PATH="/app/.venv/bin:$PATH"
 
 # Pre-download ChromaDB models
 COPY ./scripts/download_models.py /app/scripts/download_models.py
 RUN python /app/scripts/download_models.py
 
-# Copy the the app directory into app and exclude the test files, static site, scripts and assets
 # Copy the the app directory into app and exclude the test files, static site, scripts and assets
 COPY ./app /app/app
 COPY ./worlds /app/worlds
