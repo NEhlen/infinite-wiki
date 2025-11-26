@@ -4,11 +4,41 @@
 
 Infinite Wiki is an AI-powered world-building tool that automatically generates consistent wiki articles, timelines, and knowledge graphs for your custom worlds.
 
+
+## Table of Contents
+- [Live Demo](#live-demo)
+- [Video Demo](#video-demo)
+- [Features](#features)
+  - [1. Multi-World Management](#1-multi-world-management)
+  - [2. Magic Config & World Dashboard](#2-magic-config--world-dashboard)
+  - [3. Auto-Generated Articles](#3-auto-generated-articles)
+  - [4. Interactive Visualizers](#4-interactive-visualizers)
+  - [5. Human-AI Collaboration](#5-human-ai-collaboration)
+- [API Providers & Costs](#api-providers--costs)
+- [Prerequisites](#prerequisites)
+- [Quick Start (Non-Technical Users)](#quick-start-non-technical-users)
+- [Installation (Local - Advanced)](#installation-local---advanced)
+- [Installation (Docker)](#installation-docker)
+- [Configuration](#configuration)
+  - [Common Options](#common-options)
+  - [Authentication Logic](#authentication-logic)
+- [Data Persistence](#data-persistence)
+  - [Docker Persistence](#docker-persistence)
+  - [Local Persistence (Custom Location)](#local-persistence-custom-location)
+- [Static Site Export](#static-site-export)
+- [Usage](#usage)
+- [Current Limitations](#current-limitations)
+- [License](#license)
+
+
 ## Live Demo
 Check out the static, read-only demo of generated worlds here:
 [**Infinite Wiki Demo**](https://nehlen.github.io/infinite-wiki/)
 
 *Note: The demo is a static export. Article generation, editing, and dynamic features are disabled as they require a running backend and API key.*
+
+## Video Demo
+[![Watch the video](https://img.youtube.com/vi/wBJERoJg_-0/maxresdefault.jpg)](https://www.youtube.com/watch?v=wBJERoJg_-0)
 
 ## Features
 
@@ -109,7 +139,7 @@ From experience, you should expect to pay around $1-2 per 10 articles generated 
 If you don't want to use the command line, you can use the "One-Click" scripts.
 
 1.  **Download the project** and extract it.
-2.  **Create a `.env` file** in the folder (see Configuration below).
+2.  **Create a `.env` file** in the folder (see Configuration below, check out .env.example for an example).
 3.  **Run the script**:
     - **Windows**: Double-click `run_app.bat`.
     - **Mac/Linux**: Open a terminal, go to the folder, and run `./run_app.sh`.
@@ -150,46 +180,6 @@ This will automatically install everything you need (including Python) and start
 5.  **Access the Wiki**:
     Open your browser and navigate to `http://127.0.0.1:8000`.
 
-## Configuration
-
-The application is configured via environment variables or a `.env` file. See `.env.example` for a full list of options.
-
-### Common Options
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `OPENAI_API_KEY` | Required API Key for the LLM provider. | None |
-| `OPENAI_BASE_URL` | Custom API Endpoint (e.g., for Grok, LocalAI). | Provider Default |
-| `AI_PROVIDER` | `openai`, `xai`, `gemini`, `custom`, or `auto`. | `auto` |
-| `LLM_MODEL` | Specific model to use (e.g., `gpt-4`, `grok-beta`). | Provider Default |
-| `AUTH_USERNAME` | Username for Basic Authentication. | None |
-| `AUTH_PASSWORD` | Password for Basic Authentication. | None |
-
-### Authentication Logic
-- **Anonymous Access**: If `AUTH_USERNAME` and `AUTH_PASSWORD` are **not set** (default), the application allows anonymous access. This is ideal for local development.
-- **Secured Access**: If both variables are set, the application enforces HTTP Basic Authentication on all routes. This is recommended for public deployments.
-
-## Data Persistence
-
-By default, the application stores world data in a `worlds/` directory.
-
-### Docker Persistence
-To keep your worlds safe when using Docker, you must mount a volume to `/app/worlds`.
-
-```bash
-docker run -d -p 8000:8000 \
-  --env-file .env \
-  -v $(pwd)/worlds:/app/worlds \
-  infinite-wiki
-```
-
-### Local Persistence (Custom Location)
-If you want to store your worlds in a different location (e.g., to avoid cluttering the project folder or to use a shared drive), you can set the `WORLD_DATA_DIR` environment variable in your `.env` file:
-
-```env
-WORLD_DATA_DIR=/path/to/my/worlds
-```
-
 ## Installation (Docker)
 
 The Docker image does **not** contain your API keys. You must pass them at runtime.
@@ -217,6 +207,48 @@ The Docker image does **not** contain your API keys. You must pass them at runti
       -v $(pwd)/worlds:/app/worlds \
       infinite-wiki
     ```
+
+## Configuration
+
+The application is configured via environment variables or a `.env` file. See `.env.example` for a full list of options.
+
+### Common Options
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `OPENAI_API_KEY` | Required API Key for the LLM provider. | None |
+| `OPENAI_BASE_URL` | Custom API Endpoint (e.g., for Grok, LocalAI). | Provider Default |
+| `AI_PROVIDER` | `openai`, `xai`, `gemini`, `custom`, or `auto`. | `auto` |
+| `LLM_MODEL` | Specific model to use (e.g., `gpt-4`, `grok-beta`). | Provider Default |
+| `AUTH_USERNAME` | Username for Basic Authentication. | None |
+| `AUTH_PASSWORD` | Password for Basic Authentication. | None |
+
+### Authentication Logic
+- **Anonymous Access**: If `AUTH_USERNAME` and `AUTH_PASSWORD` are **not set** (default), the application allows anonymous access. This is ideal for local development.
+- **Secured Access**: If both variables are set, the application enforces HTTP Basic Authentication on all routes. This is recommended for public deployments.
+
+## Data Persistence
+
+By default, the application stores world data in a `worlds/` directory.
+
+### Docker Persistence
+To keep your worlds safe when using Docker, you must mount a volume to `/app/worlds`. Otherwise your worlds will be lost when the container is rebuilt.
+
+```bash
+docker run -d -p 8000:8000 \
+  --env-file .env \
+  -v $(pwd)/worlds:/app/worlds \
+  infinite-wiki
+```
+
+### Local Persistence (Custom Location)
+If you want to store your worlds in a different location (e.g., to avoid cluttering the project folder or to use a shared drive), you can set the `WORLD_DATA_DIR` environment variable in your `.env` file:
+
+```env
+WORLD_DATA_DIR=/path/to/my/worlds
+```
+
+
 
 ## Static Site Export
 
