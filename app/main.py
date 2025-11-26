@@ -298,6 +298,10 @@ async def get_wiki_page(
         html_content = markdown.markdown(linked_content, extensions=["extra"])
 
         related = json.loads(article.related_entities_json)
+        # Check existence for each related entity
+        for entity in related:
+            statement = select(Article).where(Article.title == entity["name"])
+            entity["exists"] = session.exec(statement).first() is not None
         return templates.TemplateResponse(
             "article.html",
             {

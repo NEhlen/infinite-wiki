@@ -80,8 +80,13 @@
     <ul>
         {% for entity in related_entities %}
         <li>
+            {% if entity.exists %}
             <a href="{{ base_url }}/world/{{ world_name }}/wiki/{{ entity.name }}" onclick="showLoading()">{{
                 entity.name }}</a>
+            {% else %}
+            <a href="{{ base_url }}/world/{{ world_name }}/wiki/{{ entity.name }}" class="new-article"
+                data-title="{{ entity.name }}">{{ entity.name }}</a>
+            {% endif %}
             <span style="font-size: 0.8em; color: #666;">({{ entity.type }})</span>
         </li>
         {% endfor %}
