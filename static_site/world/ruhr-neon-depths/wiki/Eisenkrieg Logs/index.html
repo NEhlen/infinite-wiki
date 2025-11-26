@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eisenkrieg Logs - Infinite Wiki</title>
+    <link rel="icon" type="image/png" href="/infinite-wiki/static/favicon.png">
     <style>
         body {
             font-family: sans-serif;
@@ -91,11 +92,36 @@
     </header>
     <div class="container">
         
+<div id="delta-alert"
+    style="display: none; background-color: #d4edda; color: #155724; padding: 15px; margin-bottom: 20px; border: 1px solid #c3e6cb; border-radius: 4px;">
+    <strong>Update Successful:</strong> <span id="delta-msg"></span>
+</div>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const delta = urlParams.get('delta');
+    if (delta) {
+        document.getElementById('delta-msg').textContent = delta;
+        document.getElementById('delta-alert').style.display = 'block';
+        // Clean URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+</script>
 <div style="display: flex; justify-content: space-between; align-items: center;">
     <h2>Eisenkrieg Logs</h2>
-    <a href="/infinite-wiki/world/ruhr-neon-depths/wiki/Eisenkrieg Logs/edit" class="button"
-        style="font-size: 0.8em; padding: 5px 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px;">Edit</a>
+    <div style="display: flex; gap: 10px;">
+        <button onclick="extractEvents()" class="button"
+            style="font-size: 0.8em; padding: 5px 10px; background-color: #17a2b8; color: white; border: none; border-radius: 4px; cursor: pointer;">Extract
+            Events</button>
+        <button onclick="integrateInfo()" class="button"
+            style="font-size: 0.8em; padding: 5px 10px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">Integrate
+            New Info</button>
+        <a href="/infinite-wiki/world/ruhr-neon-depths/wiki/Eisenkrieg Logs/edit" class="button"
+            style="font-size: 0.8em; padding: 5px 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px;">Edit</a>
+    </div>
 </div>
+
+<p style="margin-top: -10px; color: #666; font-style: italic;">2147</p>
+
 
 
 <div class="image-container">
@@ -112,17 +138,17 @@
 
 <div class="content">
     <h1><strong><a href="/world/ruhr-neon-depths/wiki/Eisenkrieg%20Logs">Eisenkrieg Logs</a>: Datadump from the Slag-Sky</strong></h1>
-<p><em>Leaked orbital relay-cache, jacked from <a href="/world/ruhr-neon-depths/wiki/Eisenvolk">Eisenvolk</a> wreckage in Schacht 3. Graffiti-scribed by Grubengeist runners, Stollen 19. I was topside deck-jockey when rails screamed – ozone bite, sky cracking like thunder-ghosts. Corps turned Ruhr to glass. Nano-tox choked the vents. Forced the Delve. [datastream: <a href="/world/ruhr-neon-depths/wiki/The%20Great%20Delve%3A%20Founding%20of%20Tiefruhr">The Great Delve: Founding of Tiefruhr</a>]. Read the burns, chummer. Feel the slag.</em></p>
+<p><em>Leaked orbital relay-cache, jacked from <a href="/world/ruhr-neon-depths/wiki/Eisenvolk" class="new-article" data-title="Eisenvolk">Eisenvolk</a> wreckage in Schacht 3. Graffiti-scribed by Grubengeist runners, Stollen 19. I was topside deck-jockey when rails screamed – ozone bite, sky cracking like thunder-ghosts. Corps turned Ruhr to glass. Nano-tox choked the vents. Forced the Delve. [datastream: <a href="/world/ruhr-neon-depths/wiki/The%20Great%20Delve%3A%20Founding%20of%20Tiefruhr">The Great Delve: Founding of Tiefruhr</a>]. Read the burns, chummer. Feel the slag.</em></p>
 <p><strong>2147.08.14 – Ignition: Corp-Orbitals Go Hot</strong></p>
-<p>Static hiss. Vox-feed live from <em><a href="/world/ruhr-neon-depths/wiki/Eisenvolk">Eisenvolk</a> Sternenschloss</em> orbital. "Alert: Neo-Bergbau signatures spiking. Habsat arrays priming." Heart-pump synth-adrenalin dumps. I jack console in <a href="/world/ruhr-neon-depths/wiki/Essen">Essen</a> arcology, screens blooming red. First rail-whine pierces atmo – hypersonic slug, 50km/sec. Impacts <a href="/world/ruhr-neon-depths/wiki/Dortmund">Dortmund</a> fusion-spire. Blue plasma bloom, shockwave shreds habs. Screams flood net: "Himmel brennt!" Sky ignites. Nano-tox blooms black, fractal veins eating clouds. Corps lit the fuse. No warning. Pure Krieg.</p>
-<p><strong>2147.08.17 – Railgun Symphony: <a href="/world/ruhr-neon-depths/wiki/Essen">Essen</a>-<a href="/world/ruhr-neon-depths/wiki/Dortmund">Dortmund</a> Exchange</strong></p>
-<p>Rail-roar symphony. Doppler-wail overhead, ground quakes. <a href="/world/ruhr-neon-depths/wiki/Essen">Essen</a> towers – my old run-spot – glassed in 3.2 micros. Slag-rivers flow hot. <a href="/world/ruhr-neon-depths/wiki/Dortmund">Dortmund</a> retaliates: Neo-Bergbau <em><a href="/world/ruhr-neon-depths/wiki/Bergschloss">Bergschloss</a></em> unloads volley. Slugs tunnel crust, erupt under <a href="/world/ruhr-neon-depths/wiki/Eisenvolk">Eisenvolk</a> refineries. Magma geysers, 2000° hell. I dodge shrapnel in Schacht-rim, cyber-eyes whirring overload. Vox-logs crackle: "Strikes confirmed. Casualties: 4 mil civs. Collateral protocol green." Air thick with ozone tang, lungs burn phosphor. Rails sing duet – <a href="/world/ruhr-neon-depths/wiki/Essen">Essen</a>-<a href="/world/ruhr-neon-depths/wiki/Dortmund">Dortmund</a>, 40km kill-corridor. Ruhrgebiet? Fire-veined corpse.</p>
-<p><strong>2147.08.22 – Key Players: <a href="/world/ruhr-neon-depths/wiki/Eisenvolk">Eisenvolk</a> vs. Neo-Bergbau Onslaught</strong></p>
-<p><a href="/world/ruhr-neon-depths/wiki/Eisenvolk">Eisenvolk</a>: Chrome-forged kings of Stahl and Strom. Orbital fleet <em>Eisenflotte</em>, rail-cannons god-sized. CEO Stahlfaust vox: "Neo-Bergbau encroaches our veins. Purge." They hold old Reich mines, fusion hearts pumping. <a href="/world/ruhr-neon-depths/wiki/Neo-Bergbau%20AG">Neo-Bergbau AG</a>: Tunnel-rats turned titans. <em><a href="/world/ruhr-neon-depths/wiki/Bergschloss">Bergschloss</a></em> swarm sats, smart-slugs AI-guided. "<a href="/world/ruhr-neon-depths/wiki/Eisenvolk">Eisenvolk</a> hogs the depths," their net-screed blasts. Onslaught escalates – drone-swarms clash atmo, laser-grids etch night. Faction bias? I ran Eisen-payloads. They built the rails. Neo just stole 'em. Blood-corps war, underdwellers pay.</p>
+<p>Static hiss. Vox-feed live from <em><a href="/world/ruhr-neon-depths/wiki/Eisenvolk" class="new-article" data-title="Eisenvolk">Eisenvolk</a> Sternenschloss</em> orbital. "Alert: Neo-Bergbau signatures spiking. Habsat arrays priming." Heart-pump synth-adrenalin dumps. I jack console in <a href="/world/ruhr-neon-depths/wiki/Essen" class="new-article" data-title="Essen">Essen</a> arcology, screens blooming red. First rail-whine pierces atmo – hypersonic slug, 50km/sec. Impacts <a href="/world/ruhr-neon-depths/wiki/Dortmund" class="new-article" data-title="Dortmund">Dortmund</a> fusion-spire. Blue plasma bloom, shockwave shreds habs. Screams flood net: "Himmel brennt!" Sky ignites. Nano-tox blooms black, fractal veins eating clouds. Corps lit the fuse. No warning. Pure Krieg.</p>
+<p><strong>2147.08.17 – Railgun Symphony: <a href="/world/ruhr-neon-depths/wiki/Essen" class="new-article" data-title="Essen">Essen</a>-<a href="/world/ruhr-neon-depths/wiki/Dortmund" class="new-article" data-title="Dortmund">Dortmund</a> Exchange</strong></p>
+<p>Rail-roar symphony. Doppler-wail overhead, ground quakes. <a href="/world/ruhr-neon-depths/wiki/Essen" class="new-article" data-title="Essen">Essen</a> towers – my old run-spot – glassed in 3.2 micros. Slag-rivers flow hot. <a href="/world/ruhr-neon-depths/wiki/Dortmund" class="new-article" data-title="Dortmund">Dortmund</a> retaliates: Neo-Bergbau <em><a href="/world/ruhr-neon-depths/wiki/Bergschloss" class="new-article" data-title="Bergschloss">Bergschloss</a></em> unloads volley. Slugs tunnel crust, erupt under <a href="/world/ruhr-neon-depths/wiki/Eisenvolk" class="new-article" data-title="Eisenvolk">Eisenvolk</a> refineries. Magma geysers, 2000° hell. I dodge shrapnel in Schacht-rim, cyber-eyes whirring overload. Vox-logs crackle: "Strikes confirmed. Casualties: 4 mil civs. Collateral protocol green." Air thick with ozone tang, lungs burn phosphor. Rails sing duet – <a href="/world/ruhr-neon-depths/wiki/Essen" class="new-article" data-title="Essen">Essen</a>-<a href="/world/ruhr-neon-depths/wiki/Dortmund" class="new-article" data-title="Dortmund">Dortmund</a>, 40km kill-corridor. Ruhrgebiet? Fire-veined corpse.</p>
+<p><strong>2147.08.22 – Key Players: <a href="/world/ruhr-neon-depths/wiki/Eisenvolk" class="new-article" data-title="Eisenvolk">Eisenvolk</a> vs. Neo-Bergbau Onslaught</strong></p>
+<p><a href="/world/ruhr-neon-depths/wiki/Eisenvolk" class="new-article" data-title="Eisenvolk">Eisenvolk</a>: Chrome-forged kings of Stahl and Strom. Orbital fleet <em>Eisenflotte</em>, rail-cannons god-sized. CEO Stahlfaust vox: "Neo-Bergbau encroaches our veins. Purge." They hold old Reich mines, fusion hearts pumping. <a href="/world/ruhr-neon-depths/wiki/Neo-Bergbau%20AG">Neo-Bergbau AG</a>: Tunnel-rats turned titans. <em><a href="/world/ruhr-neon-depths/wiki/Bergschloss" class="new-article" data-title="Bergschloss">Bergschloss</a></em> swarm sats, smart-slugs AI-guided. "<a href="/world/ruhr-neon-depths/wiki/Eisenvolk" class="new-article" data-title="Eisenvolk">Eisenvolk</a> hogs the depths," their net-screed blasts. Onslaught escalates – drone-swarms clash atmo, laser-grids etch night. Faction bias? I ran Eisen-payloads. They built the rails. Neo just stole 'em. Blood-corps war, underdwellers pay.</p>
 <p><strong>2147.08.29 – Scorch Protocol: Surface to Glass</strong></p>
-<p>Scorch goes live. <a href="/world/ruhr-neon-depths/wiki/Eisenvolk">Eisenvolk</a> drops <em>Glasprotokoll</em>: Orbital barrage blankets Ruhr. Slugs chain-crater, vitrify soil to 10m deep. <a href="/world/ruhr-neon-depths/wiki/Dortmund">Dortmund</a> habs melt, Rhine boils nano-black. Temp spikes 80°C, winds howl rad-dust. Neo counter: <em>Tiefersturm</em>, burrowing rail-heads into crust. Quakes register 9.2, Schächte crack wide. I jack evac-feed from Stollen-ramp: families claw down, cyber-limbs sparking. Sky? Permanent slag-haze, red eternal. Surface life: flatlined. "Tiefer gehen," ghosts whisper. Delve calls.</p>
+<p>Scorch goes live. <a href="/world/ruhr-neon-depths/wiki/Eisenvolk" class="new-article" data-title="Eisenvolk">Eisenvolk</a> drops <em>Glasprotokoll</em>: Orbital barrage blankets Ruhr. Slugs chain-crater, vitrify soil to 10m deep. <a href="/world/ruhr-neon-depths/wiki/Dortmund" class="new-article" data-title="Dortmund">Dortmund</a> habs melt, Rhine boils nano-black. Temp spikes 80°C, winds howl rad-dust. Neo counter: <em>Tiefersturm</em>, burrowing rail-heads into crust. Quakes register 9.2, Schächte crack wide. I jack evac-feed from Stollen-ramp: families claw down, cyber-limbs sparking. Sky? Permanent slag-haze, red eternal. Surface life: flatlined. "Tiefer gehen," ghosts whisper. Delve calls.</p>
 <p><strong>2147.09.05 – Final Bursts: Whispers of the Delve</strong></p>
-<p>Rails stutter. Orbits slag each other – <em>Sternenschloss</em> spirals, blooms fireflower. Last vox: "<a href="/world/ruhr-neon-depths/wiki/Eisenvolk">Eisenvolk</a> core breach. Evac to vents." Nano-tox veil thickens, sun ghosts through. 80 mil dead or delving. Ruhr surface: irradiated husk, wind moans over glass seas. Whispers flood nets: <a href="/world/ruhr-neon-depths/wiki/Grubengeister">Grubengeister</a> preach from depths. "Die Schächte warten." I jack final burst from falling sat – coordinates to stable Stollen. Down we fled. <a href="/world/ruhr-neon-depths/wiki/Eisenkrieg">Eisenkrieg</a> ends. <a href="/world/ruhr-neon-depths/wiki/Tiefruhr">Tiefruhr</a> begins. [datastream: Volkhardt Proto-Cols]. Corps lick wounds below. War never stopped, chummer. Just went subsurface.</p>
+<p>Rails stutter. Orbits slag each other – <em>Sternenschloss</em> spirals, blooms fireflower. Last vox: "<a href="/world/ruhr-neon-depths/wiki/Eisenvolk" class="new-article" data-title="Eisenvolk">Eisenvolk</a> core breach. Evac to vents." Nano-tox veil thickens, sun ghosts through. 80 mil dead or delving. Ruhr surface: irradiated husk, wind moans over glass seas. Whispers flood nets: <a href="/world/ruhr-neon-depths/wiki/Grubengeister" class="new-article" data-title="Grubengeister">Grubengeister</a> preach from depths. "Die Schächte warten." I jack final burst from falling sat – coordinates to stable Stollen. Down we fled. <a href="/world/ruhr-neon-depths/wiki/Eisenkrieg" class="new-article" data-title="Eisenkrieg">Eisenkrieg</a> ends. <a href="/world/ruhr-neon-depths/wiki/Tiefruhr">Tiefruhr</a> begins. [datastream: Volkhardt Proto-Cols]. Corps lick wounds below. War never stopped, chummer. Just went subsurface.</p>
 <p><em>Datastream end. Purge logs. Drones sniffin'. Grubengeist out.</em></p>
 </div>
 
@@ -263,6 +289,17 @@
             }
         }
     }
+
+    /* Red Link Style */
+    a.new-article {
+        color: #dc3545;
+        text-decoration: none;
+        border-bottom: 1px dashed #dc3545;
+    }
+
+    a.new-article:hover {
+        background-color: rgba(220, 53, 69, 0.1);
+    }
 </style>
 
 <script>
@@ -380,6 +417,96 @@
             document.head.appendChild(style);
         }
     });
+
+    // Delegate event listener for red links (since they are dynamically inserted)
+    document.addEventListener('click', async (e) => {
+        if (e.target.matches('a.new-article')) {
+            e.preventDefault();
+            const title = e.target.dataset.title;
+            const description = prompt(`Create new article: "${title}"?\n\nEnter optional instructions/context for the AI:`);
+
+            if (description !== null) { // If not cancelled
+                // Show loading on the link itself
+                const originalText = e.target.innerText;
+                e.target.innerText = "Creating...";
+                e.target.style.pointerEvents = "none";
+
+                // Submit to create_custom
+                const formData = new FormData();
+                formData.append('title', title);
+                if (description) {
+                    formData.append('description', description);
+                }
+
+                try {
+                    const response = await fetch('/infinite-wiki/world/ruhr-neon-depths/create_custom', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                    } else {
+                        window.location.href = `/infinite-wiki/world/ruhr-neon-depths/wiki/${encodeURIComponent(title)}`;
+                    }
+                } catch (err) {
+                    alert("Creation failed: " + err);
+                    e.target.innerText = originalText;
+                    e.target.style.pointerEvents = "auto";
+                }
+            }
+        }
+    });
+
+    async function extractEvents() {
+        if (!confirm("This will analyze the article to extract and graph historical events. Continue?")) return;
+
+        const btn = document.querySelector('button[onclick="extractEvents()"]');
+        const originalText = btn.innerText;
+        btn.innerText = "Extracting...";
+        btn.disabled = true;
+
+        try {
+            const response = await fetch('/infinite-wiki/world/ruhr-neon-depths/wiki/Eisenkrieg Logs/extract_events', {
+                method: 'POST'
+            });
+
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                window.location.reload();
+            }
+        } catch (err) {
+            alert("Extraction failed: " + err);
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }
+    }
+
+    async function integrateInfo() {
+        if (!confirm("This will rewrite the article to include new information from the knowledge base. Continue?")) return;
+
+        const btn = document.querySelector('button[onclick="integrateInfo()"]');
+        const originalText = btn.innerText;
+        btn.innerText = "Integrating...";
+        btn.disabled = true;
+
+        try {
+            const response = await fetch('/infinite-wiki/world/ruhr-neon-depths/wiki/Eisenkrieg Logs/integrate', {
+                method: 'POST'
+            });
+
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                window.location.reload();
+            }
+        } catch (err) {
+            alert("Integration failed: " + err);
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }
+    }
 </script>
 
     </div>

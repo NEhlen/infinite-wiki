@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Visualizers - ruhr-neon-depths</title>
+    <link rel="icon" type="image/png" href="/infinite-wiki/static/favicon.png">
     <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
     <script type="text/javascript"
         src="https://unpkg.com/vis-timeline/standalone/umd/vis-timeline-graph2d.min.js"></script>
@@ -92,6 +93,44 @@
             width: 100%;
             height: 100%;
         }
+
+        /* Timeline Item Styles */
+        .vis-item.type-Article {
+            border-color: #007bff;
+            background-color: #dbeafe;
+        }
+
+        .vis-item.type-Event {
+            border-color: #f59e0b;
+            background-color: #fef3c7;
+        }
+
+        .vis-item.type-Alias {
+            border-color: #6b7280;
+            background-color: #f3f4f6;
+        }
+
+        .timeline-type-badge {
+            font-size: 0.7em;
+            padding: 2px 4px;
+            border-radius: 3px;
+            margin-right: 5px;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: white;
+        }
+
+        .type-Article .timeline-type-badge {
+            background-color: #007bff;
+        }
+
+        .type-Event .timeline-type-badge {
+            background-color: #f59e0b;
+        }
+
+        .type-Alias .timeline-type-badge {
+            background-color: #6b7280;
+        }
     </style>
 </head>
 
@@ -133,6 +172,13 @@
             const response = await fetch(`/infinite-wiki/api/world/${worldName}/graph_data`);
             const data = await response.json();
 
+            // Helper to wrap text
+            const wrapText = (str, maxLen = 60) => {
+                if (!str) return "";
+                if (str.length <= maxLen) return str;
+                return str.replace(new RegExp(`(?![^\\n]{1,${maxLen}}$)([^\\n]{1,${maxLen}})\\s`, 'g'), '$1\n');
+            };
+
             const nodes = new vis.DataSet(data.nodes.map(n => ({
                 id: n.id,
                 label: n.id,
@@ -143,7 +189,7 @@
             const edges = new vis.DataSet(data.links.map(l => ({
                 from: l.source,
                 to: l.target,
-                label: l.relation,
+                label: wrapText(l.relation),
                 arrows: 'to'
             })));
 
@@ -152,25 +198,41 @@
             const options = {
                 nodes: {
                     shape: 'dot',
-                    size: 15,
-                    font: { size: 14, color: '#000' },
+                    size: 16,
+                    font: {
+                        size: 18,
+                        color: '#000',
+                        background: '#fff', // Add background to labels for readability
+                        strokeWidth: 0      // Remove stroke if background is used
+                    },
                     borderWidth: 2
                 },
                 edges: {
-                    width: 1,
-                    color: { inherit: 'from' },
-                    smooth: { type: 'continuous' }
+                    width: 3,
+                    color: { inherit: 'from', opacity: 0.6 }, // Reduce visual clutter
+                    smooth: { type: 'continuous' },
+                    font: { align: 'middle', size: 12, background: 'white' } // Make edge labels readable
                 },
                 physics: {
                     stabilization: true,
                     barnesHut: {
-                        gravitationalConstant: -8000,
-                        springConstant: 0.04,
-                        springLength: 95
-                    }
+                        // Increase repulsion greatly to spread nodes out
+                        gravitationalConstant: -30000,
+                        centralGravity: 0.3,
+                        springLength: 300,
+                        springConstant: 0.05,
+                        damping: 0.09,
+                        avoidOverlap: 0.2
+                    },
+                    minVelocity: 0.75 // Stop calculating sooner to prevent jitter
                 },
                 layout: {
-                    improvedLayout: true
+                    improvedLayout: true,
+                    randomSeed: 42 // Consistent layout
+                },
+                interaction: {
+                    tooltipDelay: 200,
+                    hideEdgesOnDrag: false
                 }
             };
             new vis.Network(container, networkData, options);
@@ -181,15 +243,66 @@
             const response = await fetch(`/infinite-wiki/api/world/${worldName}/timeline_data`);
             const data = await response.json();
 
-            // Parse dates? Vis.js handles strings like "2024" well.
-            // If we have "Era of X", it might fail. We might need to map to numbers or use 'point' type.
+            if (data.length === 0) {
+                document.getElementById('mytimeline').innerHTML = '<p style="padding: 20px;">No timeline events found.</p>';
+                return;
+            }
 
-            const items = new vis.DataSet(data);
+            // Calculate range
+            let minYear = Infinity;
+            let maxYear = -Infinity;
+
+            const items = new vis.DataSet(data.map(item => {
+                const year = item.year_numeric;
+                if (year < minYear) minYear = year;
+                if (year > maxYear) maxYear = year;
+
+                // Map numeric year to a Date object with fractional year support
+                // e.g., 2027.21 = 21% through 2027
+                const intYear = Math.floor(year);
+                const fraction = year - intYear;
+
+                // Calculate milliseconds in the year
+                const yearStart = new Date(intYear, 0, 1);
+                const yearEnd = new Date(intYear + 1, 0, 1);
+                const yearDuration = yearEnd - yearStart;
+
+                // Add fractional offset
+                const date = new Date(yearStart.getTime() + (fraction * yearDuration));
+
+                return {
+                    id: item.id,
+                    content: `<span class="timeline-type-badge">${item.type} </span><b>${item.display_date}</b><br>${item.name}`,
+                    start: date,
+                    title: item.description,
+                    type: 'point',
+                    className: `type-${item.type}`
+                };
+            }));
+
+            // Default range if single point or close
+            if (maxYear === minYear) {
+                minYear -= 50;
+                maxYear += 50;
+            }
+
+            // Add padding (10% of range)
+            const range = maxYear - minYear;
+            const padding = Math.max(range * 0.1, 10); // Min 10 years padding
+
+            const startView = new Date(0, 0, 1);
+            startView.setFullYear(minYear - padding);
+
+            const endView = new Date(0, 0, 1);
+            endView.setFullYear(maxYear + padding);
+
             const container = document.getElementById('mytimeline');
             const options = {
                 height: '100%',
-                start: '2100-01-01', // Default view
-                end: '2200-01-01'
+                start: startView,
+                end: endView,
+                zoomMin: 1000 * 60 * 60 * 24 * 31, // Min zoom: 1 month
+                zoomMax: 1000 * 60 * 60 * 24 * 365 * 10000 // Max zoom: 10,000 years
             };
             new vis.Timeline(container, items, options);
         }

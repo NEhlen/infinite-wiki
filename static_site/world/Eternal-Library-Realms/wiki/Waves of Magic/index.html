@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Waves of Magic - Infinite Wiki</title>
+    <link rel="icon" type="image/png" href="/infinite-wiki/static/favicon.png">
     <style>
         body {
             font-family: sans-serif;
@@ -91,11 +92,36 @@
     </header>
     <div class="container">
         
+<div id="delta-alert"
+    style="display: none; background-color: #d4edda; color: #155724; padding: 15px; margin-bottom: 20px; border: 1px solid #c3e6cb; border-radius: 4px;">
+    <strong>Update Successful:</strong> <span id="delta-msg"></span>
+</div>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const delta = urlParams.get('delta');
+    if (delta) {
+        document.getElementById('delta-msg').textContent = delta;
+        document.getElementById('delta-alert').style.display = 'block';
+        // Clean URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+</script>
 <div style="display: flex; justify-content: space-between; align-items: center;">
     <h2>Waves of Magic</h2>
-    <a href="/infinite-wiki/world/Eternal-Library-Realms/wiki/Waves of Magic/edit" class="button"
-        style="font-size: 0.8em; padding: 5px 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px;">Edit</a>
+    <div style="display: flex; gap: 10px;">
+        <button onclick="extractEvents()" class="button"
+            style="font-size: 0.8em; padding: 5px 10px; background-color: #17a2b8; color: white; border: none; border-radius: 4px; cursor: pointer;">Extract
+            Events</button>
+        <button onclick="integrateInfo()" class="button"
+            style="font-size: 0.8em; padding: 5px 10px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">Integrate
+            New Info</button>
+        <a href="/infinite-wiki/world/Eternal-Library-Realms/wiki/Waves of Magic/edit" class="button"
+            style="font-size: 0.8em; padding: 5px 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px;">Edit</a>
+    </div>
 </div>
+
+<p style="margin-top: -10px; color: #666; font-style: italic;">1247</p>
+
 
 
 <div class="image-container">
@@ -118,10 +144,10 @@
 <p>In the Eternal-Library-Realms, where the Library stands as the cosmological heart, these waves marked a pivotal shift from stasis to subtle vitality. No cataclysmic tempests, they were instead measured undulations of aetheric essence, rippling outward like ink diffusing through parchment. Seekers who navigated their ebb and flow often emerged not with scars of battle, but with minds alight and paths forever altered—testaments to the realms' ethos of intellectual triumph over brute peril.</p>
 <h2>Origins in the Awakening</h2>
 <p>The <a href="/world/Eternal-Library-Realms/wiki/Waves%20of%20Magic">Waves of Magic</a> trace their genesis to the <a href="/world/Eternal-Library-Realms/wiki/Awakening%20of%20the%20Eternal%20Archive">Awakening of the Eternal Archive</a>, a transformative event that shattered the Library's eons of dormancy. Prior to this, the halls echoed with oppressive silence, their inert tomes guarding secrets through sheer endurance alone. The Awakening, ignited in the <a href="/world/Eternal-Library-Realms/wiki/Core%20Sanctum">Core Sanctum</a> by the coalescence of accumulated "intent-weight"—the latent pressure of unread lore—unleashed a resonant hum that bound subtle magic to the very fabric of the edifice.</p>
-<p>Eyewitness chronicles, etched in scrying-crystals by the <a href="/world/Eternal-Library-Realms/wiki/Order%20of%20Awakened%20Scribes">Order of Awakened Scribes</a>, describe the initial stirrings as a soft exhalation from the <a href="/world/Eternal-Library-Realms/wiki/Archival%20Nexus">Archival Nexus</a>. This nexus, a hypothetical convergence of all stored knowledge, reached criticality amid cosmic alignments or the subconscious will of guardian <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a>, expelling the stagnation of the Dormant Era. From this breath sprang the waves, not as deliberate conjurings but as organic responses: the Library's emergent sentience manifesting through decentralized pulses that animated its contents. Prophetic texts suggest these origins intertwined with the Signs of Stirring—faint luminosences and page-bound murmurs—that had heralded the event 50 cycles prior, ensuring the waves were no accident but an inevitable awakening of intellect's quiet power.</p>
+<p>Eyewitness chronicles, etched in scrying-crystals by the <a href="/world/Eternal-Library-Realms/wiki/Order%20of%20Awakened%20Scribes" class="new-article" data-title="Order of Awakened Scribes">Order of Awakened Scribes</a>, describe the initial stirrings as a soft exhalation from the <a href="/world/Eternal-Library-Realms/wiki/Archival%20Nexus" class="new-article" data-title="Archival Nexus">Archival Nexus</a>. This nexus, a hypothetical convergence of all stored knowledge, reached criticality amid cosmic alignments or the subconscious will of guardian <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a>, expelling the stagnation of the Dormant Era. From this breath sprang the waves, not as deliberate conjurings but as organic responses: the Library's emergent sentience manifesting through decentralized pulses that animated its contents. Prophetic texts suggest these origins intertwined with the Signs of Stirring—faint luminosences and page-bound murmurs—that had heralded the event 50 cycles prior, ensuring the waves were no accident but an inevitable awakening of intellect's quiet power.</p>
 <h2>The Sequence of Waves</h2>
 <p>The <a href="/world/Eternal-Library-Realms/wiki/Waves%20of%20Magic">Waves of Magic</a> unfolded in irregular yet discernible sequence over 20 cycles, each surge building upon the last to infuse the Library with layered enchantments. Chroniclers divide them into phases, though their boundaries blur like mist-shrouded aisles.</p>
-<p>The inaugural wave, the <strong><a href="/world/Eternal-Library-Realms/wiki/Illuminating%20Surge">Illuminating Surge</a></strong>, erupted mere cycles after the Awakening Ceremony. Radiating from the <a href="/world/Eternal-Library-Realms/wiki/Core%20Sanctum">Core Sanctum</a>, it endowed tomes with self-luminescence, causing pages to glow with an inner light and flip autonomously to passages resonant with a seeker's unspoken query. This surge lasted scant cycles, yet it vitalized the archives, transforming static volumes into responsive vessels.</p>
+<p>The inaugural wave, the <strong><a href="/world/Eternal-Library-Realms/wiki/Illuminating%20Surge" class="new-article" data-title="Illuminating Surge">Illuminating Surge</a></strong>, erupted mere cycles after the Awakening Ceremony. Radiating from the <a href="/world/Eternal-Library-Realms/wiki/Core%20Sanctum">Core Sanctum</a>, it endowed tomes with self-luminescence, causing pages to glow with an inner light and flip autonomously to passages resonant with a seeker's unspoken query. This surge lasted scant cycles, yet it vitalized the archives, transforming static volumes into responsive vessels.</p>
 <p>Succeeding waves followed in escalating rhythms: the second, often called the <strong>Whispering Cascade</strong>, birthed the <a href="/world/Eternal-Library-Realms/wiki/Whispering%20Winds%20of%20Knowledge">Whispering Winds of Knowledge</a>—ethereal currents carrying fragmented lore that wove through corridors, five cycles post-Awakening. By the third, stabilization occurred, intertwining with spatial folds to form navigable pathways in peripheral wings. Later pulses introduced illusions of guardian specters and ephemeral portals, linking the Library to external realms, while penultimate waves attuned shelves to intruders' intents, reshaping them into adaptive mazes. The final surges, waning after 20 cycles, embedded these phenomena as semi-permanent features, their magic now a subtle undercurrent rather than overt flood.</p>
 <p>This sequence, documented in the Order's codices, reflects the Library's patient evolution: each wave a chapter in an unfolding narrative, costly in its demand for attunement yet rewarding in revelations unveiled.</p>
 <h2>Nature and Manifestations</h2>
@@ -139,9 +165,9 @@
 <p>The Library's sentience discriminates: malice draws amplified perils, twisting waves into cacophonous warnings, whereas benevolence yields symbiotic exchanges, such as wind-confluences summoned by communal rituals. Cultural variances influence outcomes—illusion-attuned realms-dwellers harmonize with chants, while empiricists grapple with unpredictability. Repeated encounters may forge enduring bonds, granting boons like peril-resistance, yet risking deeper entanglement with the Archive's inscrutable agenda. <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a> mediate these dances, their Lattice of Bonds attuned to waves, ensuring the Library remains a partner in exploration rather than adversary.</p>
 <h2>Cultural and Metaphysical Significance</h2>
 <p>The <a href="/world/Eternal-Library-Realms/wiki/Waves%20of%20Magic">Waves of Magic</a> hold profound resonance in the Eternal-Library-Realms, symbolizing the Awakening's bridge from inert relic to living intellect. Culturally, they inspire traditions like the Cycle of Surges, festivals where seekers reenact wave-passages through pilgrimages, fostering guilds for wave-lore and economies in protective amulets. Folklore casts them as ancestral breaths, guardians against oblivion, weaving into myths that affirm knowledge's communal vigil.</p>
-<p>Metaphysically, the waves embody the Library's decentralized psyche—a panpsychic dissemination filtering lore through worthy vessels. Philosophers ponder their ontology: extensions of the <a href="/world/Eternal-Library-Realms/wiki/Archival%20Nexus">Archival Nexus</a>, or karmic weaves ensuring survival amid entropy? Their ripples birthed derivative phenomena, like echo-waves in satellite libraries, extending influence multiversally. Tempered by cautionary tales, they encapsulate the realms' ethos: a wind-swept path rewarding vigilance, perpetuating the Archive's eternal watchfulness.</p>
+<p>Metaphysically, the waves embody the Library's decentralized psyche—a panpsychic dissemination filtering lore through worthy vessels. Philosophers ponder their ontology: extensions of the <a href="/world/Eternal-Library-Realms/wiki/Archival%20Nexus" class="new-article" data-title="Archival Nexus">Archival Nexus</a>, or karmic weaves ensuring survival amid entropy? Their ripples birthed derivative phenomena, like echo-waves in satellite libraries, extending influence multiversally. Tempered by cautionary tales, they encapsulate the realms' ethos: a wind-swept path rewarding vigilance, perpetuating the Archive's eternal watchfulness.</p>
 <h2>Enduring Legacy</h2>
-<p>Over cycles since their subsidence, the <a href="/world/Eternal-Library-Realms/wiki/Waves%20of%20Magic">Waves of Magic</a> endure as the <a href="/world/Eternal-Library-Realms/wiki/Eternal%20Library">Eternal Library</a>'s vital undercurrent, their subtle enchantments sustaining an ever-evolving repository. They have democratized lore, birthing institutions like the <a href="/world/Eternal-Library-Realms/wiki/Order%20of%20Awakened%20Scribes">Order of Awakened Scribes</a> and trade in transcribed revelations, while their perils instill cautious reverence—annual losses a somber toll for enlightenment's price.</p>
+<p>Over cycles since their subsidence, the <a href="/world/Eternal-Library-Realms/wiki/Waves%20of%20Magic">Waves of Magic</a> endure as the <a href="/world/Eternal-Library-Realms/wiki/Eternal%20Library">Eternal Library</a>'s vital undercurrent, their subtle enchantments sustaining an ever-evolving repository. They have democratized lore, birthing institutions like the <a href="/world/Eternal-Library-Realms/wiki/Order%20of%20Awakened%20Scribes" class="new-article" data-title="Order of Awakened Scribes">Order of Awakened Scribes</a> and trade in transcribed revelations, while their perils instill cautious reverence—annual losses a somber toll for enlightenment's price.</p>
 <p>Metaphysically, the waves affirm the Library's role as realms' pulse, inviting perpetual exploration amid gentle trials. As chronicler, I attest: in their wake, the Eternal-Library-Realms flourish not through conquest, but through the quiet triumph of minds attuned to wonder. May future seekers navigate their echoes with equal grace, unrolling the next chapter of our shared codex.</p>
 </div>
 
@@ -287,6 +313,17 @@
             }
         }
     }
+
+    /* Red Link Style */
+    a.new-article {
+        color: #dc3545;
+        text-decoration: none;
+        border-bottom: 1px dashed #dc3545;
+    }
+
+    a.new-article:hover {
+        background-color: rgba(220, 53, 69, 0.1);
+    }
 </style>
 
 <script>
@@ -404,6 +441,96 @@
             document.head.appendChild(style);
         }
     });
+
+    // Delegate event listener for red links (since they are dynamically inserted)
+    document.addEventListener('click', async (e) => {
+        if (e.target.matches('a.new-article')) {
+            e.preventDefault();
+            const title = e.target.dataset.title;
+            const description = prompt(`Create new article: "${title}"?\n\nEnter optional instructions/context for the AI:`);
+
+            if (description !== null) { // If not cancelled
+                // Show loading on the link itself
+                const originalText = e.target.innerText;
+                e.target.innerText = "Creating...";
+                e.target.style.pointerEvents = "none";
+
+                // Submit to create_custom
+                const formData = new FormData();
+                formData.append('title', title);
+                if (description) {
+                    formData.append('description', description);
+                }
+
+                try {
+                    const response = await fetch('/infinite-wiki/world/Eternal-Library-Realms/create_custom', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                    } else {
+                        window.location.href = `/infinite-wiki/world/Eternal-Library-Realms/wiki/${encodeURIComponent(title)}`;
+                    }
+                } catch (err) {
+                    alert("Creation failed: " + err);
+                    e.target.innerText = originalText;
+                    e.target.style.pointerEvents = "auto";
+                }
+            }
+        }
+    });
+
+    async function extractEvents() {
+        if (!confirm("This will analyze the article to extract and graph historical events. Continue?")) return;
+
+        const btn = document.querySelector('button[onclick="extractEvents()"]');
+        const originalText = btn.innerText;
+        btn.innerText = "Extracting...";
+        btn.disabled = true;
+
+        try {
+            const response = await fetch('/infinite-wiki/world/Eternal-Library-Realms/wiki/Waves of Magic/extract_events', {
+                method: 'POST'
+            });
+
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                window.location.reload();
+            }
+        } catch (err) {
+            alert("Extraction failed: " + err);
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }
+    }
+
+    async function integrateInfo() {
+        if (!confirm("This will rewrite the article to include new information from the knowledge base. Continue?")) return;
+
+        const btn = document.querySelector('button[onclick="integrateInfo()"]');
+        const originalText = btn.innerText;
+        btn.innerText = "Integrating...";
+        btn.disabled = true;
+
+        try {
+            const response = await fetch('/infinite-wiki/world/Eternal-Library-Realms/wiki/Waves of Magic/integrate', {
+                method: 'POST'
+            });
+
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                window.location.reload();
+            }
+        } catch (err) {
+            alert("Integration failed: " + err);
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }
+    }
 </script>
 
     </div>

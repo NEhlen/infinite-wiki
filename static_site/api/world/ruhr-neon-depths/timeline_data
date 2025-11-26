@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "id": "The Great Delve: Founding of Tiefruhr",
+    "name": "The Great Delve: Founding of Tiefruhr",
+    "content": "The Great Delve: Founding of Tiefruhr",
+    "year_numeric": 2147.0,
+    "display_date": "2147",
+    "description": "2147: Great Delve forces millions underground, founding Tiefruhr amid collapse and corporate grabs.",
+    "type": "Article"
+  },
+  {
+    "id": "Tiefruhr",
+    "name": "Tiefruhr",
+    "content": "Tiefruhr",
+    "year_numeric": 2147.0,
+    "display_date": "2147",
+    "description": "2147: Tiefruhr emerges as underground megacity from Great Delve refugees fleeing Eisenkrieg slag.",
+    "type": "Location"
+  },
+  {
+    "id": "Eisenkrieg Logs",
+    "name": "Eisenkrieg Logs",
+    "content": "Eisenkrieg Logs",
+    "year_numeric": 2147.0,
+    "display_date": "2147",
+    "description": "Eisenkrieg railgun wars devastate Ruhr surface, precipitating the Great Delve migration.",
+    "type": "Article"
+  },
+  {
+    "id": "Neo-Bergbau AG",
+    "name": "Neo-Bergbau AG",
+    "content": "Neo-Bergbau AG",
+    "year_numeric": 2147.0,
+    "display_date": "2147",
+    "description": "Neo-Bergbau AG deploys smart-foam to seal prime stollens during Great Delve, cementing megacorp dominance.",
+    "type": "Organization"
+  }
+]

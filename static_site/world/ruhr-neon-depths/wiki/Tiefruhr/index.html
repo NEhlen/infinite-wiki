@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tiefruhr - Infinite Wiki</title>
+    <link rel="icon" type="image/png" href="/infinite-wiki/static/favicon.png">
     <style>
         body {
             font-family: sans-serif;
@@ -91,11 +92,36 @@
     </header>
     <div class="container">
         
+<div id="delta-alert"
+    style="display: none; background-color: #d4edda; color: #155724; padding: 15px; margin-bottom: 20px; border: 1px solid #c3e6cb; border-radius: 4px;">
+    <strong>Update Successful:</strong> <span id="delta-msg"></span>
+</div>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const delta = urlParams.get('delta');
+    if (delta) {
+        document.getElementById('delta-msg').textContent = delta;
+        document.getElementById('delta-alert').style.display = 'block';
+        // Clean URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+</script>
 <div style="display: flex; justify-content: space-between; align-items: center;">
     <h2>Tiefruhr</h2>
-    <a href="/infinite-wiki/world/ruhr-neon-depths/wiki/Tiefruhr/edit" class="button"
-        style="font-size: 0.8em; padding: 5px 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px;">Edit</a>
+    <div style="display: flex; gap: 10px;">
+        <button onclick="extractEvents()" class="button"
+            style="font-size: 0.8em; padding: 5px 10px; background-color: #17a2b8; color: white; border: none; border-radius: 4px; cursor: pointer;">Extract
+            Events</button>
+        <button onclick="integrateInfo()" class="button"
+            style="font-size: 0.8em; padding: 5px 10px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">Integrate
+            New Info</button>
+        <a href="/infinite-wiki/world/ruhr-neon-depths/wiki/Tiefruhr/edit" class="button"
+            style="font-size: 0.8em; padding: 5px 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px;">Edit</a>
+    </div>
 </div>
+
+<p style="margin-top: -10px; color: #666; font-style: italic;">2147</p>
+
 
 
 <div class="image-container">
@@ -112,21 +138,21 @@
 
 <div class="content">
     <h1><strong><a href="/world/ruhr-neon-depths/wiki/Tiefruhr">Tiefruhr</a>: Neon Heart of the Depths</strong></h1>
-<p><em>Leaked Schacht-scribe holovid, jacked from <a href="/world/ruhr-neon-depths/wiki/Kernschacht">Kernschacht</a> relay-node, Stollen 47. Graffiti-burned by Grubengeist shadow-scribes. Ozone stings your nostrils yet? Neon veins throb in the black. 50 million cyber-souls crammed in rusted Stollens, geothermal vents hissing steam, corp-drones whirring overhead. <a href="/world/ruhr-neon-depths/wiki/Tiefruhr">Tiefruhr</a> – high-tech low-life maze, birthed in the <a href="/world/ruhr-neon-depths/wiki/Great%20Delve">Great Delve</a>. I etched this from a dripping ledge, neural-jack sparking. Corps own the glow. We own the grit. Read deep, chummer. Or stay surfacedead.</em></p>
+<p><em>Leaked Schacht-scribe holovid, jacked from <a href="/world/ruhr-neon-depths/wiki/Kernschacht" class="new-article" data-title="Kernschacht">Kernschacht</a> relay-node, Stollen 47. Graffiti-burned by Grubengeist shadow-scribes. Ozone stings your nostrils yet? Neon veins throb in the black. 50 million cyber-souls crammed in rusted Stollens, geothermal vents hissing steam, corp-drones whirring overhead. <a href="/world/ruhr-neon-depths/wiki/Tiefruhr">Tiefruhr</a> – high-tech low-life maze, birthed in the <a href="/world/ruhr-neon-depths/wiki/Great%20Delve" class="new-article" data-title="Great Delve">Great Delve</a>. I etched this from a dripping ledge, neural-jack sparking. Corps own the glow. We own the grit. Read deep, chummer. Or stay surfacedead.</em></p>
 <p><a href="/world/ruhr-neon-depths/wiki/Tiefruhr">Tiefruhr</a> sprawls like a cyber-lung in Ruhr's forsaken coal-veins. Rusted Schächte pulse blue-neon. Drip-dank echoes eternal. Fusion vents belch heat, nano-grubers chew new paths. Megacorps drill for power. Augmented dwellers jack in, dodge cave-ins, trade black-market chrome. Labyrinth of districts, enclaves, shadows. Born from slag-sky apocalypse. Thrives on synth-adrenalin and spite.</p>
 <h2><strong>Genesis in the Delve: From Surface Slag to Subterranean Sprawl</strong></h2>
-<p>[datastream: <a href="/world/ruhr-neon-depths/wiki/The%20Great%20Delve%3A%20Founding%20of%20Tiefruhr">The Great Delve: Founding of Tiefruhr</a>]. [datastream: <a href="/world/ruhr-neon-depths/wiki/Eisenkrieg%20Logs">Eisenkrieg Logs</a>]. 2147. Himmel cracked. Corp-rails slagged Ruhr topside – <a href="/world/ruhr-neon-depths/wiki/Essen">Essen</a> glassed, <a href="/world/ruhr-neon-depths/wiki/Dortmund">Dortmund</a> boiled. Nano-tox choked skies red. "Tiefer gehen oder sterben." I hauled cargo at Schacht 12 when lifts groaned. Millions swarmed down. Chaos: snapscreams in abyss, cyber-rats gnawing fallen. Frau Stahlherz rallied with plasma-torch fists – "Wir graben unser Reich!" Corps dropped hab-pods first, sealing vents with smart-foam. <a href="/world/ruhr-neon-depths/wiki/Eisenvolk">Eisenvolk</a> claimed fusion hearts. Neo-Bergbau tunneled vaults. We clawed districts from schutt. Pioneers geo-printed habs, neon vines snaking stalactites. Delve birthed <a href="/world/ruhr-neon-depths/wiki/Tiefruhr">Tiefruhr</a>. Ghosts still whisper from the walls.</p>
-<h2><strong>The Labyrinthine Districts: <a href="/world/ruhr-neon-depths/wiki/Kernschacht">Kernschacht</a> to <a href="/world/ruhr-neon-depths/wiki/Geistergasse">Geistergasse</a></strong></h2>
-<p><a href="/world/ruhr-neon-depths/wiki/Tiefruhr">Tiefruhr</a>'s maze twists 50 klicks deep. Districts faction-carved, neon-tagged. <strong><a href="/world/ruhr-neon-depths/wiki/Kernschacht">Kernschacht</a></strong>: Corp-core, chrome-spires drilled into heart-rock. Fusion-blue glow, sec-drones buzz like hornissen. Elites sip synth-wein, optics scanning underdwellers. <strong><a href="/world/ruhr-neon-depths/wiki/Stollenmarkt">Stollenmarkt</a></strong>: Rust-bazaar hums spice-smoke, mag-lev carts screeching. Hack black chrome, guzzle phosphor-bier. I scored my ghost-arm there – itches in the damp. <strong><a href="/world/ruhr-neon-depths/wiki/Geistergasse">Geistergasse</a></strong>: Hacker-haunt, walls pulse holo-graffiti. <a href="/world/ruhr-neon-depths/wiki/Grubengeister">Grubengeister</a> jack neural-nets, slicing corp-firewalls. <strong>Ventstadt</strong>: Steam-veiled slums around geothermal mouths, oxy-suits mandatory. Drip-stalactites crack skulls. <strong>Nomaden-Tunnel</strong>: Clan-tracks on rail-trolleys, dodging unstable Schächte. <strong>Tieffelsgrube</strong>: Voidkin cults chant in abyss-voids, glow-worms lighting rituals. Wind moans through cracks. Neon buzz fights the black.</p>
+<p>[datastream: <a href="/world/ruhr-neon-depths/wiki/The%20Great%20Delve%3A%20Founding%20of%20Tiefruhr">The Great Delve: Founding of Tiefruhr</a>]. [datastream: <a href="/world/ruhr-neon-depths/wiki/Eisenkrieg%20Logs">Eisenkrieg Logs</a>]. 2147. Himmel cracked. Corp-rails slagged Ruhr topside – <a href="/world/ruhr-neon-depths/wiki/Essen" class="new-article" data-title="Essen">Essen</a> glassed, <a href="/world/ruhr-neon-depths/wiki/Dortmund" class="new-article" data-title="Dortmund">Dortmund</a> boiled. Nano-tox choked skies red. "Tiefer gehen oder sterben." I hauled cargo at Schacht 12 when lifts groaned. Millions swarmed down. Chaos: snapscreams in abyss, cyber-rats gnawing fallen. Frau Stahlherz rallied with plasma-torch fists – "Wir graben unser Reich!" Corps dropped hab-pods first, sealing vents with smart-foam. <a href="/world/ruhr-neon-depths/wiki/Eisenvolk" class="new-article" data-title="Eisenvolk">Eisenvolk</a> claimed fusion hearts. Neo-Bergbau tunneled vaults. We clawed districts from schutt. Pioneers geo-printed habs, neon vines snaking stalactites. Delve birthed <a href="/world/ruhr-neon-depths/wiki/Tiefruhr">Tiefruhr</a>. Ghosts still whisper from the walls.</p>
+<h2><strong>The Labyrinthine Districts: <a href="/world/ruhr-neon-depths/wiki/Kernschacht" class="new-article" data-title="Kernschacht">Kernschacht</a> to <a href="/world/ruhr-neon-depths/wiki/Geistergasse" class="new-article" data-title="Geistergasse">Geistergasse</a></strong></h2>
+<p><a href="/world/ruhr-neon-depths/wiki/Tiefruhr">Tiefruhr</a>'s maze twists 50 klicks deep. Districts faction-carved, neon-tagged. <strong><a href="/world/ruhr-neon-depths/wiki/Kernschacht" class="new-article" data-title="Kernschacht">Kernschacht</a></strong>: Corp-core, chrome-spires drilled into heart-rock. Fusion-blue glow, sec-drones buzz like hornissen. Elites sip synth-wein, optics scanning underdwellers. <strong><a href="/world/ruhr-neon-depths/wiki/Stollenmarkt" class="new-article" data-title="Stollenmarkt">Stollenmarkt</a></strong>: Rust-bazaar hums spice-smoke, mag-lev carts screeching. Hack black chrome, guzzle phosphor-bier. I scored my ghost-arm there – itches in the damp. <strong><a href="/world/ruhr-neon-depths/wiki/Geistergasse" class="new-article" data-title="Geistergasse">Geistergasse</a></strong>: Hacker-haunt, walls pulse holo-graffiti. <a href="/world/ruhr-neon-depths/wiki/Grubengeister" class="new-article" data-title="Grubengeister">Grubengeister</a> jack neural-nets, slicing corp-firewalls. <strong>Ventstadt</strong>: Steam-veiled slums around geothermal mouths, oxy-suits mandatory. Drip-stalactites crack skulls. <strong>Nomaden-Tunnel</strong>: Clan-tracks on rail-trolleys, dodging unstable Schächte. <strong>Tieffelsgrube</strong>: Voidkin cults chant in abyss-voids, glow-worms lighting rituals. Wind moans through cracks. Neon buzz fights the black.</p>
 <h2><strong>Corporate Overlords and Rebel Enclaves: Power in the Veins</strong></h2>
-<p>Corps rule the vents. [datastream: Volkhardt Proto-Cols]. <strong><a href="/world/ruhr-neon-depths/wiki/Eisenvolk">Eisenvolk</a></strong>: Stahl-kings, orbital slag survivors. Pump fusion-rigs, drone-patrol Stollens. Stahlfaust's heirs jack god-nets from <a href="/world/ruhr-neon-depths/wiki/Kernschacht">Kernschacht</a> thrones. <strong><a href="/world/ruhr-neon-depths/wiki/Neo-Bergbau%20AG">Neo-Bergbau AG</a></strong>: Tunnel-tyrants, smart-slug swarmers. Seal veins with nano-foam, mine deep-core plasma. Underdwellers? Fuel for their grind.</p>
-<p>Rebels bite back. <strong><a href="/world/ruhr-neon-depths/wiki/Grubengeister">Grubengeister</a></strong>: Mine-ghost hackers, me included. Vox-preach from walls, [datastream: Voidkin Cults]. <strong>Stahlrat Unions</strong>: Chrome-fisted workers, plasma-torches ready. Frau Stahlherz's echo lives. <strong>Nomaden Clans</strong>: Mag-lev wanderers, blade-limbs whirring raids. Enclaves faction – black-markets link 'em. Corps got drones. We got spite. Balance teeters.</p>
+<p>Corps rule the vents. [datastream: Volkhardt Proto-Cols]. <strong><a href="/world/ruhr-neon-depths/wiki/Eisenvolk" class="new-article" data-title="Eisenvolk">Eisenvolk</a></strong>: Stahl-kings, orbital slag survivors. Pump fusion-rigs, drone-patrol Stollens. Stahlfaust's heirs jack god-nets from <a href="/world/ruhr-neon-depths/wiki/Kernschacht" class="new-article" data-title="Kernschacht">Kernschacht</a> thrones. <strong><a href="/world/ruhr-neon-depths/wiki/Neo-Bergbau%20AG">Neo-Bergbau AG</a></strong>: Tunnel-tyrants, smart-slug swarmers. Seal veins with nano-foam, mine deep-core plasma. Underdwellers? Fuel for their grind.</p>
+<p>Rebels bite back. <strong><a href="/world/ruhr-neon-depths/wiki/Grubengeister" class="new-article" data-title="Grubengeister">Grubengeister</a></strong>: Mine-ghost hackers, me included. Vox-preach from walls, [datastream: Voidkin Cults]. <strong>Stahlrat Unions</strong>: Chrome-fisted workers, plasma-torches ready. Frau Stahlherz's echo lives. <strong>Nomaden Clans</strong>: Mag-lev wanderers, blade-limbs whirring raids. Enclaves faction – black-markets link 'em. Corps got drones. We got spite. Balance teeters.</p>
 <h2><strong>Tech of the Black: Fusion Vents, Neural Jacks, and Nano-Grubers</strong></h2>
-<p>Delve-spawned chrome keeps us breathing. <strong>Vent-Fusion Rigs</strong>: Corps' blue-heart, geothermal plasma humming endless power. Ozone tang thick near 'em. <strong>Neural-Schacht Links</strong>: Jack in, map the maze – my optic-feed ghosts Delve-screams. <strong>Nano-Grubers</strong>: Swarm-bots chew Stollens, coolant dripping like blood. Black-market bootlegs carve rebel paths. <strong>Oxy-Weave Suits</strong>: Breathe poison, skin gleams chrome. Whir-click with every step. Salvaged rail-slug hulls plate habs. Holovid blueprints flicker in <a href="/world/ruhr-neon-depths/wiki/Geistergasse">Geistergasse</a> stalls. Tech from slag. We spike it sharper.</p>
+<p>Delve-spawned chrome keeps us breathing. <strong>Vent-Fusion Rigs</strong>: Corps' blue-heart, geothermal plasma humming endless power. Ozone tang thick near 'em. <strong>Neural-Schacht Links</strong>: Jack in, map the maze – my optic-feed ghosts Delve-screams. <strong>Nano-Grubers</strong>: Swarm-bots chew Stollens, coolant dripping like blood. Black-market bootlegs carve rebel paths. <strong>Oxy-Weave Suits</strong>: Breathe poison, skin gleams chrome. Whir-click with every step. Salvaged rail-slug hulls plate habs. Holovid blueprints flicker in <a href="/world/ruhr-neon-depths/wiki/Geistergasse" class="new-article" data-title="Geistergasse">Geistergasse</a> stalls. Tech from slag. We spike it sharper.</p>
 <h2><strong>Daily Grind: Life in the Eternal Drip-Dank</strong></h2>
-<p>Dawn? Neon-flicker. Wake to Stollen-drip, cyber-limbs creak. Synth-meat sizzles in vent-heat stalls. Jack to shift: mine plasma-veins, dodge cave-ins, run corp-blackmail decks. <a href="/world/ruhr-neon-depths/wiki/Stollenmarkt">Stollenmarkt</a> buzz – barter optics for adrena-packs, haggle nano-fleas. Gangs whir blades in shadows. Kids jack first neural-link young, eyes glow blue. Fights echo: plasma-etches on walls. "<a href="/world/ruhr-neon-depths/wiki/Tiefruhr">Tiefruhr</a> lebt!" Phosphor-dust coats lungs. Night? Holo-dens pulse bass-throb, bodies grind under neon. Drip eternal. Grind forever. I scribe between shifts, veins buzzing.</p>
+<p>Dawn? Neon-flicker. Wake to Stollen-drip, cyber-limbs creak. Synth-meat sizzles in vent-heat stalls. Jack to shift: mine plasma-veins, dodge cave-ins, run corp-blackmail decks. <a href="/world/ruhr-neon-depths/wiki/Stollenmarkt" class="new-article" data-title="Stollenmarkt">Stollenmarkt</a> buzz – barter optics for adrena-packs, haggle nano-fleas. Gangs whir blades in shadows. Kids jack first neural-link young, eyes glow blue. Fights echo: plasma-etches on walls. "<a href="/world/ruhr-neon-depths/wiki/Tiefruhr">Tiefruhr</a> lebt!" Phosphor-dust coats lungs. Night? Holo-dens pulse bass-throb, bodies grind under neon. Drip eternal. Grind forever. I scribe between shifts, veins buzzing.</p>
 <h2><strong>Shadows on the Horizon: Unstable Shafts and Brewing Revolts</strong></h2>
-<p><a href="/world/ruhr-neon-depths/wiki/Tiefruhr">Tiefruhr</a> cracks. Unstable Schächte groan – seismic ghosts from <a href="/world/ruhr-neon-depths/wiki/Eisenkrieg">Eisenkrieg</a> quakes. Vents overheat, steam scalds flesh. Corps squeeze harder: drone-swarms multiply, neural-taxes jack your skull. <a href="/world/ruhr-neon-depths/wiki/Grubengeister">Grubengeister</a> rise. Holo-screeds flood nets: "Aus den Tiefen, die Revolution!" Stahlrat arms caches. Nomaden raid convoys. Voidkin summon abyss-howls. Annual Delve-Nights spark plasma-fests, but whispers brew real fire. I feel it in my ghost-arm itch. Deeper tremors. Corps watch relays. We watch the walls. <a href="/world/ruhr-neon-depths/wiki/Tiefruhr">Tiefruhr</a> pulses. Revolt simmers. Deeper we go, chummer. Or die shallow.</p>
+<p><a href="/world/ruhr-neon-depths/wiki/Tiefruhr">Tiefruhr</a> cracks. Unstable Schächte groan – seismic ghosts from <a href="/world/ruhr-neon-depths/wiki/Eisenkrieg" class="new-article" data-title="Eisenkrieg">Eisenkrieg</a> quakes. Vents overheat, steam scalds flesh. Corps squeeze harder: drone-swarms multiply, neural-taxes jack your skull. <a href="/world/ruhr-neon-depths/wiki/Grubengeister" class="new-article" data-title="Grubengeister">Grubengeister</a> rise. Holo-screeds flood nets: "Aus den Tiefen, die Revolution!" Stahlrat arms caches. Nomaden raid convoys. Voidkin summon abyss-howls. Annual Delve-Nights spark plasma-fests, but whispers brew real fire. I feel it in my ghost-arm itch. Deeper tremors. Corps watch relays. We watch the walls. <a href="/world/ruhr-neon-depths/wiki/Tiefruhr">Tiefruhr</a> pulses. Revolt simmers. Deeper we go, chummer. Or die shallow.</p>
 <p><em>Datastream end. Scrub your jack. Drones inbound. Grubengeist out.</em></p>
 </div>
 
@@ -277,6 +303,17 @@
             }
         }
     }
+
+    /* Red Link Style */
+    a.new-article {
+        color: #dc3545;
+        text-decoration: none;
+        border-bottom: 1px dashed #dc3545;
+    }
+
+    a.new-article:hover {
+        background-color: rgba(220, 53, 69, 0.1);
+    }
 </style>
 
 <script>
@@ -394,6 +431,96 @@
             document.head.appendChild(style);
         }
     });
+
+    // Delegate event listener for red links (since they are dynamically inserted)
+    document.addEventListener('click', async (e) => {
+        if (e.target.matches('a.new-article')) {
+            e.preventDefault();
+            const title = e.target.dataset.title;
+            const description = prompt(`Create new article: "${title}"?\n\nEnter optional instructions/context for the AI:`);
+
+            if (description !== null) { // If not cancelled
+                // Show loading on the link itself
+                const originalText = e.target.innerText;
+                e.target.innerText = "Creating...";
+                e.target.style.pointerEvents = "none";
+
+                // Submit to create_custom
+                const formData = new FormData();
+                formData.append('title', title);
+                if (description) {
+                    formData.append('description', description);
+                }
+
+                try {
+                    const response = await fetch('/infinite-wiki/world/ruhr-neon-depths/create_custom', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                    } else {
+                        window.location.href = `/infinite-wiki/world/ruhr-neon-depths/wiki/${encodeURIComponent(title)}`;
+                    }
+                } catch (err) {
+                    alert("Creation failed: " + err);
+                    e.target.innerText = originalText;
+                    e.target.style.pointerEvents = "auto";
+                }
+            }
+        }
+    });
+
+    async function extractEvents() {
+        if (!confirm("This will analyze the article to extract and graph historical events. Continue?")) return;
+
+        const btn = document.querySelector('button[onclick="extractEvents()"]');
+        const originalText = btn.innerText;
+        btn.innerText = "Extracting...";
+        btn.disabled = true;
+
+        try {
+            const response = await fetch('/infinite-wiki/world/ruhr-neon-depths/wiki/Tiefruhr/extract_events', {
+                method: 'POST'
+            });
+
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                window.location.reload();
+            }
+        } catch (err) {
+            alert("Extraction failed: " + err);
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }
+    }
+
+    async function integrateInfo() {
+        if (!confirm("This will rewrite the article to include new information from the knowledge base. Continue?")) return;
+
+        const btn = document.querySelector('button[onclick="integrateInfo()"]');
+        const originalText = btn.innerText;
+        btn.innerText = "Integrating...";
+        btn.disabled = true;
+
+        try {
+            const response = await fetch('/infinite-wiki/world/ruhr-neon-depths/wiki/Tiefruhr/integrate', {
+                method: 'POST'
+            });
+
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                window.location.reload();
+            }
+        } catch (err) {
+            alert("Integration failed: " + err);
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }
+    }
 </script>
 
     </div>

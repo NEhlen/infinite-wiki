@@ -1,0 +1,83 @@
+[
+  {
+    "id": "Downtown District",
+    "name": "Downtown District",
+    "content": "Downtown District",
+    "year_numeric": 2024.0,
+    "display_date": "Early 2024 AD",
+    "description": "Downtown District: Site of asphalt's inaugural whispers, igniting city-wide psychosis.",
+    "type": "Location"
+  },
+  {
+    "id": "Asphalt",
+    "name": "Asphalt",
+    "content": "Asphalt",
+    "year_numeric": 2024.0,
+    "display_date": "Early 2024 AD",
+    "description": "Asphalt pulses alive beneath downtown, whispering first hungers to rain-soaked commuters.",
+    "type": "Object"
+  },
+  {
+    "id": "The Skyscraper of the City",
+    "name": "The Skyscraper of the City",
+    "content": "The Skyscraper of the City",
+    "year_numeric": 2024.0,
+    "display_date": "2024 AD",
+    "description": "Skyscraper emerges as city's watchful god, eyes awakening in the storm.",
+    "type": "Article"
+  },
+  {
+    "id": "The First Whisper from the Asphalt",
+    "name": "The First Whisper from the Asphalt",
+    "content": "The First Whisper from the Asphalt",
+    "year_numeric": 2024.25,
+    "display_date": "Early 2024 AD",
+    "description": "First asphalt whisper pierces downtown rain, igniting city-wide mental erosion.",
+    "type": "Article"
+  },
+  {
+    "id": "Event: Slip in crosswalk; first sensa... (Asphalt)",
+    "name": "Event: Slip in crosswalk; first sensa... (Asphalt)",
+    "content": "Event: Slip in crosswalk; first sensa... (Asphalt)",
+    "year_numeric": 2024.3,
+    "display_date": "7:59 AM",
+    "description": "Slip in crosswalk; first sensation of warm throbbing pulse under palm on living asphalt, syncing with subway rumble.",
+    "type": "Event"
+  },
+  {
+    "id": "Event: Bus choke in eternal rain; asp... (Asphalt)",
+    "name": "Event: Bus choke in eternal rain; asp... (Asphalt)",
+    "content": "Event: Bus choke in eternal rain; asp... (Asphalt)",
+    "year_numeric": 2024.301,
+    "display_date": "8:15 AM",
+    "description": "Bus choke in eternal rain; asphalt awakens with glistening oily sheen, spiderweb cracks reaching like fingers.",
+    "type": "Event"
+  },
+  {
+    "id": "Event: Downtown commute; asphalt puls... (Asphalt)",
+    "name": "Event: Downtown commute; asphalt puls... (Asphalt)",
+    "content": "Event: Downtown commute; asphalt puls... (Asphalt)",
+    "year_numeric": 2024.302,
+    "display_date": "8:23 AM",
+    "description": "Downtown commute; asphalt pulses under boots, breathes warmly, whispers to stay, feed, and join.",
+    "type": "Event"
+  },
+  {
+    "id": "Event: Rush hour in downtown core; bo... (Asphalt)",
+    "name": "Event: Rush hour in downtown core; bo... (Asphalt)",
+    "content": "Event: Rush hour in downtown core; bo... (Asphalt)",
+    "year_numeric": 2024.303,
+    "display_date": "9:02 AM",
+    "description": "Rush hour in downtown core; boots begin sinking into hungry asphalt, veins throbbing beneath.",
+    "type": "Event"
+  },
+  {
+    "id": "Event: Wake sweating from dreams of a... (Asphalt)",
+    "name": "Event: Wake sweating from dreams of a... (Asphalt)",
+    "content": "Event: Wake sweating from dreams of a... (Asphalt)",
+    "year_numeric": 2024.304,
+    "display_date": "3:17 AM",
+    "description": "Wake sweating from dreams of asphalt chewing boots; floor throbs, rain calls name, pulse echoes forever.",
+    "type": "Event"
+  }
+]

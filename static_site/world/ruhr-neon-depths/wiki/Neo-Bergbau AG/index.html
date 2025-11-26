@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neo-Bergbau AG - Infinite Wiki</title>
+    <link rel="icon" type="image/png" href="/infinite-wiki/static/favicon.png">
     <style>
         body {
             font-family: sans-serif;
@@ -91,11 +92,36 @@
     </header>
     <div class="container">
         
+<div id="delta-alert"
+    style="display: none; background-color: #d4edda; color: #155724; padding: 15px; margin-bottom: 20px; border: 1px solid #c3e6cb; border-radius: 4px;">
+    <strong>Update Successful:</strong> <span id="delta-msg"></span>
+</div>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const delta = urlParams.get('delta');
+    if (delta) {
+        document.getElementById('delta-msg').textContent = delta;
+        document.getElementById('delta-alert').style.display = 'block';
+        // Clean URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+</script>
 <div style="display: flex; justify-content: space-between; align-items: center;">
     <h2>Neo-Bergbau AG</h2>
-    <a href="/infinite-wiki/world/ruhr-neon-depths/wiki/Neo-Bergbau AG/edit" class="button"
-        style="font-size: 0.8em; padding: 5px 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px;">Edit</a>
+    <div style="display: flex; gap: 10px;">
+        <button onclick="extractEvents()" class="button"
+            style="font-size: 0.8em; padding: 5px 10px; background-color: #17a2b8; color: white; border: none; border-radius: 4px; cursor: pointer;">Extract
+            Events</button>
+        <button onclick="integrateInfo()" class="button"
+            style="font-size: 0.8em; padding: 5px 10px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">Integrate
+            New Info</button>
+        <a href="/infinite-wiki/world/ruhr-neon-depths/wiki/Neo-Bergbau AG/edit" class="button"
+            style="font-size: 0.8em; padding: 5px 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px;">Edit</a>
+    </div>
 </div>
+
+<p style="margin-top: -10px; color: #666; font-style: italic;">2147</p>
+
 
 
 <div class="image-container">
@@ -112,36 +138,36 @@
 
 <div class="content">
     <h1><strong><a href="/world/ruhr-neon-depths/wiki/Neo-Bergbau%20AG">Neo-Bergbau AG</a>: Tunnel-Tyrants of the Underglow</strong></h1>
-<p><em>Leaked <a href="/world/ruhr-neon-depths/wiki/Bergschloss">Bergschloss</a> Datadump, jacked from Neo-Bergbau core-vault in Stollen 9. Graffiti-sliced by Grubengeist shadow-scribes, <a href="/world/ruhr-neon-depths/wiki/Kernschacht">Kernschacht</a> fringe. I was a foam-seal drone-jockey, lungs burning nano-glue, when I cracked their net. Ozone acrid, neon veins throbbing red alert. These tunnel-rats rose from slag-sky rails to choke <a href="/world/ruhr-neon-depths/wiki/Tiefruhr">Tiefruhr</a>'s black heart. Sealing Stollens, grubbing plasma, swarming slugs on rivals. Corps own the glow. We ghost the cracks. Read the dump, chummer. Feel the drip-dank squeeze.</em><br />
+<p><em>Leaked <a href="/world/ruhr-neon-depths/wiki/Bergschloss" class="new-article" data-title="Bergschloss">Bergschloss</a> Datadump, jacked from Neo-Bergbau core-vault in Stollen 9. Graffiti-sliced by Grubengeist shadow-scribes, <a href="/world/ruhr-neon-depths/wiki/Kernschacht" class="new-article" data-title="Kernschacht">Kernschacht</a> fringe. I was a foam-seal drone-jockey, lungs burning nano-glue, when I cracked their net. Ozone acrid, neon veins throbbing red alert. These tunnel-rats rose from slag-sky rails to choke <a href="/world/ruhr-neon-depths/wiki/Tiefruhr">Tiefruhr</a>'s black heart. Sealing Stollens, grubbing plasma, swarming slugs on rivals. Corps own the glow. We ghost the cracks. Read the dump, chummer. Feel the drip-dank squeeze.</em><br />
 [datastream: <a href="/world/ruhr-neon-depths/wiki/The%20Great%20Delve%3A%20Founding%20of%20Tiefruhr">The Great Delve: Founding of Tiefruhr</a>]. [datastream: <a href="/world/ruhr-neon-depths/wiki/Eisenkrieg%20Logs">Eisenkrieg Logs</a>]. [datastream: <a href="/world/ruhr-neon-depths/wiki/Tiefruhr">Tiefruhr</a>: Neon Heart of the Depths].</p>
-<p><a href="/world/ruhr-neon-depths/wiki/Neo-Bergbau%20AG">Neo-Bergbau AG</a>. Tunnel-tyrants. Surged from orbital slag to dominate depths. Nano-foam vaults seal veins tight. Geothermal plasma fuels their thrones. Smart-slug swarms crush dissent. High-tech grip on low-life black. 50 mil souls grind under their whir. I etched this from <a href="/world/ruhr-neon-depths/wiki/Geistergasse">Geistergasse</a> ledge, ghost-arm itching corp-tox.</p>
-<h2><strong><a href="/world/ruhr-neon-depths/wiki/Eisenkrieg">Eisenkrieg</a> Origins: From Rails to Depths</strong></h2>
-<p><strong>2147.08.</strong> Himmel cracked. Rails screamed hypersonic. I decked payloads in <a href="/world/ruhr-neon-depths/wiki/Dortmund">Dortmund</a> arcology, screens blooming rail-tracks. Neo-Bergbau's <em><a href="/world/ruhr-neon-depths/wiki/Bergschloss">Bergschloss</a></em> swarm-sats primed slugs – <a href="/world/ruhr-neon-depths/wiki/Eisenvolk">Eisenvolk</a> sniffed it first. Preemptive slag-strike lit <a href="/world/ruhr-neon-depths/wiki/Dortmund">Dortmund</a> red. AI-slugs burrowed crust anyway, erupting under <a href="/world/ruhr-neon-depths/wiki/Eisenvolk">Eisenvolk</a> spires. Magma geysers. 2000° hell. "<a href="/world/ruhr-neon-depths/wiki/Eisenvolk">Eisenvolk</a> hogs the veins," their vox-screed blasted post-strike. Tunnel-rats turned titans. Old Reich miners, chrome-auged, jacked orbital rails. Stole fusion hearts. Slagged <a href="/world/ruhr-neon-depths/wiki/Essen">Essen</a> glass. Nano-tox veiled sun red. Surface? Corpse. Depths called. Whirs echoed. Krieg birthed their rise.</p>
-<p>Rails sang duet. Doppler-wail shook bones. Neo's <em>Tiefersturm</em> protocol: burrowing slugs quaked Schächte wide. I fled Schacht-ramp, cyber-eyes overload. They claimed black veins early. <a href="/world/ruhr-neon-depths/wiki/Eisenvolk">Eisenvolk</a> countered. Neo's edge? Nano-foam seals. Quick-lock Stollens. Corp-war went subsurface.</p>
+<p><a href="/world/ruhr-neon-depths/wiki/Neo-Bergbau%20AG">Neo-Bergbau AG</a>. Tunnel-tyrants. Surged from orbital slag to dominate depths. Nano-foam vaults seal veins tight. Geothermal plasma fuels their thrones. Smart-slug swarms crush dissent. High-tech grip on low-life black. 50 mil souls grind under their whir. I etched this from <a href="/world/ruhr-neon-depths/wiki/Geistergasse" class="new-article" data-title="Geistergasse">Geistergasse</a> ledge, ghost-arm itching corp-tox.</p>
+<h2><strong><a href="/world/ruhr-neon-depths/wiki/Eisenkrieg" class="new-article" data-title="Eisenkrieg">Eisenkrieg</a> Origins: From Rails to Depths</strong></h2>
+<p><strong>2147.08.</strong> Himmel cracked. Rails screamed hypersonic. I decked payloads in <a href="/world/ruhr-neon-depths/wiki/Dortmund" class="new-article" data-title="Dortmund">Dortmund</a> arcology, screens blooming rail-tracks. Neo-Bergbau's <em><a href="/world/ruhr-neon-depths/wiki/Bergschloss" class="new-article" data-title="Bergschloss">Bergschloss</a></em> swarm-sats primed slugs – <a href="/world/ruhr-neon-depths/wiki/Eisenvolk" class="new-article" data-title="Eisenvolk">Eisenvolk</a> sniffed it first. Preemptive slag-strike lit <a href="/world/ruhr-neon-depths/wiki/Dortmund" class="new-article" data-title="Dortmund">Dortmund</a> red. AI-slugs burrowed crust anyway, erupting under <a href="/world/ruhr-neon-depths/wiki/Eisenvolk" class="new-article" data-title="Eisenvolk">Eisenvolk</a> spires. Magma geysers. 2000° hell. "<a href="/world/ruhr-neon-depths/wiki/Eisenvolk" class="new-article" data-title="Eisenvolk">Eisenvolk</a> hogs the veins," their vox-screed blasted post-strike. Tunnel-rats turned titans. Old Reich miners, chrome-auged, jacked orbital rails. Stole fusion hearts. Slagged <a href="/world/ruhr-neon-depths/wiki/Essen" class="new-article" data-title="Essen">Essen</a> glass. Nano-tox veiled sun red. Surface? Corpse. Depths called. Whirs echoed. Krieg birthed their rise.</p>
+<p>Rails sang duet. Doppler-wail shook bones. Neo's <em>Tiefersturm</em> protocol: burrowing slugs quaked Schächte wide. I fled Schacht-ramp, cyber-eyes overload. They claimed black veins early. <a href="/world/ruhr-neon-depths/wiki/Eisenvolk" class="new-article" data-title="Eisenvolk">Eisenvolk</a> countered. Neo's edge? Nano-foam seals. Quick-lock Stollens. Corp-war went subsurface.</p>
 <h2><strong>The Delve Power Grab: Sealing the Veins</strong></h2>
-<p>Delve chaos. Millions swarmed down. Lifts snapped. Abyss-screams. Cyber-rats gnawed fallen. <a href="/world/ruhr-neon-depths/wiki/Eisenvolk">Eisenvolk</a> dropped first hab-pods into prime vents, claimed fusion hearts. Neo didn't flee. Swarmed after. Drones buzzed hornissen-swarms, lasering squatters. "Neo-Bergbau claims Vent 7," holo-tags burned. Smart-foam sprayed Stollens shut. Nano-glue hardened obsidian vaults. Pioneers clawed outside. Frau Stahlherz raged plasma-torches. "Freie Schächte!" Useless. Neo sealed key Stollen veins. Fusion vents hummed blue nearby. I lost deck to their slicers mid-Descent. Patched with scrap. They got glow. We got grit.</p>
+<p>Delve chaos. Millions swarmed down. Lifts snapped. Abyss-screams. Cyber-rats gnawed fallen. <a href="/world/ruhr-neon-depths/wiki/Eisenvolk" class="new-article" data-title="Eisenvolk">Eisenvolk</a> dropped first hab-pods into prime vents, claimed fusion hearts. Neo didn't flee. Swarmed after. Drones buzzed hornissen-swarms, lasering squatters. "Neo-Bergbau claims Vent 7," holo-tags burned. Smart-foam sprayed Stollens shut. Nano-glue hardened obsidian vaults. Pioneers clawed outside. Frau Stahlherz raged plasma-torches. "Freie Schächte!" Useless. Neo sealed key Stollen veins. Fusion vents hummed blue nearby. I lost deck to their slicers mid-Descent. Patched with scrap. They got glow. We got grit.</p>
 <p>Power grab locked. Plasma-grubers chewed private tunnels. Sec-nets pulsed red. Underdwellers? Fuel. Taxed breaths via neural-jacks. Balance teetered. Neo throned.</p>
-<h2><strong><a href="/world/ruhr-neon-depths/wiki/Bergschloss">Bergschloss</a> Legacy: Orbital Slag to Subterranean Thrones</strong></h2>
-<p><em><a href="/world/ruhr-neon-depths/wiki/Bergschloss">Bergschloss</a></em>. Their slag-sky crown. Orbital swarm-hub, rail-cannons god-sized. Slagged in final bursts – spiraled fireflower. Wreckage crashed Schacht 11. I jacked salvage, optics whirring slag-heat. Core-vaults intact. Dropped to depths. Rebuilt as Tiefersturm throne-spire. Chrome-drilled heart-rock. CEO Vosselauge – optic-lord, veins plasma-pumped. "<a href="/world/ruhr-neon-depths/wiki/Tiefruhr">Tiefruhr</a> ist unser Berg," vox drones preach. Legacy? Sealed enclaves. Nano-vaults guard fusion veins. Holovid feasts in glow-dens. Slag-orphans rule now. Whispers say Vosselauge ghosts <a href="/world/ruhr-neon-depths/wiki/Eisenkrieg">Eisenkrieg</a> code. Eternal grip.</p>
-<p>Thrones pulse neon. Drip-stalactites etch their sigils. <a href="/world/ruhr-neon-depths/wiki/Bergschloss">Bergschloss</a> lives below.</p>
-<h2><strong>Core Technologies: <a href="/world/ruhr-neon-depths/wiki/Nano-Foam%20Seals">Nano-Foam Seals</a>, <a href="/world/ruhr-neon-depths/wiki/Plasma%20Grubers">Plasma Grubers</a>, and Slug-Swarms</strong></h2>
+<h2><strong><a href="/world/ruhr-neon-depths/wiki/Bergschloss" class="new-article" data-title="Bergschloss">Bergschloss</a> Legacy: Orbital Slag to Subterranean Thrones</strong></h2>
+<p><em><a href="/world/ruhr-neon-depths/wiki/Bergschloss" class="new-article" data-title="Bergschloss">Bergschloss</a></em>. Their slag-sky crown. Orbital swarm-hub, rail-cannons god-sized. Slagged in final bursts – spiraled fireflower. Wreckage crashed Schacht 11. I jacked salvage, optics whirring slag-heat. Core-vaults intact. Dropped to depths. Rebuilt as Tiefersturm throne-spire. Chrome-drilled heart-rock. CEO Vosselauge – optic-lord, veins plasma-pumped. "<a href="/world/ruhr-neon-depths/wiki/Tiefruhr">Tiefruhr</a> ist unser Berg," vox drones preach. Legacy? Sealed enclaves. Nano-vaults guard fusion veins. Holovid feasts in glow-dens. Slag-orphans rule now. Whispers say Vosselauge ghosts <a href="/world/ruhr-neon-depths/wiki/Eisenkrieg" class="new-article" data-title="Eisenkrieg">Eisenkrieg</a> code. Eternal grip.</p>
+<p>Thrones pulse neon. Drip-stalactites etch their sigils. <a href="/world/ruhr-neon-depths/wiki/Bergschloss" class="new-article" data-title="Bergschloss">Bergschloss</a> lives below.</p>
+<h2><strong>Core Technologies: <a href="/world/ruhr-neon-depths/wiki/Nano-Foam%20Seals" class="new-article" data-title="Nano-Foam Seals">Nano-Foam Seals</a>, <a href="/world/ruhr-neon-depths/wiki/Plasma%20Grubers" class="new-article" data-title="Plasma Grubers">Plasma Grubers</a>, and Slug-Swarms</strong></h2>
 <p>Neo-tech chokes the black.</p>
-<p><strong><a href="/world/ruhr-neon-depths/wiki/Nano-Foam%20Seals">Nano-Foam Seals</a>.</strong> Spray and lock. Stollens to vaults in seconds. Acrid glue-stink burns lungs. Hardens smarter than rock – self-repair whirs. Seals rebels out. Or in.</p>
-<p><strong><a href="/world/ruhr-neon-depths/wiki/Plasma%20Grubers">Plasma Grubers</a>.</strong> Swarm-bots chew deep-core. Geothermal plasma veins bleed blue fire. Coolant drips blood-hot. Powers endless neon. Corps sip. Dwellers choke exhaust.</p>
-<p><strong>Smart-Slug Swarms.</strong> <a href="/world/ruhr-neon-depths/wiki/Eisenkrieg">Eisenkrieg</a> spawn. AI-guided rail-heads, mini-sized. Burrow flesh or stone. Crush rivals in tunnels. Whine-doppler, then red mist. I dodged one in Stollen 19. Ghost-arm sparks memory.</p>
+<p><strong><a href="/world/ruhr-neon-depths/wiki/Nano-Foam%20Seals" class="new-article" data-title="Nano-Foam Seals">Nano-Foam Seals</a>.</strong> Spray and lock. Stollens to vaults in seconds. Acrid glue-stink burns lungs. Hardens smarter than rock – self-repair whirs. Seals rebels out. Or in.</p>
+<p><strong><a href="/world/ruhr-neon-depths/wiki/Plasma%20Grubers" class="new-article" data-title="Plasma Grubers">Plasma Grubers</a>.</strong> Swarm-bots chew deep-core. Geothermal plasma veins bleed blue fire. Coolant drips blood-hot. Powers endless neon. Corps sip. Dwellers choke exhaust.</p>
+<p><strong>Smart-Slug Swarms.</strong> <a href="/world/ruhr-neon-depths/wiki/Eisenkrieg" class="new-article" data-title="Eisenkrieg">Eisenkrieg</a> spawn. AI-guided rail-heads, mini-sized. Burrow flesh or stone. Crush rivals in tunnels. Whine-doppler, then red mist. I dodged one in Stollen 19. Ghost-arm sparks memory.</p>
 <p>Black-market bootlegs glitch. We spike 'em back.</p>
 <h2><strong>Empire in the Black: Controlled Districts and Enclaves</strong></h2>
-<p>Neo empire sprawls. <strong>Tiefersturm Vaults</strong>: Throne-hub, foam-sealed glitter. <strong>Plasma-Vent Enclaves</strong>: Grubers hum, sec-drones patrol. <strong><a href="/world/ruhr-neon-depths/wiki/Stollenmarkt">Stollenmarkt</a> Fringe</strong>: Taxed bazaar, spice-smoke thick under watch-towers. Mag-lev convoys haul plasma-slug. Nomaden dodge patrols. Tieffelsgrube? Foam-walled off. Voidkin chant echoes muffled. Neon buzz their glow. Drip-dank our grind. 30% <a href="/world/ruhr-neon-depths/wiki/Tiefruhr">Tiefruhr</a> locked. Rest? Tributary.</p>
+<p>Neo empire sprawls. <strong>Tiefersturm Vaults</strong>: Throne-hub, foam-sealed glitter. <strong>Plasma-Vent Enclaves</strong>: Grubers hum, sec-drones patrol. <strong><a href="/world/ruhr-neon-depths/wiki/Stollenmarkt" class="new-article" data-title="Stollenmarkt">Stollenmarkt</a> Fringe</strong>: Taxed bazaar, spice-smoke thick under watch-towers. Mag-lev convoys haul plasma-slug. Nomaden dodge patrols. Tieffelsgrube? Foam-walled off. Voidkin chant echoes muffled. Neon buzz their glow. Drip-dank our grind. 30% <a href="/world/ruhr-neon-depths/wiki/Tiefruhr">Tiefruhr</a> locked. Rest? Tributary.</p>
 <p>Habs geo-printed chrome. Oxy-weave mandatory. Empire whirs.</p>
-<h2><strong>Rivalries and Rebellions: <a href="/world/ruhr-neon-depths/wiki/Eisenvolk">Eisenvolk</a> Clashes, Grubengeist Slices</strong></h2>
-<p><strong><a href="/world/ruhr-neon-depths/wiki/Eisenvolk">Eisenvolk</a> Clash.</strong> Stahl-kings hate tunnel-rats. <a href="/world/ruhr-neon-depths/wiki/Kernschacht">Kernschacht</a> raids: slug-swarms vs. drone-fleets. "Veins are ours," Stahlfaust heirs vox. Neo counters plasma-floods. Stollen 7 graveyard.</p>
-<p><strong>Grubengeist Slices.</strong> Us ghosts. Hack foam-nets, ghost-code virals. I sliced <a href="/world/ruhr-neon-depths/wiki/Bergschloss">Bergschloss</a> relay – datadump flows. Vox-preach: "Foam cracks!" Stahlrat unions torch seals. Nomaden blade-raid convoys. Revolt simmers plasma-hot.</p>
+<h2><strong>Rivalries and Rebellions: <a href="/world/ruhr-neon-depths/wiki/Eisenvolk" class="new-article" data-title="Eisenvolk">Eisenvolk</a> Clashes, Grubengeist Slices</strong></h2>
+<p><strong><a href="/world/ruhr-neon-depths/wiki/Eisenvolk" class="new-article" data-title="Eisenvolk">Eisenvolk</a> Clash.</strong> Stahl-kings hate tunnel-rats. <a href="/world/ruhr-neon-depths/wiki/Kernschacht" class="new-article" data-title="Kernschacht">Kernschacht</a> raids: slug-swarms vs. drone-fleets. "Veins are ours," Stahlfaust heirs vox. Neo counters plasma-floods. Stollen 7 graveyard.</p>
+<p><strong>Grubengeist Slices.</strong> Us ghosts. Hack foam-nets, ghost-code virals. I sliced <a href="/world/ruhr-neon-depths/wiki/Bergschloss" class="new-article" data-title="Bergschloss">Bergschloss</a> relay – datadump flows. Vox-preach: "Foam cracks!" Stahlrat unions torch seals. Nomaden blade-raid convoys. Revolt simmers plasma-hot.</p>
 <p>[datastream: Volkhardt Proto-Cols]. Corps bleed. We bite.</p>
 <h2><strong>Current Grip: Overreach in the Drip-Dank</strong></h2>
-<p>Vosselauge squeezes. Neural-taxes jack skulls. Plasma quotas grind bones. Drones multiply – whir-click eternal. Vents overheat, steam scalds. Unstable Schächte groan. Overreach? Foam thins. <a href="/world/ruhr-neon-depths/wiki/Stollenmarkt">Stollenmarkt</a> riots flicker holo-screeds. I scribe mid-shift, veins buzz taxed.</p>
+<p>Vosselauge squeezes. Neural-taxes jack skulls. Plasma quotas grind bones. Drones multiply – whir-click eternal. Vents overheat, steam scalds. Unstable Schächte groan. Overreach? Foam thins. <a href="/world/ruhr-neon-depths/wiki/Stollenmarkt" class="new-article" data-title="Stollenmarkt">Stollenmarkt</a> riots flicker holo-screeds. I scribe mid-shift, veins buzz taxed.</p>
 <p>Grip slips. Deeper tremors.</p>
 <h2><strong>Whispers from the Abyss: Cracks in the Foam</strong></h2>
-<p>Walls whisper. <a href="/world/ruhr-neon-depths/wiki/Grubengeister">Grubengeister</a> rise. "Aus den Tiefen!" Foam cracks spiderweb. Seismic ghosts quake vaults. Voidkin howls summon abyss. Annual Delve-Nights? Plasma-fest cover for raids. Neo watches relays. We watch seams. Empire creaks. Revolt brews. I feel it ghost-arm deep. Tunnel-tyrants fall. <a href="/world/ruhr-neon-depths/wiki/Tiefruhr">Tiefruhr</a> lebt free.</p>
+<p>Walls whisper. <a href="/world/ruhr-neon-depths/wiki/Grubengeister" class="new-article" data-title="Grubengeister">Grubengeister</a> rise. "Aus den Tiefen!" Foam cracks spiderweb. Seismic ghosts quake vaults. Voidkin howls summon abyss. Annual Delve-Nights? Plasma-fest cover for raids. Neo watches relays. We watch seams. Empire creaks. Revolt brews. I feel it ghost-arm deep. Tunnel-tyrants fall. <a href="/world/ruhr-neon-depths/wiki/Tiefruhr">Tiefruhr</a> lebt free.</p>
 <p><em>Datastream end. Scrub your jack. Slugs inbound. Grubengeist out.</em></p>
 </div>
 
@@ -297,6 +323,17 @@
             }
         }
     }
+
+    /* Red Link Style */
+    a.new-article {
+        color: #dc3545;
+        text-decoration: none;
+        border-bottom: 1px dashed #dc3545;
+    }
+
+    a.new-article:hover {
+        background-color: rgba(220, 53, 69, 0.1);
+    }
 </style>
 
 <script>
@@ -414,6 +451,96 @@
             document.head.appendChild(style);
         }
     });
+
+    // Delegate event listener for red links (since they are dynamically inserted)
+    document.addEventListener('click', async (e) => {
+        if (e.target.matches('a.new-article')) {
+            e.preventDefault();
+            const title = e.target.dataset.title;
+            const description = prompt(`Create new article: "${title}"?\n\nEnter optional instructions/context for the AI:`);
+
+            if (description !== null) { // If not cancelled
+                // Show loading on the link itself
+                const originalText = e.target.innerText;
+                e.target.innerText = "Creating...";
+                e.target.style.pointerEvents = "none";
+
+                // Submit to create_custom
+                const formData = new FormData();
+                formData.append('title', title);
+                if (description) {
+                    formData.append('description', description);
+                }
+
+                try {
+                    const response = await fetch('/infinite-wiki/world/ruhr-neon-depths/create_custom', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                    } else {
+                        window.location.href = `/infinite-wiki/world/ruhr-neon-depths/wiki/${encodeURIComponent(title)}`;
+                    }
+                } catch (err) {
+                    alert("Creation failed: " + err);
+                    e.target.innerText = originalText;
+                    e.target.style.pointerEvents = "auto";
+                }
+            }
+        }
+    });
+
+    async function extractEvents() {
+        if (!confirm("This will analyze the article to extract and graph historical events. Continue?")) return;
+
+        const btn = document.querySelector('button[onclick="extractEvents()"]');
+        const originalText = btn.innerText;
+        btn.innerText = "Extracting...";
+        btn.disabled = true;
+
+        try {
+            const response = await fetch('/infinite-wiki/world/ruhr-neon-depths/wiki/Neo-Bergbau AG/extract_events', {
+                method: 'POST'
+            });
+
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                window.location.reload();
+            }
+        } catch (err) {
+            alert("Extraction failed: " + err);
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }
+    }
+
+    async function integrateInfo() {
+        if (!confirm("This will rewrite the article to include new information from the knowledge base. Continue?")) return;
+
+        const btn = document.querySelector('button[onclick="integrateInfo()"]');
+        const originalText = btn.innerText;
+        btn.innerText = "Integrating...";
+        btn.disabled = true;
+
+        try {
+            const response = await fetch('/infinite-wiki/world/ruhr-neon-depths/wiki/Neo-Bergbau AG/integrate', {
+                method: 'POST'
+            });
+
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                window.location.reload();
+            }
+        } catch (err) {
+            alert("Integration failed: " + err);
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }
+    }
 </script>
 
     </div>

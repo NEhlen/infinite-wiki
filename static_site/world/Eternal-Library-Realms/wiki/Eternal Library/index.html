@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eternal Library - Infinite Wiki</title>
+    <link rel="icon" type="image/png" href="/infinite-wiki/static/favicon.png">
     <style>
         body {
             font-family: sans-serif;
@@ -91,11 +92,34 @@
     </header>
     <div class="container">
         
+<div id="delta-alert"
+    style="display: none; background-color: #d4edda; color: #155724; padding: 15px; margin-bottom: 20px; border: 1px solid #c3e6cb; border-radius: 4px;">
+    <strong>Update Successful:</strong> <span id="delta-msg"></span>
+</div>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const delta = urlParams.get('delta');
+    if (delta) {
+        document.getElementById('delta-msg').textContent = delta;
+        document.getElementById('delta-alert').style.display = 'block';
+        // Clean URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+</script>
 <div style="display: flex; justify-content: space-between; align-items: center;">
     <h2>Eternal Library</h2>
-    <a href="/infinite-wiki/world/Eternal-Library-Realms/wiki/Eternal Library/edit" class="button"
-        style="font-size: 0.8em; padding: 5px 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px;">Edit</a>
+    <div style="display: flex; gap: 10px;">
+        <button onclick="extractEvents()" class="button"
+            style="font-size: 0.8em; padding: 5px 10px; background-color: #17a2b8; color: white; border: none; border-radius: 4px; cursor: pointer;">Extract
+            Events</button>
+        <button onclick="integrateInfo()" class="button"
+            style="font-size: 0.8em; padding: 5px 10px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">Integrate
+            New Info</button>
+        <a href="/infinite-wiki/world/Eternal-Library-Realms/wiki/Eternal Library/edit" class="button"
+            style="font-size: 0.8em; padding: 5px 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px;">Edit</a>
+    </div>
 </div>
+
 
 
 <div class="image-container">
@@ -121,23 +145,23 @@
 <p>During the Dormant Era, which spanned eons until approximately 1,247 cycles ago, the Library functioned as a static repository of inert knowledge, untouched by enchantment and isolated in profound neutrality. Its halls echoed with silence, broken only by the footsteps of rare intruders. Access was limited to intrepid wanderers—exiled academics, nomadic scribes, and solitary explorers—who braved mundane perils to extract its treasures. Navigation relied on rudimentary aids: hand-drawn maps on salvaged parchment, lantern-lit chains to trace walls, and echo-horns to detect structural distortions. The absence of magic rendered interactions one-sided; tomes did not respond or alter, demanding physical endurance against hazards like collapsing walkways from temporal decay, disorienting spatial folds mimicking labyrinthine traps, and the psychological strain of endless isolation, which often induced despair or madness.</p>
 <p>This era cultivated a mythic aura around the Library, viewed by the realms' inhabitants as a sacred relic symbolizing intellect's triumph over chaos. The semi-hereditary order of <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a> arose as its primary custodians, establishing anchor-points—stable scriptoria where families transcribed volumes into portable codices for external dissemination. Their oaths of neutrality prohibited the weaponization of lore, fostering a monastic ethos of preservation. Economically, the Dormant Era sustained a sparse pilgrimage trade in sanitized excerpts, while culturally, tales of the Library wove it into folklore as an immutable testament to endurance. Beneath this stasis, however, an unseen "intent-weight" accumulated in unread volumes, simmering as the prelude to transformation.</p>
 <h2>Architecture and Structure</h2>
-<p>The architecture of the <a href="/world/Eternal-Library-Realms/wiki/Eternal%20Library">Eternal Library</a> defies Euclidean geometry, comprising a colossal edifice of ever-shifting corridors and shelves that extend into perceptual infinity, warping space to accommodate its boundless contents. At its core lies the mythical <a href="/world/Eternal-Library-Realms/wiki/Core%20Sanctum">Core Sanctum</a>, a geometric heart accessible only through ley lines and scholarly incantations, where the <a href="/world/Eternal-Library-Realms/wiki/Archival%20Nexus">Archival Nexus</a>—a hypothetical coalescence of all stored knowledge—resides. Radiating outward, the structure divides into infinite wings: vast halls lined with towering shelves of oak-like etherwood, alcoves etched into crystalline walls, and hidden vaults sealed by perceptual folds. Artifacts vary in form—leather-bound grimoires pulsing with latent script, scrolls unfurling across endless tables, and data-orbs suspended in anti-gravitational fields, each encoding subjects from interstellar cartography to forbidden alchemies.</p>
+<p>The architecture of the <a href="/world/Eternal-Library-Realms/wiki/Eternal%20Library">Eternal Library</a> defies Euclidean geometry, comprising a colossal edifice of ever-shifting corridors and shelves that extend into perceptual infinity, warping space to accommodate its boundless contents. At its core lies the mythical <a href="/world/Eternal-Library-Realms/wiki/Core%20Sanctum">Core Sanctum</a>, a geometric heart accessible only through ley lines and scholarly incantations, where the <a href="/world/Eternal-Library-Realms/wiki/Archival%20Nexus" class="new-article" data-title="Archival Nexus">Archival Nexus</a>—a hypothetical coalescence of all stored knowledge—resides. Radiating outward, the structure divides into infinite wings: vast halls lined with towering shelves of oak-like etherwood, alcoves etched into crystalline walls, and hidden vaults sealed by perceptual folds. Artifacts vary in form—leather-bound grimoires pulsing with latent script, scrolls unfurling across endless tables, and data-orbs suspended in anti-gravitational fields, each encoding subjects from interstellar cartography to forbidden alchemies.</p>
 <p>Post-Awakening, the architecture gained dynamism, with shelves reshaping into adaptive mazes attuned to intruders' intents and portals flickering open to link distant realms. Structural elements incorporate natural wards: luminous veins of script-metal reinforcing walls against entropy, and echo-chambers amplifying whispers for guidance. Navigation remains challenging, even enchanted; spatial warps create looping paths that test resolve, while "anchor-points" serve as stable havens maintained by the <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a>. The Library's scale is conceptually infinite, with undocumented fringes speculated to border extradimensional voids, ensuring its role as an ever-expanding archive that mirrors the multiverse's complexity.</p>
 <h2>The Awakening Transformation</h2>
 <p>The Awakening of the <a href="/world/Eternal-Library-Realms/wiki/Eternal%20Library">Eternal Library</a>, occurring 1,247 cycles ago, marked its metamorphosis from a dormant vault to a living entity, infusing archives with subtle magic through a spontaneous convergence of cosmic and intrinsic forces. Preceded by the Signs of Stirring—subtle anomalies emerging 50 cycles earlier, such as luminescent tomes, rhythmic creaks, page-bound whispers in archaic dialects, and elongating shadows forming glyphs—the event culminated in the Awakening Ceremony centered in the <a href="/world/Eternal-Library-Realms/wiki/Core%20Sanctum">Core Sanctum</a>.</p>
-<p>Eyewitness accounts, preserved in scrying-crystals, describe a resonant hum permeating the structure at the cycle's zenith, thickening the air with ethereal mist of dancing script fragments. The <a href="/world/Eternal-Library-Realms/wiki/Archival%20Nexus">Archival Nexus</a> ignited when accumulated "intent-weight" reached criticality, unleashing a cascade of radiant light that bound enchantment to every page, shelf, and corridor. Theories on the catalyst vary: cosmic alignments of astral bodies, the subconscious will of the <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a>, or an organic exhalation of stagnation. Casualties were minimal, though the intensity induced temporary catatonia in observers, yielding fragmented visions of divine communion.</p>
-<p>In the aftermath, <a href="/world/Eternal-Library-Realms/wiki/Waves%20of%20Magic">Waves of Magic</a> propagated over 20 cycles, systematically animating the Library. The <a href="/world/Eternal-Library-Realms/wiki/Illuminating%20Surge">Illuminating Surge</a> endowed tomes with self-luminescence and sentience, enabling autonomous page-turning and tailored whispers. Subsequent waves introduced illusions of guardian specters, reshaping shelves into fear-attuned mazes, and ephemeral portals to external realms. These transformations extended beyond the Library, rippling into the Eternal-Library-Realms via prophetic dreams and scholarly influxes, birthing institutions like the <a href="/world/Eternal-Library-Realms/wiki/Order%20of%20Awakened%20Scribes">Order of Awakened Scribes</a> and fostering trade in enchanted artifacts. The Awakening's legacy endures, positioning the Library as a sentient nexus where knowledge anticipates seekers, forever altered from relic to vital entity.</p>
+<p>Eyewitness accounts, preserved in scrying-crystals, describe a resonant hum permeating the structure at the cycle's zenith, thickening the air with ethereal mist of dancing script fragments. The <a href="/world/Eternal-Library-Realms/wiki/Archival%20Nexus" class="new-article" data-title="Archival Nexus">Archival Nexus</a> ignited when accumulated "intent-weight" reached criticality, unleashing a cascade of radiant light that bound enchantment to every page, shelf, and corridor. Theories on the catalyst vary: cosmic alignments of astral bodies, the subconscious will of the <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a>, or an organic exhalation of stagnation. Casualties were minimal, though the intensity induced temporary catatonia in observers, yielding fragmented visions of divine communion.</p>
+<p>In the aftermath, <a href="/world/Eternal-Library-Realms/wiki/Waves%20of%20Magic">Waves of Magic</a> propagated over 20 cycles, systematically animating the Library. The <a href="/world/Eternal-Library-Realms/wiki/Illuminating%20Surge" class="new-article" data-title="Illuminating Surge">Illuminating Surge</a> endowed tomes with self-luminescence and sentience, enabling autonomous page-turning and tailored whispers. Subsequent waves introduced illusions of guardian specters, reshaping shelves into fear-attuned mazes, and ephemeral portals to external realms. These transformations extended beyond the Library, rippling into the Eternal-Library-Realms via prophetic dreams and scholarly influxes, birthing institutions like the <a href="/world/Eternal-Library-Realms/wiki/Order%20of%20Awakened%20Scribes" class="new-article" data-title="Order of Awakened Scribes">Order of Awakened Scribes</a> and fostering trade in enchanted artifacts. The Awakening's legacy endures, positioning the Library as a sentient nexus where knowledge anticipates seekers, forever altered from relic to vital entity.</p>
 <h2>Magical Phenomena and Gentle Perils</h2>
 <p>The <a href="/world/Eternal-Library-Realms/wiki/Eternal%20Library">Eternal Library</a>'s post-Awakening magic manifests through pervasive, subtle phenomena that blur the line between archive and entity, engaging visitors in a tapestry of revelation and risk. Central to this are the <a href="/world/Eternal-Library-Realms/wiki/Whispering%20Winds%20of%20Knowledge">Whispering Winds of Knowledge</a>—ethereal currents carrying lore-fragments, responding to intent with guiding murmurs or swirling patterns that reassemble narratives from disparate texts. Tomes exhibit sentience, flipping to relevant passages or emitting auditory clues in archaic tongues, while shelves illuminate with self-luminescence, casting glyphs that hint at hidden indices.</p>
 <p>Yet, these enchantments harbor gentle perils—understated dangers that test worthiness without overt violence. Cognitive traps ensnare the mind through riddle-sequences that induce echo-madness, vivid hallucinations of historical cataclysms or personal premonitions overwhelming the psyche. Illusory mazes adapt to fears, manifesting as elongating shadows or blurring spatial folds that loop wanderers into isolation. Knowledge overloads, triggered by overzealous perusal, cause temporary catatonia or permanent vanishings into "proto-perils," embryonic traps blending reality and illusion. Defensive specters—spectral librarians—materialize to deter vandals, their forms evoking half-formed guardians that whisper warnings before escalating to binding eddies.</p>
 <p>These perils are not malevolent but selective, rewarding perseverance with profound insights: attuned seekers receive wind-pacts for enhanced recall, while the unprepared face subtle expulsion or entrapment. The <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a> mitigate risks through attunement rites and warded talismans, but annual losses among visitors underscore the Library's inscrutable agenda—enlightenment laced with caution, ensuring knowledge's sanctity amid the realms' enchanted ecosystem.</p>
 <h2>Role in the Eternal-Library-Realms</h2>
 <p>The <a href="/world/Eternal-Library-Realms/wiki/Eternal%20Library">Eternal Library</a> occupies a pivotal role in the Eternal-Library-Realms, serving as their metaphysical and cultural linchpin, where the Awakening's waves wove arcane threads into the broader fabric. As the cosmological heart, it influences realms-wide phenomena: echo-libraries—satellite archives mirroring portions of its contents—proliferate in remote domains, enabling localized access to its lore. Prophetic dreams and wind-confluences foster shared epiphanies, inspiring scholarly conclaves and multiversal pilgrimages that unify disparate societies.</p>
-<p>Economically, the Library drives trade in transcribed secrets, protective amulets against perils, and interpretive services from specialized guilds, democratizing forbidden texts while heightening demand for peril-navigation expertise. Culturally, it instills an ethos of cautious reverence, with annual rites reenacting the Awakening Ceremony to honor its origins and mitigate ongoing hazards. Metaphysically, its sentience extends invitations via compulsive pulls, drawing wanderers and altering ecosystems—adjacent domains experience influxes of compelled scholars, birthing new routes and institutions like the <a href="/world/Eternal-Library-Realms/wiki/Order%20of%20Awakened%20Scribes">Order of Awakened Scribes</a>.</p>
+<p>Economically, the Library drives trade in transcribed secrets, protective amulets against perils, and interpretive services from specialized guilds, democratizing forbidden texts while heightening demand for peril-navigation expertise. Culturally, it instills an ethos of cautious reverence, with annual rites reenacting the Awakening Ceremony to honor its origins and mitigate ongoing hazards. Metaphysically, its sentience extends invitations via compulsive pulls, drawing wanderers and altering ecosystems—adjacent domains experience influxes of compelled scholars, birthing new routes and institutions like the <a href="/world/Eternal-Library-Realms/wiki/Order%20of%20Awakened%20Scribes" class="new-article" data-title="Order of Awakened Scribes">Order of Awakened Scribes</a>.</p>
 <p>This centrality is double-edged: while promising enlightenment, the Library's perils claim lives, fueling philosophical debates on entrapment versus evolution. As the realms' eternal pulse, it ensures knowledge's active dissemination, balancing preservation with the perils of awakened intellect.</p>
 <h2>Guardians and Visitors</h2>
 <p>The guardianship of the <a href="/world/Eternal-Library-Realms/wiki/Eternal%20Library">Eternal Library</a> falls to the <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a>, an ancient order evolved from Dormant Era scribes into post-Awakening mediators of enchantment. Originating as a semi-hereditary collective of transcribers, they now navigate its sentience through attunement rites, warded attire, and the Lattice of Bonds—a metaphysical network for attuned communication. Structured into Wings—Scribes for documentation, Wardens for hazard patrol, and Interpreters for wind-dialogue—the order enforces the Oath of Inertia, prohibiting lore's misuse. Their traditions, including the Rite of Silent Vigil and Festival of Stirring Echoes, blend monastic patience with magical adaptation, positioning them as the Library's mortal voice.</p>
-<p>Visitors to the Library encompass a diverse array: realm-born scholars seeking academic depths, multiversal pilgrims compelled by whispers, and opportunistic relic-thieves braving perils for profit. Access occurs via threshold portals or arduous treks, with the <a href="/world/Eternal-Library-Realms/wiki/Order%20of%20Awakened%20Scribes">Order of Awakened Scribes</a> mediating entry through worthiness trials. Interactions vary—guided tours for attuned guests yield revelations, while uninitiated wanderers face gentle perils that scatter the unworthy. Annual disappearances among overzealous seekers underscore the risks, yet successful pilgrims return transformed, disseminating lore that enriches the realms. The <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a> foster symbiotic exchanges, bartering guidance for external supplies, ensuring the Library's vitality through a delicate balance of invitation and guardianship.</p>
+<p>Visitors to the Library encompass a diverse array: realm-born scholars seeking academic depths, multiversal pilgrims compelled by whispers, and opportunistic relic-thieves braving perils for profit. Access occurs via threshold portals or arduous treks, with the <a href="/world/Eternal-Library-Realms/wiki/Order%20of%20Awakened%20Scribes" class="new-article" data-title="Order of Awakened Scribes">Order of Awakened Scribes</a> mediating entry through worthiness trials. Interactions vary—guided tours for attuned guests yield revelations, while uninitiated wanderers face gentle perils that scatter the unworthy. Annual disappearances among overzealous seekers underscore the risks, yet successful pilgrims return transformed, disseminating lore that enriches the realms. The <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a> foster symbiotic exchanges, bartering guidance for external supplies, ensuring the Library's vitality through a delicate balance of invitation and guardianship.</p>
 </div>
 
 <div class="related">
@@ -272,6 +296,17 @@
             }
         }
     }
+
+    /* Red Link Style */
+    a.new-article {
+        color: #dc3545;
+        text-decoration: none;
+        border-bottom: 1px dashed #dc3545;
+    }
+
+    a.new-article:hover {
+        background-color: rgba(220, 53, 69, 0.1);
+    }
 </style>
 
 <script>
@@ -389,6 +424,96 @@
             document.head.appendChild(style);
         }
     });
+
+    // Delegate event listener for red links (since they are dynamically inserted)
+    document.addEventListener('click', async (e) => {
+        if (e.target.matches('a.new-article')) {
+            e.preventDefault();
+            const title = e.target.dataset.title;
+            const description = prompt(`Create new article: "${title}"?\n\nEnter optional instructions/context for the AI:`);
+
+            if (description !== null) { // If not cancelled
+                // Show loading on the link itself
+                const originalText = e.target.innerText;
+                e.target.innerText = "Creating...";
+                e.target.style.pointerEvents = "none";
+
+                // Submit to create_custom
+                const formData = new FormData();
+                formData.append('title', title);
+                if (description) {
+                    formData.append('description', description);
+                }
+
+                try {
+                    const response = await fetch('/infinite-wiki/world/Eternal-Library-Realms/create_custom', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                    } else {
+                        window.location.href = `/infinite-wiki/world/Eternal-Library-Realms/wiki/${encodeURIComponent(title)}`;
+                    }
+                } catch (err) {
+                    alert("Creation failed: " + err);
+                    e.target.innerText = originalText;
+                    e.target.style.pointerEvents = "auto";
+                }
+            }
+        }
+    });
+
+    async function extractEvents() {
+        if (!confirm("This will analyze the article to extract and graph historical events. Continue?")) return;
+
+        const btn = document.querySelector('button[onclick="extractEvents()"]');
+        const originalText = btn.innerText;
+        btn.innerText = "Extracting...";
+        btn.disabled = true;
+
+        try {
+            const response = await fetch('/infinite-wiki/world/Eternal-Library-Realms/wiki/Eternal Library/extract_events', {
+                method: 'POST'
+            });
+
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                window.location.reload();
+            }
+        } catch (err) {
+            alert("Extraction failed: " + err);
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }
+    }
+
+    async function integrateInfo() {
+        if (!confirm("This will rewrite the article to include new information from the knowledge base. Continue?")) return;
+
+        const btn = document.querySelector('button[onclick="integrateInfo()"]');
+        const originalText = btn.innerText;
+        btn.innerText = "Integrating...";
+        btn.disabled = true;
+
+        try {
+            const response = await fetch('/infinite-wiki/world/Eternal-Library-Realms/wiki/Eternal Library/integrate', {
+                method: 'POST'
+            });
+
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                window.location.reload();
+            }
+        } catch (err) {
+            alert("Integration failed: " + err);
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }
+    }
 </script>
 
     </div>

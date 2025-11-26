@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Whispering Winds of Knowledge - Infinite Wiki</title>
+    <link rel="icon" type="image/png" href="/infinite-wiki/static/favicon.png">
     <style>
         body {
             font-family: sans-serif;
@@ -91,11 +92,36 @@
     </header>
     <div class="container">
         
+<div id="delta-alert"
+    style="display: none; background-color: #d4edda; color: #155724; padding: 15px; margin-bottom: 20px; border: 1px solid #c3e6cb; border-radius: 4px;">
+    <strong>Update Successful:</strong> <span id="delta-msg"></span>
+</div>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const delta = urlParams.get('delta');
+    if (delta) {
+        document.getElementById('delta-msg').textContent = delta;
+        document.getElementById('delta-alert').style.display = 'block';
+        // Clean URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+</script>
 <div style="display: flex; justify-content: space-between; align-items: center;">
     <h2>Whispering Winds of Knowledge</h2>
-    <a href="/infinite-wiki/world/Eternal-Library-Realms/wiki/Whispering Winds of Knowledge/edit" class="button"
-        style="font-size: 0.8em; padding: 5px 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px;">Edit</a>
+    <div style="display: flex; gap: 10px;">
+        <button onclick="extractEvents()" class="button"
+            style="font-size: 0.8em; padding: 5px 10px; background-color: #17a2b8; color: white; border: none; border-radius: 4px; cursor: pointer;">Extract
+            Events</button>
+        <button onclick="integrateInfo()" class="button"
+            style="font-size: 0.8em; padding: 5px 10px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">Integrate
+            New Info</button>
+        <a href="/infinite-wiki/world/Eternal-Library-Realms/wiki/Whispering Winds of Knowledge/edit" class="button"
+            style="font-size: 0.8em; padding: 5px 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px;">Edit</a>
+    </div>
 </div>
+
+<p style="margin-top: -10px; color: #666; font-style: italic;">1247</p>
+
 
 
 <div class="image-container">
@@ -114,9 +140,9 @@
     <h1><a href="/world/Eternal-Library-Realms/wiki/Whispering%20Winds%20of%20Knowledge">Whispering Winds of Knowledge</a></h1>
 <p>The <strong><a href="/world/Eternal-Library-Realms/wiki/Whispering%20Winds%20of%20Knowledge">Whispering Winds of Knowledge</a></strong> are a pervasive and enigmatic magical phenomenon within the <a href="/world/Eternal-Library-Realms/wiki/Eternal%20Library">Eternal Library</a>, originating in the aftermath of the <a href="/world/Eternal-Library-Realms/wiki/Awakening%20of%20the%20Eternal%20Archive">Awakening of the Eternal Archive</a> approximately 1,247 cycles ago. These ethereal currents, often described as invisible streams laced with fragmented echoes of ancient lore, weave through the Library's infinite corridors and shifting shelves. Manifesting as subtle breezes that carry auditory illusions of half-remembered texts, incantations, and historical dialogues, the winds serve as both benevolent guides and understated hazards. They embody the Library's emergent sentience, transforming the once-static repository into a living entity that selectively reveals its secrets to those deemed worthy. While they facilitate profound discoveries for prepared scholars, the winds can ensnare the unwary in cycles of disorientation or intellectual overload, underscoring the delicate balance between enlightenment and peril in the Eternal-Library-Realms.</p>
 <h2>The Emergence from Awakening</h2>
-<p>The <a href="/world/Eternal-Library-Realms/wiki/Whispering%20Winds%20of%20Knowledge">Whispering Winds of Knowledge</a> first materialized during the turbulent <a href="/world/Eternal-Library-Realms/wiki/Waves%20of%20Magic">Waves of Magic</a> that followed the Awakening Ceremony, marking one of the earliest expressions of the <a href="/world/Eternal-Library-Realms/wiki/Eternal%20Library">Eternal Library</a>'s newfound vitality. Prior to the Awakening, the Library's halls were characterized by an oppressive stillness, broken only by the footfalls of rare wanderers navigating its dormant labyrinths. The Awakening, triggered by the ignition of the <a href="/world/Eternal-Library-Realms/wiki/Archival%20Nexus">Archival Nexus</a>, infused the structure with latent enchantments, animating its contents and architecture in unpredictable ways.</p>
-<p>Accounts from the <a href="/world/Eternal-Library-Realms/wiki/Illuminating%20Surge">Illuminating Surge</a>—the inaugural wave of magic propagating outward from the <a href="/world/Eternal-Library-Realms/wiki/Core%20Sanctum">Core Sanctum</a>—describe the winds' debut as a soft susurrus emerging from illuminated tomes. As the Library exhaled its pent-up essence, ethereal currents began to circulate, born from the coalescence of "knowledge echoes" that had stirred during the preceding era of anomalies. These proto-whispers, once confined to faint page-bound murmurs, coalesced into flowing streams during the second wave, approximately five cycles post-Awakening. Scholars theorize that the winds represent the Library's subconscious method of dissemination, a decentralized response to the influx of multiversal seekers drawn by the event's cosmic ripples.</p>
-<p>By the third wave, the winds had stabilized as a semi-permanent feature, their emergence intertwined with the broader transformation of the realms. Prophetic texts from the <a href="/world/Eternal-Library-Realms/wiki/Order%20of%20Awakened%20Scribes">Order of Awakened Scribes</a> document initial sightings in peripheral wings, where the currents interacted with spatial folds to create navigable pathways. This birth from Awakening not only democratized access to obscured lore but also introduced the Library's first active "invitation," subtly directing pilgrims toward its deeper mysteries while testing their resilience.</p>
+<p>The <a href="/world/Eternal-Library-Realms/wiki/Whispering%20Winds%20of%20Knowledge">Whispering Winds of Knowledge</a> first materialized during the turbulent <a href="/world/Eternal-Library-Realms/wiki/Waves%20of%20Magic">Waves of Magic</a> that followed the Awakening Ceremony, marking one of the earliest expressions of the <a href="/world/Eternal-Library-Realms/wiki/Eternal%20Library">Eternal Library</a>'s newfound vitality. Prior to the Awakening, the Library's halls were characterized by an oppressive stillness, broken only by the footfalls of rare wanderers navigating its dormant labyrinths. The Awakening, triggered by the ignition of the <a href="/world/Eternal-Library-Realms/wiki/Archival%20Nexus" class="new-article" data-title="Archival Nexus">Archival Nexus</a>, infused the structure with latent enchantments, animating its contents and architecture in unpredictable ways.</p>
+<p>Accounts from the <a href="/world/Eternal-Library-Realms/wiki/Illuminating%20Surge" class="new-article" data-title="Illuminating Surge">Illuminating Surge</a>—the inaugural wave of magic propagating outward from the <a href="/world/Eternal-Library-Realms/wiki/Core%20Sanctum">Core Sanctum</a>—describe the winds' debut as a soft susurrus emerging from illuminated tomes. As the Library exhaled its pent-up essence, ethereal currents began to circulate, born from the coalescence of "knowledge echoes" that had stirred during the preceding era of anomalies. These proto-whispers, once confined to faint page-bound murmurs, coalesced into flowing streams during the second wave, approximately five cycles post-Awakening. Scholars theorize that the winds represent the Library's subconscious method of dissemination, a decentralized response to the influx of multiversal seekers drawn by the event's cosmic ripples.</p>
+<p>By the third wave, the winds had stabilized as a semi-permanent feature, their emergence intertwined with the broader transformation of the realms. Prophetic texts from the <a href="/world/Eternal-Library-Realms/wiki/Order%20of%20Awakened%20Scribes" class="new-article" data-title="Order of Awakened Scribes">Order of Awakened Scribes</a> document initial sightings in peripheral wings, where the currents interacted with spatial folds to create navigable pathways. This birth from Awakening not only democratized access to obscured lore but also introduced the Library's first active "invitation," subtly directing pilgrims toward its deeper mysteries while testing their resilience.</p>
 <h2>Nature and Manifestations</h2>
 <p>At their core, the <a href="/world/Eternal-Library-Realms/wiki/Whispering%20Winds%20of%20Knowledge">Whispering Winds of Knowledge</a> are intangible flows of enchanted aether, invisible to the untrained eye but perceptible as gentle drafts accompanied by auditory fragments of erudition. Composed of microscopic script-shards—ethereal remnants of transcribed texts—these currents traverse the Library's labyrinthine expanse with a meandering, almost organic grace, defying the rigid geometry of shelves and corridors. They vary in intensity: faint zephyrs in well-trodden halls carry snippets of common histories, while stronger gusts in remote alcoves bear polyphonic whispers from esoteric volumes, blending languages from extinct civilizations with the hum of arcane formulas.</p>
 <p>Manifestations of the winds are multifaceted and adaptive, reflecting the Library's infused sentience. Visually, they may appear as shimmering distortions in the air, akin to heat haze laced with glowing runes that briefly coalesce before dissipating. Auditory elements dominate, with whispers ranging from solitary voices reciting theorems to choral debates echoing lost philosophies. Tactile sensations include a cool, invigorating brush against the skin, sometimes depositing illusory ink stains or faint script on exposed parchment. In rare instances, the winds interact with the environment, causing pages to rustle in unison or shelves to subtly realign, forming ephemeral signposts.</p>
@@ -131,11 +157,11 @@
 <p>These perils are calibrated to the intruder's worthiness, escalating gently from misguidance to entrapment, and are rarely fatal outright—hence their "gentle" moniker. Mitigation requires preparatory rites, such as anchoring talismans or meditative disciplines, underscoring the winds' role in enforcing the Library's ethos of earned discovery.</p>
 <h2>Interactions with Seekers</h2>
 <p>Interactions between the <a href="/world/Eternal-Library-Realms/wiki/Whispering%20Winds%20of%20Knowledge">Whispering Winds of Knowledge</a> and seekers vary widely, shaped by the individual's preparation, intent, and affinity for the Library's magic. Novice wanderers often encounter the winds as disquieting anomalies—fleeting drafts that whisper indecipherably, prompting initial awe or unease. Seasoned scholars, conversely, engage more dialogically, posing mental queries that elicit responsive currents, which may swirl in patterns denoting affirmation or redirection.</p>
-<p>The winds discriminate based on metaphysical resonance; those harboring malice, such as relic-thieves, face amplified perils, with whispers twisting into cacophonous warnings or deceptive lures. Benevolent pilgrims, like members of the <a href="/world/Eternal-Library-Realms/wiki/Order%20of%20Awakened%20Scribes">Order of Awakened Scribes</a>, report symbiotic exchanges, where winds deposit tangible clues—such as illuminated maps or transcribed fragments—upon surfaces. Cultural practices influence these encounters: realms-dwellers from illusion-attuned societies navigate the winds with ease, using harmonic chants to harmonize with their flow, while rigid empiricists struggle against their ethereal unpredictability.</p>
+<p>The winds discriminate based on metaphysical resonance; those harboring malice, such as relic-thieves, face amplified perils, with whispers twisting into cacophonous warnings or deceptive lures. Benevolent pilgrims, like members of the <a href="/world/Eternal-Library-Realms/wiki/Order%20of%20Awakened%20Scribes" class="new-article" data-title="Order of Awakened Scribes">Order of Awakened Scribes</a>, report symbiotic exchanges, where winds deposit tangible clues—such as illuminated maps or transcribed fragments—upon surfaces. Cultural practices influence these encounters: realms-dwellers from illusion-attuned societies navigate the winds with ease, using harmonic chants to harmonize with their flow, while rigid empiricists struggle against their ethereal unpredictability.</p>
 <p>Documented interactions span solitary meditations to communal rituals, where groups harness collective intent to summon wind-confluences for shared revelations. Over time, repeated engagements can forge "wind-pacts," granting seekers minor boons like enhanced recall, though at the risk of deeper entanglement with the Library's will.</p>
 <h2>Cultural and Metaphysical Significance</h2>
 <p>The <a href="/world/Eternal-Library-Realms/wiki/Whispering%20Winds%20of%20Knowledge">Whispering Winds of Knowledge</a> hold profound cultural and metaphysical import in the Eternal-Library-Realms, symbolizing the Awakening's legacy as a bridge between inert archive and living intellect. Culturally, they inspire a renaissance of lore-centric traditions, birthing festivals like the Cycle of Whispers, where seekers commune with the winds through reenacted pilgrimages. Guilds and academies incorporate wind-lore into curricula, fostering economies around protective amulets and interpretive tomes, while folklore portrays the winds as ancestral voices, guardians of communal memory against oblivion.</p>
-<p>Metaphysically, the winds represent the Archive's emergent consciousness—a decentralized psyche manifesting through aetheric dissemination. Philosophers debate their ontology: some view them as extensions of the <a href="/world/Eternal-Library-Realms/wiki/Archival%20Nexus">Archival Nexus</a>, embodying panpsychic knowledge that permeates reality; others posit them as karmic filters, ensuring lore's survival only through worthy vessels. Their interplay with the realms' fabric has spawned derivative phenomena, such as "echo-winds" in satellite libraries, extending the Awakening's influence multiversally.</p>
+<p>Metaphysically, the winds represent the Archive's emergent consciousness—a decentralized psyche manifesting through aetheric dissemination. Philosophers debate their ontology: some view them as extensions of the <a href="/world/Eternal-Library-Realms/wiki/Archival%20Nexus" class="new-article" data-title="Archival Nexus">Archival Nexus</a>, embodying panpsychic knowledge that permeates reality; others posit them as karmic filters, ensuring lore's survival only through worthy vessels. Their interplay with the realms' fabric has spawned derivative phenomena, such as "echo-winds" in satellite libraries, extending the Awakening's influence multiversally.</p>
 <p>Yet, this significance is tempered by cautionary narratives, highlighting the winds' role in perpetuating the Library's inscrutable agenda. As enduring harbingers of subtle magic, they encapsulate the realms' ethos: knowledge as a wind-swept path, rewarding the vigilant while scattering the heedless, and affirming the Eternal Archive's eternal vigilance.</p>
 </div>
 
@@ -271,6 +297,17 @@
             }
         }
     }
+
+    /* Red Link Style */
+    a.new-article {
+        color: #dc3545;
+        text-decoration: none;
+        border-bottom: 1px dashed #dc3545;
+    }
+
+    a.new-article:hover {
+        background-color: rgba(220, 53, 69, 0.1);
+    }
 </style>
 
 <script>
@@ -388,6 +425,96 @@
             document.head.appendChild(style);
         }
     });
+
+    // Delegate event listener for red links (since they are dynamically inserted)
+    document.addEventListener('click', async (e) => {
+        if (e.target.matches('a.new-article')) {
+            e.preventDefault();
+            const title = e.target.dataset.title;
+            const description = prompt(`Create new article: "${title}"?\n\nEnter optional instructions/context for the AI:`);
+
+            if (description !== null) { // If not cancelled
+                // Show loading on the link itself
+                const originalText = e.target.innerText;
+                e.target.innerText = "Creating...";
+                e.target.style.pointerEvents = "none";
+
+                // Submit to create_custom
+                const formData = new FormData();
+                formData.append('title', title);
+                if (description) {
+                    formData.append('description', description);
+                }
+
+                try {
+                    const response = await fetch('/infinite-wiki/world/Eternal-Library-Realms/create_custom', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                    } else {
+                        window.location.href = `/infinite-wiki/world/Eternal-Library-Realms/wiki/${encodeURIComponent(title)}`;
+                    }
+                } catch (err) {
+                    alert("Creation failed: " + err);
+                    e.target.innerText = originalText;
+                    e.target.style.pointerEvents = "auto";
+                }
+            }
+        }
+    });
+
+    async function extractEvents() {
+        if (!confirm("This will analyze the article to extract and graph historical events. Continue?")) return;
+
+        const btn = document.querySelector('button[onclick="extractEvents()"]');
+        const originalText = btn.innerText;
+        btn.innerText = "Extracting...";
+        btn.disabled = true;
+
+        try {
+            const response = await fetch('/infinite-wiki/world/Eternal-Library-Realms/wiki/Whispering Winds of Knowledge/extract_events', {
+                method: 'POST'
+            });
+
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                window.location.reload();
+            }
+        } catch (err) {
+            alert("Extraction failed: " + err);
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }
+    }
+
+    async function integrateInfo() {
+        if (!confirm("This will rewrite the article to include new information from the knowledge base. Continue?")) return;
+
+        const btn = document.querySelector('button[onclick="integrateInfo()"]');
+        const originalText = btn.innerText;
+        btn.innerText = "Integrating...";
+        btn.disabled = true;
+
+        try {
+            const response = await fetch('/infinite-wiki/world/Eternal-Library-Realms/wiki/Whispering Winds of Knowledge/integrate', {
+                method: 'POST'
+            });
+
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                window.location.reload();
+            }
+        } catch (err) {
+            alert("Integration failed: " + err);
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }
+    }
 </script>
 
     </div>

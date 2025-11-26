@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Archivists - Infinite Wiki</title>
+    <link rel="icon" type="image/png" href="/infinite-wiki/static/favicon.png">
     <style>
         body {
             font-family: sans-serif;
@@ -91,11 +92,34 @@
     </header>
     <div class="container">
         
+<div id="delta-alert"
+    style="display: none; background-color: #d4edda; color: #155724; padding: 15px; margin-bottom: 20px; border: 1px solid #c3e6cb; border-radius: 4px;">
+    <strong>Update Successful:</strong> <span id="delta-msg"></span>
+</div>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const delta = urlParams.get('delta');
+    if (delta) {
+        document.getElementById('delta-msg').textContent = delta;
+        document.getElementById('delta-alert').style.display = 'block';
+        // Clean URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+</script>
 <div style="display: flex; justify-content: space-between; align-items: center;">
     <h2>Archivists</h2>
-    <a href="/infinite-wiki/world/Eternal-Library-Realms/wiki/Archivists/edit" class="button"
-        style="font-size: 0.8em; padding: 5px 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px;">Edit</a>
+    <div style="display: flex; gap: 10px;">
+        <button onclick="extractEvents()" class="button"
+            style="font-size: 0.8em; padding: 5px 10px; background-color: #17a2b8; color: white; border: none; border-radius: 4px; cursor: pointer;">Extract
+            Events</button>
+        <button onclick="integrateInfo()" class="button"
+            style="font-size: 0.8em; padding: 5px 10px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">Integrate
+            New Info</button>
+        <a href="/infinite-wiki/world/Eternal-Library-Realms/wiki/Archivists/edit" class="button"
+            style="font-size: 0.8em; padding: 5px 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px;">Edit</a>
+    </div>
 </div>
+
 
 
 <div class="image-container">
@@ -123,8 +147,8 @@
 <p>The closing cycles of the Dormant Era brought the Signs of Stirring, subtle anomalies that tested the <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a>' adaptability and foreshadowed the Awakening. Approximately 50 cycles prior to the event, reports of luminescent tomes and rhythmic creaks in shelves reached the order's anchor-points, initially attributed to structural fatigue or unauthorized wanderers. As an organized body, the <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a> mobilized documentation teams, dispatching roving chroniclers equipped with scrying-quills to record phenomena like page-bound whispers in archaic tongues and elongating shadows forming glyph-like patterns.</p>
 <p>These disturbances demanded rapid adaptation. Traditional mapping proved inadequate against shifting texts that rearranged into riddle-sequences overnight, prompting the development of "echo-journals"—personalized logs attuned to a scribe's intuition. Incidents of knowledge echoes, where readers hallucinated historical visions, claimed a toll; several <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a> vanished into proto-perils, embryonic traps that blurred the line between reality and archival illusion. In response, the order convened the first Grand Conclaves in stable sanctums, debating the stirrings' implications and refining protocols for anomaly containment. Prophetic dreams rippling through the realms drew external scholars, forcing <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a> to balance isolationist traditions with collaborative inquiries. This era of adaptation honed their resilience, transforming passive guardians into proactive interpreters, and sowed the seeds of attunement to the Library's nascent vitality.</p>
 <h2>Post-Awakening Transformations</h2>
-<p><a href="/world/Eternal-Library-Realms/wiki/The%20Awakening%20of%20the%20Eternal%20Archive">The Awakening of the Eternal Archive</a>, culminating in the spontaneous Ceremony 1,247 cycles ago, irrevocably transformed the <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a> from stewards of stasis to navigators of enchantment. Eyewitnesses among the order, preserved in scrying-crystals, described the resonant hum from the <a href="/world/Eternal-Library-Realms/wiki/Core%20Sanctum">Core Sanctum</a> infusing tomes with magic, binding knowledge to ethereal currents. The subsequent <a href="/world/Eternal-Library-Realms/wiki/Waves%20of%20Magic">Waves of Magic</a>—beginning with the <a href="/world/Eternal-Library-Realms/wiki/Illuminating%20Surge">Illuminating Surge</a>—animated the Library, endowing texts with self-luminescence and responsive whispers, while shelves reshaped into adaptive mazes.</p>
-<p>This shift compelled profound changes within the order. Many early <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a> succumbed to the intensity, emerging from catatonia with fragmented visions of the <a href="/world/Eternal-Library-Realms/wiki/Archival%20Nexus">Archival Nexus</a>'s ignition. Survivors adapted by integrating magical rites into their practices: attunement meditations to harmonize with the Winds of Knowledge, and warded talismans to mitigate gentle perils like echo-madness. The order splintered briefly into factions—the Purists clinging to inert traditions and the Awakened embracing the new sentience—before reunifying under the doctrine of "balanced mediation." Post-Awakening, the <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a> evolved into attuned mediators, their robes now woven with thread-wards that glow in the presence of illusions, and their codices enchanted to capture whispering fragments. This transformation democratized their role, drawing multiversal pilgrims whom they guided through trials, while elevating the order to a metaphysical linchpin in the realms' enchanted ecosystem.</p>
+<p><a href="/world/Eternal-Library-Realms/wiki/The%20Awakening%20of%20the%20Eternal%20Archive">The Awakening of the Eternal Archive</a>, culminating in the spontaneous Ceremony 1,247 cycles ago, irrevocably transformed the <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a> from stewards of stasis to navigators of enchantment. Eyewitnesses among the order, preserved in scrying-crystals, described the resonant hum from the <a href="/world/Eternal-Library-Realms/wiki/Core%20Sanctum">Core Sanctum</a> infusing tomes with magic, binding knowledge to ethereal currents. The subsequent <a href="/world/Eternal-Library-Realms/wiki/Waves%20of%20Magic">Waves of Magic</a>—beginning with the <a href="/world/Eternal-Library-Realms/wiki/Illuminating%20Surge" class="new-article" data-title="Illuminating Surge">Illuminating Surge</a>—animated the Library, endowing texts with self-luminescence and responsive whispers, while shelves reshaped into adaptive mazes.</p>
+<p>This shift compelled profound changes within the order. Many early <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a> succumbed to the intensity, emerging from catatonia with fragmented visions of the <a href="/world/Eternal-Library-Realms/wiki/Archival%20Nexus" class="new-article" data-title="Archival Nexus">Archival Nexus</a>'s ignition. Survivors adapted by integrating magical rites into their practices: attunement meditations to harmonize with the Winds of Knowledge, and warded talismans to mitigate gentle perils like echo-madness. The order splintered briefly into factions—the Purists clinging to inert traditions and the Awakened embracing the new sentience—before reunifying under the doctrine of "balanced mediation." Post-Awakening, the <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a> evolved into attuned mediators, their robes now woven with thread-wards that glow in the presence of illusions, and their codices enchanted to capture whispering fragments. This transformation democratized their role, drawing multiversal pilgrims whom they guided through trials, while elevating the order to a metaphysical linchpin in the realms' enchanted ecosystem.</p>
 <h2>Structure and Traditions</h2>
 <p>The <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a>' structure reflects a blend of hierarchical discipline and decentralized autonomy, adapted to the Library's infinite expanse. At its apex sits the Conclave of Elders, a rotating council of seven senior members selected for their attunement depth, convened in the Veil-Chamber—a semi-stable nexus shielded from spatial flux. Below them, the order divides into Wings: Scribes for transcription, Wardens for peril-navigation, and Interpreters for sentience dialogue. Initiates, often realm-born aspirants, undergo the Rite of Silent Vigil—a year-long seclusion studying dormant echoes—before earning the silver quill insignia.</p>
 <p>Traditions underscore the order's venerable ethos. The Oath of Inertia, sworn upon a pre-Awakening tome, binds members to neutrality, prohibiting the weaponization of lore. Annual cycles mark the Festival of Stirring Echoes, where <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a> reenact the Signs through communal whisper-recitations, honoring adaptation. Attire varies by wing: Wardens don chainmail etched with runes, while Interpreters favor flowing cloaks that billow in wind-currents. Knowledge-sharing occurs via the Lattice of Bonds, a metaphysical network allowing attuned communication across distances, though it risks overload from intrusive whispers. These structures and rites ensure cohesion amid the Library's chaos, perpetuating a legacy of understated guardianship.</p>
@@ -132,7 +156,7 @@
 <p>Post-Awakening, the <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a>' interactions with the Library's emergent sentience form the core of their evolved mandate, bridging mortal inquiry and arcane whim. The Library, now a living entity through phenomena like the <a href="/world/Eternal-Library-Realms/wiki/Whispering%20Winds%20of%20Knowledge">Whispering Winds of Knowledge</a>, communicates via adaptive currents—ethereal streams carrying lore-fragments that respond to intent. <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a>, trained in attunement, engage dialogically: posing queries that elicit swirling patterns or auditory revelations, such as winds reassembling narratives from disparate texts.</p>
 <p>These exchanges are symbiotic yet fraught. Benevolent winds guide Wardens to buried indices, depositing illusory clues, while malevolent eddies test Interpreters with cognitive traps, like distorting whispers into paranoia-inducing echoes. The order employs rites—harmonic chants to align with wind-flows or anchoring stones to avert wind-binding—to navigate these perils. Interactions extend to communal rituals, where confluences of <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a> summon wind-pacts for shared epiphanies, granting boons like enhanced recall. However, the sentience's inscrutability demands caution; <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a> view it as a decentralized psyche, enforcing worthiness through gentle trials that reward rigor and scatter the unprepared. This mediation positions the order as the Library's mortal voice, fostering realms-wide dissemination while guarding against overreach.</p>
 <h2>Enduring Legacy and Perils</h2>
-<p>The <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a>' enduring legacy permeates the Eternal-Library-Realms, evolving from Dormant Era relics to post-Awakening pillars of enlightened stewardship. They have birthed institutions like the <a href="/world/Eternal-Library-Realms/wiki/Order%20of%20Awakened%20Scribes">Order of Awakened Scribes</a>—a specialized cadre mediating pilgrim access—and inspired cultural phenomena, such as echo-libraries mirroring the Eternal Archive in remote domains. Economically, their transcribed lore fuels trade in protective amulets and interpretive guilds, while metaphysically, their attunement weaves arcane threads into realms' fabric, enabling multiversal scholarship.</p>
+<p>The <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a>' enduring legacy permeates the Eternal-Library-Realms, evolving from Dormant Era relics to post-Awakening pillars of enlightened stewardship. They have birthed institutions like the <a href="/world/Eternal-Library-Realms/wiki/Order%20of%20Awakened%20Scribes" class="new-article" data-title="Order of Awakened Scribes">Order of Awakened Scribes</a>—a specialized cadre mediating pilgrim access—and inspired cultural phenomena, such as echo-libraries mirroring the Eternal Archive in remote domains. Economically, their transcribed lore fuels trade in protective amulets and interpretive guilds, while metaphysically, their attunement weaves arcane threads into realms' fabric, enabling multiversal scholarship.</p>
 <p>Yet, this legacy is shadowed by perils inherent to their charge. The Library's gentle dangers—knowledge overloads, illusory entrapments, and wind-induced madness—claim <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a> annually, with "lost scribes" vanishing into uncharted wings. Internal debates rage over the sentience's agenda, with some fearing entrapment in an eternal cycle of trial. External threats, from relic-thieves exploiting winds to cosmic entropy eroding wards, compound these risks. Despite such trials, the <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a> persist as vigilant harbingers, their understated trials ensuring the sanctity of lore in a realm where knowledge whispers both promise and warning, affirming their role as eternal mediators between silence and awakening.</p>
 </div>
 
@@ -268,6 +292,17 @@
             }
         }
     }
+
+    /* Red Link Style */
+    a.new-article {
+        color: #dc3545;
+        text-decoration: none;
+        border-bottom: 1px dashed #dc3545;
+    }
+
+    a.new-article:hover {
+        background-color: rgba(220, 53, 69, 0.1);
+    }
 </style>
 
 <script>
@@ -385,6 +420,96 @@
             document.head.appendChild(style);
         }
     });
+
+    // Delegate event listener for red links (since they are dynamically inserted)
+    document.addEventListener('click', async (e) => {
+        if (e.target.matches('a.new-article')) {
+            e.preventDefault();
+            const title = e.target.dataset.title;
+            const description = prompt(`Create new article: "${title}"?\n\nEnter optional instructions/context for the AI:`);
+
+            if (description !== null) { // If not cancelled
+                // Show loading on the link itself
+                const originalText = e.target.innerText;
+                e.target.innerText = "Creating...";
+                e.target.style.pointerEvents = "none";
+
+                // Submit to create_custom
+                const formData = new FormData();
+                formData.append('title', title);
+                if (description) {
+                    formData.append('description', description);
+                }
+
+                try {
+                    const response = await fetch('/infinite-wiki/world/Eternal-Library-Realms/create_custom', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                    } else {
+                        window.location.href = `/infinite-wiki/world/Eternal-Library-Realms/wiki/${encodeURIComponent(title)}`;
+                    }
+                } catch (err) {
+                    alert("Creation failed: " + err);
+                    e.target.innerText = originalText;
+                    e.target.style.pointerEvents = "auto";
+                }
+            }
+        }
+    });
+
+    async function extractEvents() {
+        if (!confirm("This will analyze the article to extract and graph historical events. Continue?")) return;
+
+        const btn = document.querySelector('button[onclick="extractEvents()"]');
+        const originalText = btn.innerText;
+        btn.innerText = "Extracting...";
+        btn.disabled = true;
+
+        try {
+            const response = await fetch('/infinite-wiki/world/Eternal-Library-Realms/wiki/Archivists/extract_events', {
+                method: 'POST'
+            });
+
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                window.location.reload();
+            }
+        } catch (err) {
+            alert("Extraction failed: " + err);
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }
+    }
+
+    async function integrateInfo() {
+        if (!confirm("This will rewrite the article to include new information from the knowledge base. Continue?")) return;
+
+        const btn = document.querySelector('button[onclick="integrateInfo()"]');
+        const originalText = btn.innerText;
+        btn.innerText = "Integrating...";
+        btn.disabled = true;
+
+        try {
+            const response = await fetch('/infinite-wiki/world/Eternal-Library-Realms/wiki/Archivists/integrate', {
+                method: 'POST'
+            });
+
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                window.location.reload();
+            }
+        } catch (err) {
+            alert("Integration failed: " + err);
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }
+    }
 </script>
 
     </div>

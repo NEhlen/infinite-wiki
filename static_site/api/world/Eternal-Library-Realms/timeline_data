@@ -1,8 +1,29 @@
 [
   {
     "id": "Awakening of the Eternal Archive",
+    "name": "Awakening of the Eternal Archive",
     "content": "Awakening of the Eternal Archive",
-    "start": "1247-01-01",
-    "title": "The Eternal Library awakens with subtle magic, drawing seekers into its living depths."
+    "year_numeric": 1247.0,
+    "display_date": "1247",
+    "description": "The Eternal Library awakens with subtle magic, drawing seekers into its living depths.",
+    "type": "Event"
+  },
+  {
+    "id": "Core Sanctum",
+    "name": "Core Sanctum",
+    "content": "Core Sanctum",
+    "year_numeric": 1247.0,
+    "display_date": "1247",
+    "description": "Ignition of the Archival Nexus in the Core Sanctum sparks the Awakening, infusing the Eternal Library with subtle magic.",
+    "type": "Location"
+  },
+  {
+    "id": "Waves of Magic",
+    "name": "Waves of Magic",
+    "content": "Waves of Magic",
+    "year_numeric": 1247.0,
+    "display_date": "1247",
+    "description": "Waves of Magic cascade from the Awakening, infusing the Eternal Library with subtle enchantments and birthing interactive lore across its infinite expanse.",
+    "type": "Concept"
   }
 ]

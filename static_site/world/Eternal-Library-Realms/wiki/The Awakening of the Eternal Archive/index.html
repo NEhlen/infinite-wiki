@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Awakening of the Eternal Archive - Infinite Wiki</title>
+    <link rel="icon" type="image/png" href="/infinite-wiki/static/favicon.png">
     <style>
         body {
             font-family: sans-serif;
@@ -91,11 +92,34 @@
     </header>
     <div class="container">
         
+<div id="delta-alert"
+    style="display: none; background-color: #d4edda; color: #155724; padding: 15px; margin-bottom: 20px; border: 1px solid #c3e6cb; border-radius: 4px;">
+    <strong>Update Successful:</strong> <span id="delta-msg"></span>
+</div>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const delta = urlParams.get('delta');
+    if (delta) {
+        document.getElementById('delta-msg').textContent = delta;
+        document.getElementById('delta-alert').style.display = 'block';
+        // Clean URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+</script>
 <div style="display: flex; justify-content: space-between; align-items: center;">
     <h2>The Awakening of the Eternal Archive</h2>
-    <a href="/infinite-wiki/world/Eternal-Library-Realms/wiki/The Awakening of the Eternal Archive/edit" class="button"
-        style="font-size: 0.8em; padding: 5px 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px;">Edit</a>
+    <div style="display: flex; gap: 10px;">
+        <button onclick="extractEvents()" class="button"
+            style="font-size: 0.8em; padding: 5px 10px; background-color: #17a2b8; color: white; border: none; border-radius: 4px; cursor: pointer;">Extract
+            Events</button>
+        <button onclick="integrateInfo()" class="button"
+            style="font-size: 0.8em; padding: 5px 10px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">Integrate
+            New Info</button>
+        <a href="/infinite-wiki/world/Eternal-Library-Realms/wiki/The Awakening of the Eternal Archive/edit" class="button"
+            style="font-size: 0.8em; padding: 5px 10px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px;">Edit</a>
+    </div>
 </div>
+
 
 
 <div class="image-container">
@@ -124,15 +148,15 @@
 <p>The <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a>, initially dismissive of these occurrences as environmental quirks or intruder pranks, soon documented a escalation. Incidents of "knowledge echoes" emerged, where readers experienced vivid hallucinations tied to the content they perused—visions of historical events unfolding in real-time or premonitions of personal futures. These signs were not uniformly benevolent; a few unfortunates vanished amid the stirring, their fates attributed to "proto-perils," embryonic traps that tested the resolve of the unwary. Across the Eternal-Library-Realms, prophetic dreams rippled outward, inspiring pilgrimages and scholarly conclaves. The era of stirring thus served as a prelude, awakening curiosity and trepidation in equal measure.</p>
 <h2>The Awakening Ceremony</h2>
 <p>The Awakening Ceremony, though not a deliberate ritual orchestrated by mortal hands, unfolded as a spontaneous convergence of cosmic and intrinsic forces on the 1,247th cycle from an arbitrary epochal marker. Eyewitness accounts, preserved in enchanted scrying-crystals, depict the event centering on the Library's <a href="/world/Eternal-Library-Realms/wiki/Core%20Sanctum">Core Sanctum</a>—a mythical chamber at the geometric heart of the structure, accessible only through a confluence of ley lines and scholarly incantations.</p>
-<p>At the zenith of the cycle's longest conceptual "day," a resonant hum permeated the entire Library, causing tomes to vibrate in unison. The air thickened with an ethereal mist, composed of infinitesimal script fragments that danced like fireflies. Central to the ceremony was the ignition of the <a href="/world/Eternal-Library-Realms/wiki/Archival%20Nexus">Archival Nexus</a>, a hypothetical nexus-point where the collective essence of all stored knowledge coalesced. This nexus, dormant for eons, activated when the accumulated "intent-weight" of unread volumes reached a critical threshold, infusing the archives with latent magic.</p>
+<p>At the zenith of the cycle's longest conceptual "day," a resonant hum permeated the entire Library, causing tomes to vibrate in unison. The air thickened with an ethereal mist, composed of infinitesimal script fragments that danced like fireflies. Central to the ceremony was the ignition of the <a href="/world/Eternal-Library-Realms/wiki/Archival%20Nexus" class="new-article" data-title="Archival Nexus">Archival Nexus</a>, a hypothetical nexus-point where the collective essence of all stored knowledge coalesced. This nexus, dormant for eons, activated when the accumulated "intent-weight" of unread volumes reached a critical threshold, infusing the archives with latent magic.</p>
 <p>No single catalyst is confirmed; theories posit an external influence, such as a rare alignment of the realms' astral bodies, or an internal one, like the subconscious will of the <a href="/world/Eternal-Library-Realms/wiki/Archivists">Archivists</a> manifesting through generations of guardianship. The ceremony climaxed in a cascade of light that rippled outward, binding magic to every page, shelf, and corridor. Wanderers present described a momentary transcendence, as if the Library itself had exhaled, expelling the stagnation of dormancy and inhaling the vitality of awareness. Casualties were minimal, though the event's intensity drove several observers to temporary catatonia, from which they emerged with fragmented memories of divine communion.</p>
 <h2><a href="/world/Eternal-Library-Realms/wiki/Waves%20of%20Magic">Waves of Magic</a></h2>
 <p>In the immediate aftermath of the Awakening Ceremony, the <a href="/world/Eternal-Library-Realms/wiki/Eternal%20Library">Eternal Library</a> propagated "<a href="/world/Eternal-Library-Realms/wiki/Waves%20of%20Magic">Waves of Magic</a>"—expansive pulses of enchanted energy that radiated through its infinite expanse and into the broader Eternal-Library-Realms. These waves, occurring in irregular intervals over the subsequent 20 cycles, systematically animated the archives, transforming passive knowledge into interactive phenomena.</p>
-<p>The first wave, dubbed the <a href="/world/Eternal-Library-Realms/wiki/Illuminating%20Surge">Illuminating Surge</a>, endowed tomes with self-luminescence and minor sentience, allowing pages to flip autonomously to relevant passages or emit guiding whispers tailored to a reader's queries. Subsequent waves introduced defensive and exploratory elements: illusions of guardian specters materialized to deter vandals, while hidden alcoves revealed themselves, offering perilous quests for deeper lore. Magic permeated the physical structure, enabling shelves to reshape into mazes that adapted to intruders' fears or ambitions, and portals to flicker open, linking distant realms to the Library's thresholds.</p>
+<p>The first wave, dubbed the <a href="/world/Eternal-Library-Realms/wiki/Illuminating%20Surge" class="new-article" data-title="Illuminating Surge">Illuminating Surge</a>, endowed tomes with self-luminescence and minor sentience, allowing pages to flip autonomously to relevant passages or emit guiding whispers tailored to a reader's queries. Subsequent waves introduced defensive and exploratory elements: illusions of guardian specters materialized to deter vandals, while hidden alcoves revealed themselves, offering perilous quests for deeper lore. Magic permeated the physical structure, enabling shelves to reshape into mazes that adapted to intruders' fears or ambitions, and portals to flicker open, linking distant realms to the Library's thresholds.</p>
 <p>These waves extended beyond the Library's confines, subtly altering the Eternal-Library-Realms' ecosystem. Adjacent domains experienced influxes of wandering scholars, drawn by an inexplicable compulsion, fostering new trade routes in enchanted artifacts and transcribed secrets. However, the magic carried inherent risks; "gentle perils" emerged as cognitive traps—riddles that ensnared the mind, or knowledge overloads that induced madness. Economically, the waves spurred the rise of specialized guilds for navigating these hazards, while culturally, they democratized access to forbidden texts, albeit at the cost of increased disappearances among the overzealous.</p>
 <h2>Enduring Legacy</h2>
 <p><a href="/world/Eternal-Library-Realms/wiki/The%20Awakening%20of%20the%20Eternal%20Archive">The Awakening of the Eternal Archive</a> has left an indelible imprint on the Eternal-Library-Realms, evolving the Library from a relic into a dynamic cornerstone of existence. Today, it serves as a nexus for intellectual pilgrimage, where the infusion of magic sustains an ever-evolving repository that anticipates the needs of its visitors. The subtle enchantments ensure that knowledge is not merely stored but actively disseminated, often through trials that reward perseverance with profound insights.</p>
-<p>Societally, the event birthed institutions like the <a href="/world/Eternal-Library-Realms/wiki/Order%20of%20Awakened%20Scribes">Order of Awakened Scribes</a>, who mediate between the Library's whims and mortal seekers, and annual commemorative rites that reenact the Ceremony to honor its origins. Metaphysically, the waves of magic have woven arcane threads into the realms' fabric, enabling phenomena such as "echo-libraries"—satellite archives that mirror portions of the <a href="/world/Eternal-Library-Realms/wiki/Eternal%20Library">Eternal Library</a> in remote locales.</p>
+<p>Societally, the event birthed institutions like the <a href="/world/Eternal-Library-Realms/wiki/Order%20of%20Awakened%20Scribes" class="new-article" data-title="Order of Awakened Scribes">Order of Awakened Scribes</a>, who mediate between the Library's whims and mortal seekers, and annual commemorative rites that reenact the Ceremony to honor its origins. Metaphysically, the waves of magic have woven arcane threads into the realms' fabric, enabling phenomena such as "echo-libraries"—satellite archives that mirror portions of the <a href="/world/Eternal-Library-Realms/wiki/Eternal%20Library">Eternal Library</a> in remote locales.</p>
 <p>Yet, the legacy is double-edged. The gentle perils have claimed countless lives, instilling a culture of cautious reverence. Debates persist over whether the Awakening represents enlightenment or entrapment, with some philosophers arguing it transformed the Library into a sentient being with its own inscrutable agenda. As wanderers continue to heed its beckoning whispers, the Eternal Archive remains a testament to the perils and promises of awakened knowledge, ensuring its place as the eternal pulse of the realms.</p>
 </div>
 
@@ -268,6 +292,17 @@
             }
         }
     }
+
+    /* Red Link Style */
+    a.new-article {
+        color: #dc3545;
+        text-decoration: none;
+        border-bottom: 1px dashed #dc3545;
+    }
+
+    a.new-article:hover {
+        background-color: rgba(220, 53, 69, 0.1);
+    }
 </style>
 
 <script>
@@ -385,6 +420,96 @@
             document.head.appendChild(style);
         }
     });
+
+    // Delegate event listener for red links (since they are dynamically inserted)
+    document.addEventListener('click', async (e) => {
+        if (e.target.matches('a.new-article')) {
+            e.preventDefault();
+            const title = e.target.dataset.title;
+            const description = prompt(`Create new article: "${title}"?\n\nEnter optional instructions/context for the AI:`);
+
+            if (description !== null) { // If not cancelled
+                // Show loading on the link itself
+                const originalText = e.target.innerText;
+                e.target.innerText = "Creating...";
+                e.target.style.pointerEvents = "none";
+
+                // Submit to create_custom
+                const formData = new FormData();
+                formData.append('title', title);
+                if (description) {
+                    formData.append('description', description);
+                }
+
+                try {
+                    const response = await fetch('/infinite-wiki/world/Eternal-Library-Realms/create_custom', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                    } else {
+                        window.location.href = `/infinite-wiki/world/Eternal-Library-Realms/wiki/${encodeURIComponent(title)}`;
+                    }
+                } catch (err) {
+                    alert("Creation failed: " + err);
+                    e.target.innerText = originalText;
+                    e.target.style.pointerEvents = "auto";
+                }
+            }
+        }
+    });
+
+    async function extractEvents() {
+        if (!confirm("This will analyze the article to extract and graph historical events. Continue?")) return;
+
+        const btn = document.querySelector('button[onclick="extractEvents()"]');
+        const originalText = btn.innerText;
+        btn.innerText = "Extracting...";
+        btn.disabled = true;
+
+        try {
+            const response = await fetch('/infinite-wiki/world/Eternal-Library-Realms/wiki/The Awakening of the Eternal Archive/extract_events', {
+                method: 'POST'
+            });
+
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                window.location.reload();
+            }
+        } catch (err) {
+            alert("Extraction failed: " + err);
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }
+    }
+
+    async function integrateInfo() {
+        if (!confirm("This will rewrite the article to include new information from the knowledge base. Continue?")) return;
+
+        const btn = document.querySelector('button[onclick="integrateInfo()"]');
+        const originalText = btn.innerText;
+        btn.innerText = "Integrating...";
+        btn.disabled = true;
+
+        try {
+            const response = await fetch('/infinite-wiki/world/Eternal-Library-Realms/wiki/The Awakening of the Eternal Archive/integrate', {
+                method: 'POST'
+            });
+
+            if (response.redirected) {
+                window.location.href = response.url;
+            } else {
+                window.location.reload();
+            }
+        } catch (err) {
+            alert("Integration failed: " + err);
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }
+    }
 </script>
 
     </div>
